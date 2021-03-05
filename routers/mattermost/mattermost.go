@@ -44,6 +44,8 @@ func Init(router *mux.Router) {
 	// Lookup responses
 	router.HandleFunc(constants.BindingPathLookupOK, extractCall(fLookupOK))
 	router.HandleFunc(constants.BindingPathLookupEmpty, extractCall(fLookupEmpty))
+	router.HandleFunc(constants.BindingPathLookupMultiword, extractCall(fLookupMultiword))
+	router.HandleFunc(constants.BindingPathLookupInvalid, extractCall(fLookupInvalid))
 
 	// Other
 	router.HandleFunc(constants.BindingPathHTML, extractCall(fHTML))

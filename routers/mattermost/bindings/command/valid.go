@@ -24,6 +24,7 @@ func getValid() *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithFormResponse())
 	base.Bindings = append(base.Bindings, getWithRequiredFields())
 	base.Bindings = append(base.Bindings, getWithMultiwordOption())
+	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption())
 	return base
 }
 
@@ -253,8 +254,8 @@ func getWithRequiredFields() *apps.Binding {
 
 func getWithMultiwordOption() *apps.Binding {
 	return &apps.Binding{
-		Location: "no_multiword_option",
-		Label:    "no_multiword_option",
+		Location: "with_multiword_option",
+		Label:    "with_multiword_option",
 		Form: &apps.Form{
 			Fields: []*apps.Field{
 				{
@@ -276,6 +277,25 @@ func getWithMultiwordOption() *apps.Binding {
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathOK,
+		},
+	}
+}
+
+func getWithMultiwordDynamicOption() *apps.Binding {
+	return &apps.Binding{
+		Location: "with_multiword_dynamic_option",
+		Label:    "with_multiword_dynamic_option",
+		Form: &apps.Form{
+			Fields: []*apps.Field{
+				{
+					Name:  "dynamic",
+					Type:  apps.FieldTypeDynamicSelect,
+					Label: "dynamic",
+				},
+			},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathLookupMultiword,
 		},
 	}
 }

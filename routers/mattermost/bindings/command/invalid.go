@@ -17,6 +17,7 @@ func getInvalid() *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithSameOptionNames())
 	base.Bindings = append(base.Bindings, getWithMultiwordCommand())
 	base.Bindings = append(base.Bindings, getWithMultiwordField())
+	base.Bindings = append(base.Bindings, getWithInvalidLookup())
 	return base
 }
 
@@ -154,5 +155,24 @@ func getWithNoCall() *apps.Binding {
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
 		Form:     &apps.Form{},
+	}
+}
+
+func getWithInvalidLookup() *apps.Binding {
+	return &apps.Binding{
+		Location: "with_invalid_lookup",
+		Label:    "with_invalid_lookup",
+		Form: &apps.Form{
+			Fields: []*apps.Field{
+				{
+					Name:  "dynamic",
+					Type:  apps.FieldTypeDynamicSelect,
+					Label: "dynamic",
+				},
+			},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathLookupInvalid,
+		},
 	}
 }

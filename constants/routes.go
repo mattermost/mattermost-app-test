@@ -16,8 +16,10 @@ const (
 	BindingPathFormOK      = "/forms/ok"
 	BindingPathFormInvalid = "/forms/invalid"
 
-	BindingPathLookupOK    = "/lookups/ok"
-	BindingPathLookupEmpty = "/lookups/empty"
+	BindingPathLookupOK        = "/lookups/ok"
+	BindingPathLookupMultiword = "/lookups/multiword"
+	BindingPathLookupEmpty     = "/lookups/empty"
+	BindingPathLookupInvalid   = "/lookups/invalid"
 
 	BindingPathNavigateInternal = "/nav/internal"
 	BindingPathNavigateExternal = "/nav/external"
