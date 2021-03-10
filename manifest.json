@@ -4,8 +4,7 @@
     "version": "",
     "display_name": "Test App",
     "description": "Test App",
-    "homepage_url": "http://localhost:3000",
-    "root_url": "http://localhost:3000",
+    "homepage_url": "https://github.com/larkox/mattermost-app-test",
     "requested_locations": [
         "/post_menu",
         "/command",

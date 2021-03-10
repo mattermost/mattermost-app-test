@@ -138,7 +138,7 @@ func getWithNoIcon(_ string) *apps.Binding {
 }
 
 func getWithSVG(siteURL string) *apps.Binding {
-	svgIcon := utils.GetIconURL(siteURL, "icon.png")
+	svgIcon := utils.GetIconURL(siteURL, "icon.svg")
 
 	return &apps.Binding{
 		Location: "with_svg",
