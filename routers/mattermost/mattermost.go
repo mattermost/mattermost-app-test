@@ -1,7 +1,9 @@
 package mattermost
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -66,6 +68,8 @@ func extractCall(f callHandler) http.HandlerFunc {
 			return
 		}
 
+		str, _ := json.MarshalIndent(data, "", " ")
+		log.Printf("%s", str)
 		f(rw, r, claims, data)
 	}
 }
