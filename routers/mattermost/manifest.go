@@ -7,11 +7,6 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-const (
-	displayName = "Test App"
-	description = "Test App"
-)
-
 func fManifest(m *apps.Manifest) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		utils.WriteManifest(w, *m)

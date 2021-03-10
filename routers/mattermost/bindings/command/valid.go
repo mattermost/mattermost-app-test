@@ -25,10 +25,11 @@ func getValid(siteURL string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithRequiredFields(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordOption(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption(siteURL))
+
 	return base
 }
 
-func getWithEmptyForm(siteURL string) *apps.Binding {
+func getWithEmptyForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "empty_form",
 		Label:    "empty_form",
@@ -41,7 +42,7 @@ func getWithEmptyForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithForm(siteURL string) *apps.Binding {
+func getWithForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form",
 		Label:    "with_form",
@@ -60,7 +61,7 @@ func getWithForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithoutForm(siteURL string) *apps.Binding {
+func getWithoutForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "no_form",
 		Label:    "no_form",
@@ -70,7 +71,7 @@ func getWithoutForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookup(siteURL string) *apps.Binding {
+func getWithLookup(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "lookup",
 		Label:    "lookup",
@@ -89,7 +90,7 @@ func getWithLookup(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithEmptyLookup(siteURL string) *apps.Binding {
+func getWithEmptyLookup(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "empty_lookup",
 		Label:    "empty_lookup",
@@ -108,7 +109,7 @@ func getWithEmptyLookup(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFullForm(siteURL string) *apps.Binding {
+func getWithFullForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "full_form",
 		Label:    "full_form",
@@ -162,7 +163,7 @@ func getWithFullForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNoOptionStatic(siteURL string) *apps.Binding {
+func getWithNoOptionStatic(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "no_option_static",
 		Label:    "no_option_static",
@@ -182,7 +183,7 @@ func getWithNoOptionStatic(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithInternalNavResponse(siteURL string) *apps.Binding {
+func getWithInternalNavResponse(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "external_nav",
 		Label:    "external_nav",
@@ -195,7 +196,7 @@ func getWithInternalNavResponse(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithExternalNavResponse(siteURL string) *apps.Binding {
+func getWithExternalNavResponse(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "internal_nav",
 		Label:    "internal_nav",
@@ -208,7 +209,7 @@ func getWithExternalNavResponse(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormResponse(siteURL string) *apps.Binding {
+func getWithFormResponse(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_response",
 		Label:    "with_form_response",
@@ -227,7 +228,7 @@ func getWithFormResponse(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithRequiredFields(siteURL string) *apps.Binding {
+func getWithRequiredFields(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_required_fields",
 		Label:    "with_required_fields",
@@ -252,7 +253,7 @@ func getWithRequiredFields(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordOption(siteURL string) *apps.Binding {
+func getWithMultiwordOption(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_option",
 		Label:    "with_multiword_option",
@@ -281,7 +282,7 @@ func getWithMultiwordOption(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordDynamicOption(siteURL string) *apps.Binding {
+func getWithMultiwordDynamicOption(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_dynamic_option",
 		Label:    "with_multiword_dynamic_option",

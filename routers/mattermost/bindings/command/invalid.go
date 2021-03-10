@@ -17,11 +17,15 @@ func getInvalid(siteURL string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithSameOptionNames(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordCommand(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordField(siteURL))
+	base.Bindings = append(base.Bindings, getWithWhitespaceLabel(siteURL))
+	base.Bindings = append(base.Bindings, getWithNoLabel(siteURL))
+	base.Bindings = append(base.Bindings, getWithNoCall(siteURL))
 	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL))
+
 	return base
 }
 
-func getWithSameCommand(siteURL string) *apps.Binding {
+func getWithSameCommand(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_command",
 		Label:    "with_same_command",
@@ -46,7 +50,7 @@ func getWithSameCommand(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithSameFieldNames(siteURL string) *apps.Binding {
+func getWithSameFieldNames(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_field_names",
 		Label:    "with_same_field_names",
@@ -70,7 +74,7 @@ func getWithSameFieldNames(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithSameOptionNames(siteURL string) *apps.Binding {
+func getWithSameOptionNames(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_option_names",
 		Label:    "with_same_option_names",
@@ -99,7 +103,7 @@ func getWithSameOptionNames(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordCommand(siteURL string) *apps.Binding {
+func getWithMultiwordCommand(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_command",
 		Label:    "with_multiword command",
@@ -110,7 +114,7 @@ func getWithMultiwordCommand(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordField(siteURL string) *apps.Binding {
+func getWithMultiwordField(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_field",
 		Label:    "with_multiword_field",
@@ -129,7 +133,7 @@ func getWithMultiwordField(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel(siteURL string) *apps.Binding {
+func getWithWhitespaceLabel(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_whitespace_label",
 		Label:    " ",
@@ -140,7 +144,7 @@ func getWithWhitespaceLabel(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNoLabel(siteURL string) *apps.Binding {
+func getWithNoLabel(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
@@ -150,7 +154,7 @@ func getWithNoLabel(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNoCall(siteURL string) *apps.Binding {
+func getWithNoCall(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
@@ -158,7 +162,7 @@ func getWithNoCall(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithInvalidLookup(siteURL string) *apps.Binding {
+func getWithInvalidLookup(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_invalid_lookup",
 		Label:    "with_invalid_lookup",

@@ -34,10 +34,11 @@ func getError(siteURL string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithLookup404(siteURL))
 	base.Bindings = append(base.Bindings, getWithLookupHTML(siteURL))
 	base.Bindings = append(base.Bindings, getWithLookupUnknown(siteURL))
+
 	return base
 }
 
-func getWithError(siteURL string) *apps.Binding {
+func getWithError(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_error",
 		Label:    "with_error",
@@ -48,7 +49,7 @@ func getWithError(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithEmptyError(siteURL string) *apps.Binding {
+func getWithEmptyError(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_empty_error",
 		Label:    "with_empty_error",
@@ -59,7 +60,7 @@ func getWithEmptyError(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithInvalidNavigate(siteURL string) *apps.Binding {
+func getWithInvalidNavigate(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_invalid_navigate",
 		Label:    "with_invalid_navigate",
@@ -70,7 +71,7 @@ func getWithInvalidNavigate(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithInvalidForm(siteURL string) *apps.Binding {
+func getWithInvalidForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_invalid_form",
 		Label:    "with_invalid_form",
@@ -81,7 +82,7 @@ func getWithInvalidForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWith404Error(siteURL string) *apps.Binding {
+func getWith404Error(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_404_error",
 		Label:    "with_404_error",
@@ -92,7 +93,7 @@ func getWith404Error(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithHTMLSite(siteURL string) *apps.Binding {
+func getWithHTMLSite(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_html_site",
 		Label:    "with_html_site",
@@ -103,7 +104,7 @@ func getWithHTMLSite(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithArbitraryJSON(siteURL string) *apps.Binding {
+func getWithArbitraryJSON(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_arbitrary_json",
 		Label:    "with_arbitrary_json",
@@ -114,10 +115,10 @@ func getWithArbitraryJSON(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithUnknownResponse(siteURL string) *apps.Binding {
+func getWithUnknownResponse(_ string) *apps.Binding {
 	return &apps.Binding{
-		Location: "with_unkown_response",
-		Label:    "with_unkown_response",
+		Location: "with_unknown_response",
+		Label:    "with_unknown_response",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
 			Path: constants.BindingPathUnknown,
@@ -125,7 +126,7 @@ func getWithUnknownResponse(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormInvalid(siteURL string) *apps.Binding {
+func getWithFormInvalid(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_invalid",
 		Label:    "with_form_invalid",
@@ -135,7 +136,7 @@ func getWithFormInvalid(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormError(siteURL string) *apps.Binding {
+func getWithFormError(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_error",
 		Label:    "with_form_error",
@@ -145,7 +146,7 @@ func getWithFormError(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormErrorEmpty(siteURL string) *apps.Binding {
+func getWithFormErrorEmpty(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_error_empty",
 		Label:    "with_form_error_empty",
@@ -155,7 +156,7 @@ func getWithFormErrorEmpty(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormNavigate(siteURL string) *apps.Binding {
+func getWithFormNavigate(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_navigate",
 		Label:    "with_form_navigate",
@@ -165,7 +166,7 @@ func getWithFormNavigate(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormOK(siteURL string) *apps.Binding {
+func getWithFormOK(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_ok",
 		Label:    "with_form_ok",
@@ -175,7 +176,7 @@ func getWithFormOK(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormHTMLSite(siteURL string) *apps.Binding {
+func getWithFormHTMLSite(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_html_site",
 		Label:    "with_form_html_site",
@@ -186,7 +187,7 @@ func getWithFormHTMLSite(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormArbitraryJSON(siteURL string) *apps.Binding {
+func getWithFormArbitraryJSON(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_arbitrary_json",
 		Label:    "with_form_arbitrary_json",
@@ -197,7 +198,7 @@ func getWithFormArbitraryJSON(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFormUnknownResponse(siteURL string) *apps.Binding {
+func getWithFormUnknownResponse(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_form_unknown_response",
 		Label:    "with_form_unknown_response",
@@ -208,7 +209,7 @@ func getWithFormUnknownResponse(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookupError(siteURL string) *apps.Binding {
+func getWithLookupError(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_error",
 		Label:    "with_lookup_error",
@@ -227,7 +228,7 @@ func getWithLookupError(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookupForm(siteURL string) *apps.Binding {
+func getWithLookupForm(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_form",
 		Label:    "with_lookup_form",
@@ -246,7 +247,7 @@ func getWithLookupForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookupNavigate(siteURL string) *apps.Binding {
+func getWithLookupNavigate(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_navigate",
 		Label:    "with_lookup_navigate",
@@ -265,7 +266,7 @@ func getWithLookupNavigate(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookup404(siteURL string) *apps.Binding {
+func getWithLookup404(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_404",
 		Label:    "with_lookup_404",
@@ -284,7 +285,7 @@ func getWithLookup404(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookupHTML(siteURL string) *apps.Binding {
+func getWithLookupHTML(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_html",
 		Label:    "with_lookup_html",
@@ -303,7 +304,7 @@ func getWithLookupHTML(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithLookupUnknown(siteURL string) *apps.Binding {
+func getWithLookupUnknown(_ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_lookup_unknown",
 		Label:    "with_lookup_unknown",

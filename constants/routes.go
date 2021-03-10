@@ -27,7 +27,7 @@ const (
 
 	BindingPath404     = "/foo"
 	BindingPathHTML    = "/html"
-	BindingPathUnknown = "/unkown"
+	BindingPathUnknown = "/unknown"
 
 	StaticAssetPath = "/static"
 )

@@ -1,4 +1,4 @@
-package channel_header
+package channelheader
 
 import (
 	"github.com/mattermost/mattermost-app-test/constants"
@@ -14,11 +14,13 @@ func getValid(siteURL string) []*apps.Binding {
 	base = append(base, getWithForm(siteURL))
 	base = append(base, getWithNavigateExternal(siteURL))
 	base = append(base, getWithNavigateInternal(siteURL))
+
 	return base
 }
 
 func getWithOK(siteURL string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png")
+
 	return &apps.Binding{
 		Location: "with_ok",
 		Label:    "with_ok",
@@ -31,6 +33,7 @@ func getWithOK(siteURL string) *apps.Binding {
 
 func getWithEmptyOK(siteURL string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png")
+
 	return &apps.Binding{
 		Location: "with_empty_ok",
 		Label:    "with_empty_ok",
@@ -43,6 +46,7 @@ func getWithEmptyOK(siteURL string) *apps.Binding {
 
 func getWithForm(siteURL string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png")
+
 	return &apps.Binding{
 		Location: "with_form",
 		Label:    "with_form",
@@ -55,6 +59,7 @@ func getWithForm(siteURL string) *apps.Binding {
 
 func getWithNavigateExternal(siteURL string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png")
+
 	return &apps.Binding{
 		Location: "with_navigate_external",
 		Label:    "with_navigate_external",
@@ -67,6 +72,7 @@ func getWithNavigateExternal(siteURL string) *apps.Binding {
 
 func getWithNavigateInternal(siteURL string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png")
+
 	return &apps.Binding{
 		Location: "with_naviate_internal",
 		Label:    "with_naviate_internal",
