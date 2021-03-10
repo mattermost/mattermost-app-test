@@ -1,8 +1,10 @@
 module github.com/mattermost/mattermost-app-test
 
-go 1.14
+go 1.16
 
 require (
+	github.com/aws/aws-lambda-go v1.19.1
+	github.com/awslabs/aws-lambda-go-api-proxy v0.9.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/dyatlov/go-opengraph v0.0.0-20210112100619-dae8665a5b09 // indirect
 	github.com/fatih/color v1.10.0 // indirect
@@ -17,9 +19,7 @@ require (
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mattermost/mattermost-plugin-apps v0.1.1-0.20210303035513-5e7d4144c377
 	github.com/mattermost/mattermost-server/v5 v5.31.0
-	github.com/nelsam/hel/v2 v2.3.3 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/poy/onpar v1.0.1 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tinylib/msgp v1.1.5 // indirect
 	github.com/wiggin77/merror v1.0.3 // indirect

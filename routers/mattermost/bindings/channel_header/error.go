@@ -2,26 +2,28 @@ package channel_header
 
 import (
 	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getError() []*apps.Binding {
+func getError(siteURL string) []*apps.Binding {
 	base := []*apps.Binding{}
 
-	base = append(base, getWithError())
-	base = append(base, getWithEmptyError())
-	base = append(base, getWithInvalidForm())
-	base = append(base, getWithNavigateInvalid())
-	base = append(base, getWith404())
-	base = append(base, getWithHTML())
-	base = append(base, getWithManifest())
-	base = append(base, getWithUnknownResponse())
-	base = append(base, getWith404Icon())
-	base = append(base, getWithSVG())
+	base = append(base, getWithError(siteURL))
+	base = append(base, getWithEmptyError(siteURL))
+	base = append(base, getWithInvalidForm(siteURL))
+	base = append(base, getWithNavigateInvalid(siteURL))
+	base = append(base, getWith404(siteURL))
+	base = append(base, getWithHTML(siteURL))
+	base = append(base, getWithManifest(siteURL))
+	base = append(base, getWithUnknownResponse(siteURL))
+	base = append(base, getWith404Icon(siteURL))
+	base = append(base, getWithSVG(siteURL))
 	return base
 }
 
-func getWithError() *apps.Binding {
+func getWithError(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_error",
 		Label:    "with_error",
@@ -32,7 +34,8 @@ func getWithError() *apps.Binding {
 	}
 }
 
-func getWithEmptyError() *apps.Binding {
+func getWithEmptyError(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_empty_error",
 		Label:    "with_empty_error",
@@ -42,7 +45,8 @@ func getWithEmptyError() *apps.Binding {
 		},
 	}
 }
-func getWithInvalidForm() *apps.Binding {
+func getWithInvalidForm(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_invalid_form",
 		Label:    "with_invalid_form",
@@ -53,7 +57,8 @@ func getWithInvalidForm() *apps.Binding {
 	}
 }
 
-func getWithNavigateInvalid() *apps.Binding {
+func getWithNavigateInvalid(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_navigate_invalid",
 		Label:    "with_navigate_invalid",
@@ -64,7 +69,8 @@ func getWithNavigateInvalid() *apps.Binding {
 	}
 }
 
-func getWith404() *apps.Binding {
+func getWith404(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_404",
 		Label:    "with_404",
@@ -75,7 +81,8 @@ func getWith404() *apps.Binding {
 	}
 }
 
-func getWithHTML() *apps.Binding {
+func getWithHTML(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_html",
 		Label:    "with_html",
@@ -86,7 +93,8 @@ func getWithHTML() *apps.Binding {
 	}
 }
 
-func getWithManifest() *apps.Binding {
+func getWithManifest(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_manifest",
 		Label:    "with_manifest",
@@ -97,7 +105,8 @@ func getWithManifest() *apps.Binding {
 	}
 }
 
-func getWithUnknownResponse() *apps.Binding {
+func getWithUnknownResponse(siteURL string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_unkwon_response",
 		Label:    "with_unkwon_response",
@@ -108,7 +117,7 @@ func getWithUnknownResponse() *apps.Binding {
 	}
 }
 
-func getWith404Icon() *apps.Binding {
+func getWith404Icon(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_404_icon",
 		Label:    "with_404_icon",
@@ -119,7 +128,8 @@ func getWith404Icon() *apps.Binding {
 	}
 }
 
-func getWithSVG() *apps.Binding {
+func getWithSVG(siteURL string) *apps.Binding {
+	svgIcon := utils.GetIconURL(siteURL, "icon.png")
 	return &apps.Binding{
 		Location: "with_svg",
 		Label:    "with_svg",

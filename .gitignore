@@ -1,4 +1,2 @@
 vendor
-config.json
-tokens.json
-bin/
+/dist/

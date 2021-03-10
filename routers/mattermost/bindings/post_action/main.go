@@ -2,17 +2,14 @@ package post_action
 
 import "github.com/mattermost/mattermost-plugin-apps/apps"
 
-const icon = "https://icons.iconarchive.com/icons/icons8/ios7/128/Science-Test-Tube-icon.png"
-const svgIcon = "https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg"
-
-func Get() *apps.Binding {
+func Get(siteURL string) *apps.Binding {
 	out := &apps.Binding{
 		Location: apps.LocationPostMenu,
 		Bindings: []*apps.Binding{},
 	}
 
-	out.Bindings = append(out.Bindings, getValid()...)
-	out.Bindings = append(out.Bindings, getInvalid()...)
-	out.Bindings = append(out.Bindings, getError()...)
+	out.Bindings = append(out.Bindings, getValid(siteURL)...)
+	out.Bindings = append(out.Bindings, getInvalid(siteURL)...)
+	out.Bindings = append(out.Bindings, getError(siteURL)...)
 	return out
 }

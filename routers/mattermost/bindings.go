@@ -10,6 +10,6 @@ import (
 )
 
 func fBindings(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
-	out := bindings.Get()
+	out := bindings.Get(c.Context.MattermostSiteURL)
 	utils.WriteBindings(w, out)
 }

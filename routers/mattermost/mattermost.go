@@ -3,6 +3,7 @@ package mattermost
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"strings"
@@ -21,8 +22,8 @@ var ErrMissingHeader = errors.Errorf("missing %s: Bearer header", api.OutgoingAu
 
 type callHandler func(http.ResponseWriter, *http.Request, *api.JWTClaims, *apps.Call)
 
-func Init(router *mux.Router) {
-	router.HandleFunc(constants.ManifestPath, fManifest)
+func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
+	router.HandleFunc(constants.ManifestPath, fManifest(m))
 	router.HandleFunc(constants.InstallPath, extractCall(fInstall))
 	router.HandleFunc(constants.BindingsPath, extractCall(fBindings))
 
@@ -52,6 +53,9 @@ func Init(router *mux.Router) {
 	// Other
 	router.HandleFunc(constants.BindingPathHTML, extractCall(fHTML))
 	router.HandleFunc(constants.BindingPathUnknown, extractCall(fUnknown))
+
+	// Static files
+	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
 }
 
 func extractCall(f callHandler) http.HandlerFunc {

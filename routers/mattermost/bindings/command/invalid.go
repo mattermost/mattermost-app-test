@@ -5,23 +5,23 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid() *apps.Binding {
+func getInvalid(siteURL string) *apps.Binding {
 	base := &apps.Binding{
 		Location: "invalid",
 		Label:    "invalid",
 		Bindings: []*apps.Binding{},
 	}
 
-	base.Bindings = append(base.Bindings, getWithSameCommand())
-	base.Bindings = append(base.Bindings, getWithSameFieldNames())
-	base.Bindings = append(base.Bindings, getWithSameOptionNames())
-	base.Bindings = append(base.Bindings, getWithMultiwordCommand())
-	base.Bindings = append(base.Bindings, getWithMultiwordField())
-	base.Bindings = append(base.Bindings, getWithInvalidLookup())
+	base.Bindings = append(base.Bindings, getWithSameCommand(siteURL))
+	base.Bindings = append(base.Bindings, getWithSameFieldNames(siteURL))
+	base.Bindings = append(base.Bindings, getWithSameOptionNames(siteURL))
+	base.Bindings = append(base.Bindings, getWithMultiwordCommand(siteURL))
+	base.Bindings = append(base.Bindings, getWithMultiwordField(siteURL))
+	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL))
 	return base
 }
 
-func getWithSameCommand() *apps.Binding {
+func getWithSameCommand(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_command",
 		Label:    "with_same_command",
@@ -46,7 +46,7 @@ func getWithSameCommand() *apps.Binding {
 	}
 }
 
-func getWithSameFieldNames() *apps.Binding {
+func getWithSameFieldNames(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_field_names",
 		Label:    "with_same_field_names",
@@ -70,7 +70,7 @@ func getWithSameFieldNames() *apps.Binding {
 	}
 }
 
-func getWithSameOptionNames() *apps.Binding {
+func getWithSameOptionNames(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_option_names",
 		Label:    "with_same_option_names",
@@ -99,7 +99,7 @@ func getWithSameOptionNames() *apps.Binding {
 	}
 }
 
-func getWithMultiwordCommand() *apps.Binding {
+func getWithMultiwordCommand(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_command",
 		Label:    "with_multiword command",
@@ -110,7 +110,7 @@ func getWithMultiwordCommand() *apps.Binding {
 	}
 }
 
-func getWithMultiwordField() *apps.Binding {
+func getWithMultiwordField(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_field",
 		Label:    "with_multiword_field",
@@ -129,7 +129,7 @@ func getWithMultiwordField() *apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel() *apps.Binding {
+func getWithWhitespaceLabel(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_whitespace_label",
 		Label:    " ",
@@ -140,7 +140,7 @@ func getWithWhitespaceLabel() *apps.Binding {
 	}
 }
 
-func getWithNoLabel() *apps.Binding {
+func getWithNoLabel(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
@@ -150,7 +150,7 @@ func getWithNoLabel() *apps.Binding {
 	}
 }
 
-func getWithNoCall() *apps.Binding {
+func getWithNoCall(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
@@ -158,7 +158,7 @@ func getWithNoCall() *apps.Binding {
 	}
 }
 
-func getWithInvalidLookup() *apps.Binding {
+func getWithInvalidLookup(siteURL string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_invalid_lookup",
 		Label:    "with_invalid_lookup",
