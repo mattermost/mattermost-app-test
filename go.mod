@@ -11,7 +11,6 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/jhump/protoreflect v1.8.1 // indirect
 	github.com/mattermost/mattermost-plugin-apps v0.1.1-0.20210310134756-d487fcdb0f5f
-	github.com/mattermost/mattermost-server/v5 v5.31.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.7.0 // indirect
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
