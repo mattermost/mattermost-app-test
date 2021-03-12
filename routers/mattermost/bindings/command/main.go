@@ -7,9 +7,9 @@ import (
 
 func Get(siteURL string) *apps.Binding {
 	base := &apps.Binding{
-		Label:       "test",
+		Label:       "com.mattermost.test",
 		Description: "Test app",
-		Location:    "test",
+		Location:    "com.mattermost.test",
 		Icon:        utils.GetIconURL(siteURL, "icon.png"),
 		Bindings:    []*apps.Binding{},
 	}
