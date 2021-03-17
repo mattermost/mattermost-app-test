@@ -28,31 +28,31 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
 	router.HandleFunc(constants.BindingsPath, extractCall(fBindings))
 
 	// OK responses
-	router.HandleFunc(constants.BindingPathOK, extractCall(fOK))
-	router.HandleFunc(constants.BindingPathOKEmpty, extractCall(fEmptyOK))
+	router.HandleFunc(constants.BindingPathOK+"/{type}", extractCall(fOK))
+	router.HandleFunc(constants.BindingPathOKEmpty+"/{type}", extractCall(fEmptyOK))
 
 	// Navigate responses
-	router.HandleFunc(constants.BindingPathNavigateExternal, extractCall(fNavigateExternal))
-	router.HandleFunc(constants.BindingPathNavigateInternal, extractCall(fNavigateInternal))
-	router.HandleFunc(constants.BindingPathNavigateInvalid, extractCall(fNavigateInvalid))
+	router.HandleFunc(constants.BindingPathNavigateExternal+"/{type}", extractCall(fNavigateExternal))
+	router.HandleFunc(constants.BindingPathNavigateInternal+"/{type}", extractCall(fNavigateInternal))
+	router.HandleFunc(constants.BindingPathNavigateInvalid+"/{type}", extractCall(fNavigateInvalid))
 
 	// Error responses
-	router.HandleFunc(constants.BindingPathError, extractCall(fError))
-	router.HandleFunc(constants.BindingPathErrorEmpty, extractCall(fEmptyError))
+	router.HandleFunc(constants.BindingPathError+"/{type}", extractCall(fError))
+	router.HandleFunc(constants.BindingPathErrorEmpty+"/{type}", extractCall(fEmptyError))
 
 	// Form responses
-	router.HandleFunc(constants.BindingPathFormOK, extractCall(fFormOK))
-	router.HandleFunc(constants.BindingPathFormInvalid, extractCall(fFormInvalid))
+	router.HandleFunc(constants.BindingPathFormOK+"/{type}", extractCall(fFormOK))
+	router.HandleFunc(constants.BindingPathFormInvalid+"/{type}", extractCall(fFormInvalid))
 
 	// Lookup responses
-	router.HandleFunc(constants.BindingPathLookupOK, extractCall(fLookupOK))
-	router.HandleFunc(constants.BindingPathLookupEmpty, extractCall(fLookupEmpty))
-	router.HandleFunc(constants.BindingPathLookupMultiword, extractCall(fLookupMultiword))
-	router.HandleFunc(constants.BindingPathLookupInvalid, extractCall(fLookupInvalid))
+	router.HandleFunc(constants.BindingPathLookupOK+"/{type}", extractCall(fLookupOK))
+	router.HandleFunc(constants.BindingPathLookupEmpty+"/{type}", extractCall(fLookupEmpty))
+	router.HandleFunc(constants.BindingPathLookupMultiword+"/{type}", extractCall(fLookupMultiword))
+	router.HandleFunc(constants.BindingPathLookupInvalid+"/{type}", extractCall(fLookupInvalid))
 
 	// Other
-	router.HandleFunc(constants.BindingPathHTML, extractCall(fHTML))
-	router.HandleFunc(constants.BindingPathUnknown, extractCall(fUnknown))
+	router.HandleFunc(constants.BindingPathHTML+"/{type}", extractCall(fHTML))
+	router.HandleFunc(constants.BindingPathUnknown+"/{type}", extractCall(fUnknown))
 
 	// Static files
 	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))

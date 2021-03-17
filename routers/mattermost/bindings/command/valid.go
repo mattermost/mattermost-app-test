@@ -191,7 +191,7 @@ func getWithInternalNavResponse(_ string) *apps.Binding {
 			Fields: []*apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInternal,
+			Path: constants.BindingPathNavigateExternal,
 		},
 	}
 }

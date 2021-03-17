@@ -11,7 +11,7 @@ import (
 func fNavigateInternal(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
 	resp := apps.CallResponse{
 		Type:          apps.CallResponseTypeNavigate,
-		NavigateToURL: "http://localhost:8065/ad-1/channels/town-square",
+		NavigateToURL: c.Context.MattermostSiteURL + "/ad-1/channels/town-square",
 	}
 	utils.WriteCallResponse(w, resp)
 }
