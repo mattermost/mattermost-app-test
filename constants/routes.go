@@ -14,6 +14,7 @@ const (
 	BindingPathErrorEmpty = "/errors/empty"
 
 	BindingPathFormOK      = "/forms/ok"
+	BindingPathFullFormOK  = "/forms/full_ok"
 	BindingPathFormInvalid = "/forms/invalid"
 
 	BindingPathLookupOK        = "/lookups/ok"

@@ -25,6 +25,7 @@ func getValid(siteURL string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithRequiredFields(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordOption(siteURL))
 	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption(siteURL))
+	base.Bindings = append(base.Bindings, getOpenFullFormModal(siteURL))
 
 	return base
 }
@@ -297,6 +298,19 @@ func getWithMultiwordDynamicOption(_ string) *apps.Binding {
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathLookupMultiword,
+		},
+	}
+}
+
+func getOpenFullFormModal(_ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_full_form_modal",
+		Label:    "open_full_form_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathFullFormOK,
 		},
 	}
 }

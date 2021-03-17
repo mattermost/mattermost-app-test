@@ -42,6 +42,7 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
 
 	// Form responses
 	router.HandleFunc(constants.BindingPathFormOK+"/{type}", extractCall(fFormOK))
+	router.HandleFunc(constants.BindingPathFullFormOK+"/{type}", extractCall(fFullFormOK))
 	router.HandleFunc(constants.BindingPathFormInvalid+"/{type}", extractCall(fFormInvalid))
 
 	// Lookup responses

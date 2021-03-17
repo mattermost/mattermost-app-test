@@ -18,11 +18,11 @@ func fLookupOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c 
 		Data: lookupResponse{
 			Items: []apps.SelectOption{
 				{
-					Label: "static value 1 label",
+					Label: "dynamic value 1 label",
 					Value: "sv1",
 				},
 				{
-					Label: "static value 2 label",
+					Label: "dynamic value 2 label",
 					Value: "sv2",
 				},
 			},
@@ -37,12 +37,12 @@ func fLookupMultiword(w http.ResponseWriter, r *http.Request, claims *api.JWTCla
 		Data: lookupResponse{
 			Items: []apps.SelectOption{
 				{
-					Label: "static value 2 label",
-					Value: "static value 1",
+					Label: "dynamic value 2 label",
+					Value: "dynamic value 1",
 				},
 				{
-					Label: "static value 2 label",
-					Value: "static value 2",
+					Label: "dynamic value 2 label",
+					Value: "dynamic value 2",
 				},
 			},
 		},
