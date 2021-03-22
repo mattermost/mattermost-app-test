@@ -20,6 +20,6 @@ func GetStringFromMapInterface(in map[string]interface{}, key, def string) strin
 	return out
 }
 
-func GetIconURL(siteURL, name string) string {
-	return strings.TrimRight(siteURL, "/") + "/plugins/com.mattermost.apps/api/v1/static/com.mattermost.test/" + name
+func GetIconURL(siteURL, name, appID string) string {
+	return strings.TrimRight(siteURL, "/") + "/plugins/com.mattermost.apps/api/v1/static/" + appID + "/" + name
 }

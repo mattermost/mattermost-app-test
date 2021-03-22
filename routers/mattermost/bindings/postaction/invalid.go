@@ -6,18 +6,18 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid(siteURL string) []*apps.Binding {
+func getInvalid(siteURL, appID string) []*apps.Binding {
 	base := []*apps.Binding{}
 
-	base = append(base, getWithNoLabel(siteURL))
-	base = append(base, getWithNoCall(siteURL))
-	base = append(base, getWithWhitespaceLabel(siteURL))
+	base = append(base, getWithNoLabel(siteURL, appID))
+	base = append(base, getWithNoCall(siteURL, appID))
+	base = append(base, getWithWhitespaceLabel(siteURL, appID))
 
 	return base
 }
 
-func getWithNoLabel(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithNoLabel(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "ERROR_with_no_label",
@@ -28,8 +28,8 @@ func getWithNoLabel(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNoCall(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithNoCall(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "ERROR_with_no_call",
@@ -38,8 +38,8 @@ func getWithNoCall(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithWhitespaceLabel(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "ERROR_with_whitespace_label",

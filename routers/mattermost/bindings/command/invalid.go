@@ -5,27 +5,27 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid(siteURL string) *apps.Binding {
+func getInvalid(siteURL, appID string) *apps.Binding {
 	base := &apps.Binding{
 		Location: "invalid",
 		Label:    "invalid",
 		Bindings: []*apps.Binding{},
 	}
 
-	base.Bindings = append(base.Bindings, getWithSameCommand(siteURL))
-	base.Bindings = append(base.Bindings, getWithSameFieldNames(siteURL))
-	base.Bindings = append(base.Bindings, getWithSameOptionNames(siteURL))
-	base.Bindings = append(base.Bindings, getWithMultiwordCommand(siteURL))
-	base.Bindings = append(base.Bindings, getWithMultiwordField(siteURL))
-	base.Bindings = append(base.Bindings, getWithWhitespaceLabel(siteURL))
-	base.Bindings = append(base.Bindings, getWithNoLabel(siteURL))
-	base.Bindings = append(base.Bindings, getWithNoCall(siteURL))
-	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL))
+	base.Bindings = append(base.Bindings, getWithSameCommand(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithSameFieldNames(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithSameOptionNames(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithMultiwordCommand(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithMultiwordField(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithWhitespaceLabel(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithNoLabel(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithNoCall(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
 
 	return base
 }
 
-func getWithSameCommand(_ string) *apps.Binding {
+func getWithSameCommand(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_command",
 		Label:    "with_same_command",
@@ -50,7 +50,7 @@ func getWithSameCommand(_ string) *apps.Binding {
 	}
 }
 
-func getWithSameFieldNames(_ string) *apps.Binding {
+func getWithSameFieldNames(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_field_names",
 		Label:    "with_same_field_names",
@@ -74,7 +74,7 @@ func getWithSameFieldNames(_ string) *apps.Binding {
 	}
 }
 
-func getWithSameOptionNames(_ string) *apps.Binding {
+func getWithSameOptionNames(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_same_option_names",
 		Label:    "with_same_option_names",
@@ -103,7 +103,7 @@ func getWithSameOptionNames(_ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordCommand(_ string) *apps.Binding {
+func getWithMultiwordCommand(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_command",
 		Label:    "with_multiword command",
@@ -114,7 +114,7 @@ func getWithMultiwordCommand(_ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordField(_ string) *apps.Binding {
+func getWithMultiwordField(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_field",
 		Label:    "with_multiword_field",
@@ -133,7 +133,7 @@ func getWithMultiwordField(_ string) *apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel(_ string) *apps.Binding {
+func getWithWhitespaceLabel(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_whitespace_label",
 		Label:    " ",
@@ -144,7 +144,7 @@ func getWithWhitespaceLabel(_ string) *apps.Binding {
 	}
 }
 
-func getWithNoLabel(_ string) *apps.Binding {
+func getWithNoLabel(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
@@ -154,7 +154,7 @@ func getWithNoLabel(_ string) *apps.Binding {
 	}
 }
 
-func getWithNoCall(_ string) *apps.Binding {
+func getWithNoCall(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
@@ -162,7 +162,7 @@ func getWithNoCall(_ string) *apps.Binding {
 	}
 }
 
-func getWithInvalidLookup(_ string) *apps.Binding {
+func getWithInvalidLookup(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_invalid_lookup",
 		Label:    "with_invalid_lookup",

@@ -6,21 +6,21 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getValid(siteURL string) []*apps.Binding {
+func getValid(siteURL, appID string) []*apps.Binding {
 	base := []*apps.Binding{}
 
-	base = append(base, getWithOK(siteURL))
-	base = append(base, getWithEmptyOK(siteURL))
-	base = append(base, getWithForm(siteURL))
-	base = append(base, getWithFullForm(siteURL))
-	base = append(base, getWithNavigateExternal(siteURL))
-	base = append(base, getWithNavigateInternal(siteURL))
+	base = append(base, getWithOK(siteURL, appID))
+	base = append(base, getWithEmptyOK(siteURL, appID))
+	base = append(base, getWithForm(siteURL, appID))
+	base = append(base, getWithFullForm(siteURL, appID))
+	base = append(base, getWithNavigateExternal(siteURL, appID))
+	base = append(base, getWithNavigateInternal(siteURL, appID))
 
 	return base
 }
 
-func getWithOK(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithOK(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_ok",
@@ -32,8 +32,8 @@ func getWithOK(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithEmptyOK(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithEmptyOK(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_empty_ok",
@@ -45,8 +45,8 @@ func getWithEmptyOK(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithForm(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithForm(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_form",
@@ -58,8 +58,8 @@ func getWithForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithFullForm(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithFullForm(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_full_form",
@@ -71,8 +71,8 @@ func getWithFullForm(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNavigateExternal(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithNavigateExternal(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_navigate_external",
@@ -84,8 +84,8 @@ func getWithNavigateExternal(siteURL string) *apps.Binding {
 	}
 }
 
-func getWithNavigateInternal(siteURL string) *apps.Binding {
-	icon := utils.GetIconURL(siteURL, "icon.png")
+func getWithNavigateInternal(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
 	return &apps.Binding{
 		Location: "with_naviate_internal",

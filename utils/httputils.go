@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -72,7 +73,10 @@ func WriteManifest(w http.ResponseWriter, v apps.Manifest) {
 
 func writeJSON(w http.ResponseWriter, v interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	_ = json.NewEncoder(w).Encode(v)
+	err := json.NewEncoder(w).Encode(v)
+	if err != nil {
+		log.Printf("Error encoding: %v", err)
+	}
 }
 
 func WriteInternalServerError(w http.ResponseWriter) {
