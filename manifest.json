@@ -1,7 +1,7 @@
 {
-    "app_id": "com.mattermost.test",
+    "app_id": "test",
     "app_type": "http",
-    "version": "",
+    "version": "0_0_1",
     "display_name": "Test App",
     "description": "Test App",
     "homepage_url": "https://github.com/larkox/mattermost-app-test",
