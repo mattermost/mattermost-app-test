@@ -33,13 +33,15 @@ func main() {
 		panic("failed to load manfest: " + err.Error())
 	}
 
+	localMode := os.Getenv("LOCAL") == "true"
+
 	// Init routers
 	r := mux.NewRouter()
-	mattermost.Init(r, &manifest, staticAssets)
+	mattermost.Init(r, &manifest, staticAssets, localMode)
 
 	http.Handle("/", r)
 
-	if os.Getenv("LOCAL") == "true" {
+	if localMode {
 		baseURL := "http://localhost:3000"
 		if len(os.Args) > baseURLPosition {
 			baseURL = os.Args[baseURLPosition]
@@ -51,7 +53,7 @@ func main() {
 		}
 
 		manifest.HTTPRootURL = baseURL
-		manifest.Type = apps.AppTypeHTTP
+		manifest.AppType = apps.AppTypeHTTP
 
 		_ = http.ListenAndServe(addr, nil)
 

@@ -5,9 +5,8 @@ import (
 
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/api"
 )
 
-func fInstall(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
-	utils.WriteCallStandardResponse(w, "")
+func fInstall(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
+	utils.WriteCallStandardResponse(w, "Welcome to the test App.")
 }

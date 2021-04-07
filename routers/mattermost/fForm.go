@@ -6,10 +6,9 @@ import (
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/api"
 )
 
-func fFormOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeForm,
 		Form: &apps.Form{
@@ -31,7 +30,7 @@ func fFormOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *a
 	utils.WriteCallResponse(w, resp)
 }
 
-func fFullFormOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeForm,
 		Form: &apps.Form{
@@ -87,7 +86,7 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, 
 	utils.WriteCallResponse(w, resp)
 }
 
-func fFormInvalid(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fFormInvalid(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeForm,
 	}

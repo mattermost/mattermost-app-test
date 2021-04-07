@@ -31,4 +31,6 @@ const (
 	BindingPathUnknown = "/unknown"
 
 	StaticAssetPath = "/static"
+
+	CommandTrigger = "test"
 )

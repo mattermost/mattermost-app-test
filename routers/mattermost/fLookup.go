@@ -5,14 +5,13 @@ import (
 
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/api"
 )
 
 type lookupResponse struct {
 	Items []apps.SelectOption `json:"items"`
 }
 
-func fLookupOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fLookupOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: lookupResponse{
@@ -31,7 +30,7 @@ func fLookupOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c 
 	utils.WriteCallResponse(w, resp)
 }
 
-func fLookupMultiword(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fLookupMultiword(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: lookupResponse{
@@ -50,7 +49,7 @@ func fLookupMultiword(w http.ResponseWriter, r *http.Request, claims *api.JWTCla
 	utils.WriteCallResponse(w, resp)
 }
 
-func fLookupEmpty(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fLookupEmpty(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: lookupResponse{
@@ -60,7 +59,7 @@ func fLookupEmpty(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims,
 	utils.WriteCallResponse(w, resp)
 }
 
-func fLookupInvalid(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fLookupInvalid(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: lookupResponse{

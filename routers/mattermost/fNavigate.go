@@ -5,10 +5,9 @@ import (
 
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/api"
 )
 
-func fNavigateInternal(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fNavigateInternal(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type:          apps.CallResponseTypeNavigate,
 		NavigateToURL: c.Context.MattermostSiteURL + "/ad-1/channels/town-square",
@@ -16,7 +15,7 @@ func fNavigateInternal(w http.ResponseWriter, r *http.Request, claims *api.JWTCl
 	utils.WriteCallResponse(w, resp)
 }
 
-func fNavigateExternal(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fNavigateExternal(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type:          apps.CallResponseTypeNavigate,
 		NavigateToURL: "http://www.google.com",
@@ -24,7 +23,7 @@ func fNavigateExternal(w http.ResponseWriter, r *http.Request, claims *api.JWTCl
 	utils.WriteCallResponse(w, resp)
 }
 
-func fNavigateInvalid(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fNavigateInvalid(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeNavigate,
 	}

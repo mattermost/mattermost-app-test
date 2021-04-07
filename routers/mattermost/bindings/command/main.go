@@ -1,15 +1,16 @@
 package command
 
 import (
+	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
 func Get(siteURL, appID string) *apps.Binding {
 	base := &apps.Binding{
-		Label:       "com.mattermost.test",
+		Label:       constants.CommandTrigger,
 		Description: "Test app",
-		Location:    "com.mattermost.test",
+		Location:    constants.CommandTrigger,
 		Icon:        utils.GetIconURL(siteURL, "icon.png", appID),
 		Bindings:    []*apps.Binding{},
 	}

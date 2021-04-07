@@ -10,6 +10,11 @@
         "/command",
         "/channel_header"
     ],
+    "requested_permissions": [
+        "act_as_bot",
+        "act_as_user",
+        "act_as_admin"
+    ],
     "bindings": {
         "path": "/bindings",
         "type": "",
@@ -23,8 +28,7 @@
             "parent_post": "all",
             "post": "all",
             "root_post": "all",
-            "team": "all",
-            "user": "all"
+            "team": "all"
         }
     }
 }

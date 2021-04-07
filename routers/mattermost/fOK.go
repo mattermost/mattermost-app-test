@@ -5,13 +5,12 @@ import (
 
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/api"
 )
 
-func fOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	utils.WriteCallStandardResponse(w, "OK")
 }
 
-func fEmptyOK(w http.ResponseWriter, r *http.Request, claims *api.JWTClaims, c *apps.Call) {
+func fEmptyOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	utils.WriteCallStandardResponse(w, "")
 }
