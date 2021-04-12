@@ -14,6 +14,8 @@ func getValid(siteURL, appID string) *apps.Binding {
 
 	base.Bindings = append(base.Bindings, getWithEmptyForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenFullFormModal(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenDynamicFormModal(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithoutForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithLookup(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithEmptyLookup(siteURL, appID))
@@ -25,7 +27,6 @@ func getValid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithRequiredFields(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithMultiwordOption(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenFullFormModal(siteURL, appID))
 
 	return base
 }
@@ -311,6 +312,19 @@ func getOpenFullFormModal(_, _ string) *apps.Binding {
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathFullFormOK,
+		},
+	}
+}
+
+func getOpenDynamicFormModal(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_dynamic_form_modal",
+		Label:    "open_dynamic_form_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathDynamicFormOK,
 		},
 	}
 }

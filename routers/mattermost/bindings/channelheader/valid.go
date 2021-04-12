@@ -13,6 +13,7 @@ func getValid(siteURL, appID string) []*apps.Binding {
 	base = append(base, getWithEmptyOK(siteURL, appID))
 	base = append(base, getWithForm(siteURL, appID))
 	base = append(base, getWithFullForm(siteURL, appID))
+	base = append(base, getWithDynamicForm(siteURL, appID))
 	base = append(base, getWithNavigateExternal(siteURL, appID))
 	base = append(base, getWithNavigateInternal(siteURL, appID))
 
@@ -67,6 +68,19 @@ func getWithFullForm(siteURL, appID string) *apps.Binding {
 		Icon:     icon,
 		Call: &apps.Call{
 			Path: constants.BindingPathFullFormOK,
+		},
+	}
+}
+
+func getWithDynamicForm(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
+
+	return &apps.Binding{
+		Location: "with_dynamic_form",
+		Label:    "with_dynamic_form",
+		Icon:     icon,
+		Call: &apps.Call{
+			Path: constants.BindingPathDynamicFormOK,
 		},
 	}
 }

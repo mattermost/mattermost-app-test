@@ -1,6 +1,7 @@
 package mattermost
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/mattermost/mattermost-app-test/constants"
@@ -81,6 +82,43 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					},
 				},
 			},
+		},
+	}
+	utils.WriteCallResponse(w, resp)
+}
+
+func fDynamicFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
+	numFields := len(c.Values)
+	fields := []*apps.Field{}
+
+	for i := 0; i < numFields+5; i++ {
+		fields = append(fields, &apps.Field{
+			Name:          fmt.Sprintf("static%v", i),
+			Type:          apps.FieldTypeStaticSelect,
+			Label:         fmt.Sprintf("static%v", i),
+			SelectRefresh: true,
+			SelectStaticOptions: []apps.SelectOption{
+				{
+					Label: "static value 1",
+					Value: "sv1",
+				},
+				{
+					Label: "static value 2",
+					Value: "sv2",
+				},
+			},
+		})
+	}
+
+	resp := apps.CallResponse{
+		Type: apps.CallResponseTypeForm,
+		Form: &apps.Form{
+			Title:  "Test Dynamic Form",
+			Header: "Test header",
+			Call: &apps.Call{
+				Path: constants.BindingPathDynamicFormOK,
+			},
+			Fields: fields,
 		},
 	}
 	utils.WriteCallResponse(w, resp)
