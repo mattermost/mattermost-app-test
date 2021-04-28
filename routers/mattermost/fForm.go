@@ -130,3 +130,32 @@ func fFormInvalid(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	}
 	utils.WriteCallResponse(w, resp)
 }
+
+var numElementsDefined = 0
+
+func fFormRedefine(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
+	numElementsDefined++
+	fields := []*apps.Field{}
+	for i := 0; i < numElementsDefined; i++ {
+		name := fmt.Sprintf("text%v", i)
+		fields = append(fields, &apps.Field{
+			Name:       name,
+			Type:       apps.FieldTypeText,
+			Label:      name,
+			ModalLabel: name,
+		})
+	}
+
+	resp := apps.CallResponse{
+		Type: apps.CallResponseTypeForm,
+		Form: &apps.Form{
+			Title:  "Test",
+			Header: "Test header",
+			Call: &apps.Call{
+				Path: constants.BindingPathOK,
+			},
+			Fields: fields,
+		},
+	}
+	utils.WriteCallResponse(w, resp)
+}
