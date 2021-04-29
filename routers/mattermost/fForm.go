@@ -131,13 +131,21 @@ func fFormInvalid(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	utils.WriteCallResponse(w, resp)
 }
 
-var numElementsDefined = 0
+var iterationsPerChannelID = map[string]int{}
+
+const maxIterations = 5
 
 func fFormRedefine(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	numElementsDefined++
+	cid := c.Context.ChannelID
+	iters := iterationsPerChannelID[cid]
+	iters = (iters + 1) % maxIterations
+	iterationsPerChannelID[cid] = iters
+
 	fields := []*apps.Field{}
-	for i := 0; i < numElementsDefined; i++ {
+
+	for i := 0; i < iters; i++ {
 		name := fmt.Sprintf("text%v", i)
+
 		fields = append(fields, &apps.Field{
 			Name:       name,
 			Type:       apps.FieldTypeText,
