@@ -7,6 +7,8 @@ import (
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
+	"github.com/mattermost/mattermost-server/v5/model"
 )
 
 func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
@@ -164,6 +166,79 @@ func fFormRedefine(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 			},
 			Fields: fields,
 		},
+	}
+	utils.WriteCallResponse(w, resp)
+}
+
+func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
+	client := mmclient.AsBot(c.Context)
+	p := &model.Post{
+		ChannelId: c.Context.ChannelID,
+	}
+
+	p.AddProp(apps.PropAppBindings, []*apps.Binding{
+		{
+			Location: "embedded",
+			Form: &apps.Form{
+				Title:  "Test",
+				Header: "Test header",
+				Call: &apps.Call{
+					Path: constants.BindingPathOK,
+				},
+				Fields: []*apps.Field{},
+			},
+			AppID:       c.Context.AppID,
+			Description: "Please fill out this form so we can get it fixed  :hammer_and_wrench:",
+			Bindings: []*apps.Binding{
+				{
+					Location: "problem",
+					Call: &apps.Call{
+						Path: constants.BindingPathOK,
+					},
+					Bindings: []*apps.Binding{
+						{
+							Location: "hardware",
+							Label:    "Hardware Failure",
+						},
+						{
+							Location: "software",
+							Label:    "Software Error",
+						},
+						{
+							Location: "wrong",
+							Label:    "Wrong Product",
+						},
+					},
+				},
+				{
+					Location: "provider",
+					// Label:       "Entree",
+					// Description: "Entree",
+					Call: &apps.Call{
+						Path: constants.BindingPathOK,
+					},
+					Bindings: []*apps.Binding{
+						{
+							Location: "work",
+							Label:    "Cell Phone",
+						},
+					},
+				},
+				{
+					Location: "button",
+					Label:    "Submit",
+					Call: &apps.Call{
+						Path: constants.BindingPathOK,
+					},
+				},
+			},
+		},
+	})
+
+	client.CreatePost(p)
+
+	resp := apps.CallResponse{
+		Type: apps.CallResponseTypeOK,
 	}
 	utils.WriteCallResponse(w, resp)
 }

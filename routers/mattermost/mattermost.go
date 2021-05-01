@@ -42,6 +42,7 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	router.HandleFunc(constants.BindingPathFormOK+"/{type}", extractCall(fFormOK, localMode))
 	router.HandleFunc(constants.BindingPathFullFormOK+"/{type}", extractCall(fFullFormOK, localMode))
 	router.HandleFunc(constants.BindingPathRedefineFormOK+"/{type}", extractCall(fFormRedefine, localMode))
+	router.HandleFunc(constants.BindingPathEmbeddedFormOK+"/{type}", extractCall(fFormEmbedded, localMode))
 	router.HandleFunc(constants.BindingPathDynamicFormOK+"/{type}", extractCall(fDynamicFormOK, localMode))
 	router.HandleFunc(constants.BindingPathFormInvalid+"/{type}", extractCall(fFormInvalid, localMode))
 

@@ -16,6 +16,7 @@ const (
 	BindingPathFormOK         = "/forms/ok"
 	BindingPathFullFormOK     = "/forms/full_ok"
 	BindingPathRedefineFormOK = "/forms/redefine_form_ok"
+	BindingPathEmbeddedFormOK = "/forms/embedded_form_ok"
 	BindingPathDynamicFormOK  = "/forms/dynamic_form_ok"
 	BindingPathFormInvalid    = "/forms/invalid"
 
