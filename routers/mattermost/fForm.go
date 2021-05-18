@@ -19,6 +19,9 @@ func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 			Header: "Test header",
 			Call: &apps.Call{
 				Path: constants.BindingPathOK,
+				Expand: &apps.Expand{
+					Team: apps.ExpandSummary,
+				},
 			},
 			Fields: []*apps.Field{
 				{
@@ -26,6 +29,11 @@ func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					Type:       apps.FieldTypeText,
 					Label:      "text",
 					ModalLabel: "text",
+				},
+				{
+					Name:  "navigate",
+					Type:  apps.FieldTypeBool,
+					Label: "navigate",
 				},
 			},
 		},
@@ -212,8 +220,6 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 				},
 				{
 					Location: "provider",
-					// Label:       "Entree",
-					// Description: "Entree",
 					Call: &apps.Call{
 						Path: constants.BindingPathOK,
 					},
