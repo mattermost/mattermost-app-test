@@ -91,6 +91,66 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 						},
 					},
 				},
+				{
+					Name:          "multi",
+					Type:          apps.FieldTypeStaticSelect,
+					Label:         "multi",
+					SelectIsMulti: true,
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "static value 1",
+							Value: "sv1",
+						},
+						{
+							Label: "static value 2",
+							Value: "sv2",
+						},
+						{
+							Label: "static value 3",
+							Value: "sv3",
+						},
+						{
+							Label: "1",
+							Value: "1",
+						},
+						{
+							Label: "2",
+							Value: "2",
+						},
+						{
+							Label: "3",
+							Value: "3",
+						},
+						{
+							Label: "4",
+							Value: "4",
+						},
+						{
+							Label: "5",
+							Value: "5",
+						},
+						{
+							Label: "6",
+							Value: "6",
+						},
+						{
+							Label: "7",
+							Value: "7",
+						},
+						{
+							Label: "8",
+							Value: "8",
+						},
+						{
+							Label: "9",
+							Value: "9",
+						},
+						{
+							Label: "10",
+							Value: "10",
+						},
+					},
+				},
 			},
 		},
 	}
