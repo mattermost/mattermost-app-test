@@ -9,6 +9,7 @@ import (
 func getValid(siteURL, appID string) []*apps.Binding {
 	base := []*apps.Binding{}
 
+	base = append(base, getWithSubMenus(siteURL, appID))
 	base = append(base, getWithOK(siteURL, appID))
 	base = append(base, getWithEmptyOK(siteURL, appID))
 	base = append(base, getWithForm(siteURL, appID))
@@ -21,6 +22,72 @@ func getValid(siteURL, appID string) []*apps.Binding {
 	return base
 }
 
+func getWithSubMenus(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
+
+	return &apps.Binding{
+		Location: "with_submenus",
+		Label:    "with_submenus",
+		Icon:     icon,
+		Bindings: []*apps.Binding{
+			{
+				Location: "with_ok",
+				Label:    "with_ok",
+				Icon:     icon,
+				Call: &apps.Call{
+					Path: constants.BindingPathOK,
+				},
+			},
+			{
+				Location: "with_form",
+				Label:    "with_form",
+				Icon:     icon,
+				Call: &apps.Call{
+					Path: constants.BindingPathFormOK,
+				},
+			},
+			{
+				Location: "with_navigate_external",
+				Label:    "with_navigate_external",
+				Icon:     icon,
+				Call: &apps.Call{
+					Path: constants.BindingPathNavigateExternal,
+				},
+			},
+			{
+				Location: "with_submenus",
+				Label:    "with_submenus",
+				Icon:     icon,
+				Bindings: []*apps.Binding{
+					{
+						Location: "with_ok",
+						Label:    "with_ok",
+						Icon:     icon,
+						Call: &apps.Call{
+							Path: constants.BindingPathOK,
+						},
+					},
+					{
+						Location: "with_form",
+						Label:    "with_form",
+						Icon:     icon,
+						Call: &apps.Call{
+							Path: constants.BindingPathFormOK,
+						},
+					},
+					{
+						Location: "with_navigate_external",
+						Label:    "with_navigate_external",
+						Icon:     icon,
+						Call: &apps.Call{
+							Path: constants.BindingPathNavigateExternal,
+						},
+					},
+				},
+			},
+		},
+	}
+}
 func getWithOK(siteURL, appID string) *apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 

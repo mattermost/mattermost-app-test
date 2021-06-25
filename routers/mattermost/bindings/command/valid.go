@@ -27,6 +27,12 @@ func getValid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithRequiredFields(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithMultiwordOption(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenMultiselectForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getMultiselectCommand(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenFullFormDisabledModal(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenFormWithButtons(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenMarkdownForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOpenMarkdownFormWithMissingFieldError(siteURL, appID))
 
 	return base
 }
@@ -123,9 +129,16 @@ func getWithFullForm(_, _ string) *apps.Binding {
 					Label: "lookup",
 				},
 				{
-					Name:  "text",
-					Type:  apps.FieldTypeText,
-					Label: "text",
+					Name:                 "mybeatifulflag",
+					Type:                 apps.FieldTypeText,
+					Label:                "mybeatifulflag",
+					AutocompletePosition: -1,
+				},
+				{
+					Name:                 "otherpotitional",
+					Type:                 apps.FieldTypeText,
+					Label:                "mybeatifulpositional",
+					AutocompletePosition: 1,
 				},
 				{
 					Name:  "boolean",
@@ -156,6 +169,52 @@ func getWithFullForm(_, _ string) *apps.Binding {
 							Value: "sv2",
 						},
 					},
+				},
+				{
+					Name:     "textReadOnly",
+					Type:     apps.FieldTypeText,
+					Label:    "textReadOnly",
+					ReadOnly: true,
+					Value:    "Readonly value",
+				},
+				{
+					Name: "mk1",
+					Type: "markdown",
+					Description: "## Markdown title" +
+						"\nHello world" +
+						"\nText styles: _italics_ **bold** **_bold-italic_** ~~strikethrough~~ `code`" +
+						"\nUsers and channels: @sysadmin ~town-square" +
+						"\n```" +
+						"\nCode block" +
+						"\n```" +
+						"\n:+1: :banana_dance:" +
+						"\n***" +
+						"\n> Quote\n" +
+						"\nLink: [here](www.google.com)" +
+						"\nImage: ![img](https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/4acbc64f-552d-4944-8474-b44a13a7bd3e.png?auto=format&q=50&fit=fill)" +
+						"\nList:" +
+						"\n- this" +
+						"\n- is" +
+						"\n- a" +
+						"\n- list" +
+						"\nNumbered list" +
+						"\n1. this" +
+						"\n2. is" +
+						"\n3. a" +
+						"\n4. list" +
+						"\nItems" +
+						"\n- [ ] Item one" +
+						"\n- [ ] Item two" +
+						"\n- [x] Completed item",
+				},
+				{
+					Name: "mk2",
+					Type: "markdown",
+					Description: "\n| Left-Aligned  | Center Aligned  | Right Aligned |" +
+						"\n| :------------ |:---------------:| -----:|" +
+						"\n| Left column 1 | this text       |  $100 |" +
+						"\n| Left column 2 | is              |   $10 |" +
+						"\n| Left column 3 | centered        |    $1 |",
 				},
 			},
 		},
@@ -316,6 +375,19 @@ func getOpenFullFormModal(_, _ string) *apps.Binding {
 	}
 }
 
+func getOpenFullFormDisabledModal(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_full_form_disabled_modal",
+		Label:    "open_full_form_disabled_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathFullDisabledOK,
+		},
+	}
+}
+
 func getOpenDynamicFormModal(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "open_dynamic_form_modal",
@@ -325,6 +397,108 @@ func getOpenDynamicFormModal(_, _ string) *apps.Binding {
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathDynamicFormOK,
+		},
+	}
+}
+
+func getOpenFormWithButtons(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_form_with_buttons",
+		Label:    "open_form_with_buttons",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathWithButtonsOK,
+		},
+	}
+}
+
+func getOpenMultiselectForm(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_multiselect_form_modal",
+		Label:    "open_multiselect_form_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathMultiselectForm,
+		},
+	}
+}
+
+func getOpenMarkdownForm(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_markdown_form_modal",
+		Label:    "open_markdown_form_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathMarkdownForm,
+		},
+	}
+}
+
+func getOpenMarkdownFormWithMissingFieldError(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "open_markdown_form_modal",
+		Label:    "open_markdown_form_modal",
+		Form: &apps.Form{
+			Fields: []*apps.Field{},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathMarkdownFormWithMissingError,
+		},
+	}
+}
+
+func getMultiselectCommand(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "multiselect_command",
+		Label:    "multiselect_command",
+		Form: &apps.Form{
+			Fields: []*apps.Field{
+				{
+					Name:          "static",
+					Type:          apps.FieldTypeStaticSelect,
+					Label:         "static",
+					SelectIsMulti: true,
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "static value 1",
+							Value: "sv1",
+						},
+						{
+							Label: "static value 2",
+							Value: "sv2",
+						},
+						{
+							Label: "static value 3",
+							Value: "sv3",
+						},
+						{
+							Label: "static value 4",
+							Value: "sv4",
+						},
+					},
+				},
+				{
+					Name:          "user",
+					Type:          apps.FieldTypeUser,
+					Label:         "user",
+					SelectIsMulti: true,
+				},
+				{
+					Name:          "channel",
+					Type:          apps.FieldTypeChannel,
+					Label:         "channel",
+					SelectIsMulti: true,
+				},
+			},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathOK,
 		},
 	}
 }
