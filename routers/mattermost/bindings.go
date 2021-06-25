@@ -9,6 +9,6 @@ import (
 )
 
 func fBindings(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	out := bindings.Get(c.Context.MattermostSiteURL, string(c.Context.AppID))
+	out := bindings.Get(c.Context.MattermostSiteURL, string(c.Context.AppID), c.Context.Channel.Name)
 	utils.WriteBindings(w, out)
 }

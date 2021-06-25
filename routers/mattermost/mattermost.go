@@ -37,14 +37,21 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	// Error responses
 	router.HandleFunc(constants.BindingPathError+"/{type}", extractCall(fError, localMode))
 	router.HandleFunc(constants.BindingPathErrorEmpty+"/{type}", extractCall(fEmptyError, localMode))
+	router.HandleFunc(constants.BindingPathMarkdownFormError+"/{type}", extractCall(fMarkdownFormError, localMode))
+	router.HandleFunc(constants.BindingPathMarkdownFormErrorMissingField+"/{type}", extractCall(fMarkdownFormErrorMissingField, localMode))
 
 	// Form responses
 	router.HandleFunc(constants.BindingPathFormOK+"/{type}", extractCall(fFormOK, localMode))
 	router.HandleFunc(constants.BindingPathFullFormOK+"/{type}", extractCall(fFullFormOK, localMode))
 	router.HandleFunc(constants.BindingPathRedefineFormOK+"/{type}", extractCall(fFormRedefine, localMode))
 	router.HandleFunc(constants.BindingPathEmbeddedFormOK+"/{type}", extractCall(fFormEmbedded, localMode))
+	router.HandleFunc(constants.BindingPathFullDisabledOK+"/{type}", extractCall(fFullFormDisabledOK, localMode))
 	router.HandleFunc(constants.BindingPathDynamicFormOK+"/{type}", extractCall(fDynamicFormOK, localMode))
 	router.HandleFunc(constants.BindingPathFormInvalid+"/{type}", extractCall(fFormInvalid, localMode))
+	router.HandleFunc(constants.BindingPathMultiselectForm+"/{type}", extractCall(fFormMultiselect, localMode))
+	router.HandleFunc(constants.BindingPathWithButtonsOK+"/{type}", extractCall(fFormWithButtonsOK, localMode))
+	router.HandleFunc(constants.BindingPathMarkdownForm+"/{type}", extractCall(fFormWithMarkdownError, localMode))
+	router.HandleFunc(constants.BindingPathMarkdownFormWithMissingError+"/{type}", extractCall(fFormWithMarkdownErrorMissingField, localMode))
 
 	// Lookup responses
 	router.HandleFunc(constants.BindingPathLookupOK+"/{type}", extractCall(fLookupOK, localMode))
