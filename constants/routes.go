@@ -24,6 +24,8 @@ const (
 	BindingPathWithButtonsOK                = "/forms/buttons"
 	BindingPathMarkdownForm                 = "/forms/markdown"
 	BindingPathMarkdownFormWithMissingError = "/forms/markdownWitMissingError"
+	BindingPathRedefineFormOK               = "/forms/redefine_form_ok"
+	BindingPathEmbeddedFormOK               = "/forms/embedded_form_ok"
 
 	BindingPathLookupOK        = "/lookups/ok"
 	BindingPathLookupMultiword = "/lookups/multiword"

@@ -16,6 +16,8 @@ func getValid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenFullFormModal(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenDynamicFormModal(siteURL, appID))
+	base.Bindings = append(base.Bindings, getRedefineForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getEmbeddedForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithoutForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithLookup(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithEmptyLookup(siteURL, appID))
@@ -75,6 +77,27 @@ func getWithoutForm(_, _ string) *apps.Binding {
 		Label:    "no_form",
 		Call: &apps.Call{
 			Path: constants.BindingPathFormOK,
+		},
+	}
+}
+
+func getRedefineForm(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "redefine_form",
+		Label:    "redefine_form",
+		Call: &apps.Call{
+			Path: constants.BindingPathRedefineFormOK,
+		},
+	}
+}
+
+func getEmbeddedForm(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "embedded_form",
+		Label:    "embedded_form",
+		Form:     &apps.Form{Fields: []*apps.Field{}},
+		Call: &apps.Call{
+			Path: constants.BindingPathEmbeddedFormOK,
 		},
 	}
 }
