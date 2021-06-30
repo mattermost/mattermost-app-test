@@ -96,6 +96,7 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 				},
 				{
 					Type:        "markdown",
+					Name:        "markdown",
 					Description: "***\n## User information\nRemember to fill all these fields with the **user** information, not the general information.",
 				},
 				// {
@@ -278,6 +279,7 @@ func fFullFormDisabledOK(w http.ResponseWriter, r *http.Request, c *apps.CallReq
 				},
 				{
 					Type:  "markdown",
+					Name:  "markdown",
 					Value: "Hello ~~world~~",
 				},
 				{
