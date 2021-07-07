@@ -465,8 +465,8 @@ func getOpenMarkdownForm(_, _ string) *apps.Binding {
 
 func getOpenMarkdownFormWithMissingFieldError(_, _ string) *apps.Binding {
 	return &apps.Binding{
-		Location: "open_markdown_form_modal",
-		Label:    "open_markdown_form_modal",
+		Location: "open_markdown_form_modal_missing_error",
+		Label:    "open_markdown_form_modal_missing_error",
 		Form: &apps.Form{
 			Fields: []*apps.Field{},
 		},
