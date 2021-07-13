@@ -2,7 +2,9 @@ package postaction
 
 import "github.com/mattermost/mattermost-plugin-apps/apps"
 
-func Get(siteURL, appID string) *apps.Binding {
+func Get(context *apps.Context) *apps.Binding {
+	siteURL := context.MattermostSiteURL
+	appID := string(context.AppID)
 	out := &apps.Binding{
 		Location: apps.LocationPostMenu,
 		Bindings: []*apps.Binding{},

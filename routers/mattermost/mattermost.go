@@ -65,6 +65,14 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 
 	// Static files
 	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
+
+	// OpenDialog
+	router.HandleFunc(constants.OtherPathOpenDialog+"/submit", extractCall(postOpenDialogTest(m), localMode))
+	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogNoResponse, postOpenDialogTestNoResponse)
+	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEmptyResponse, postOpenDialogTestEmptyResponse)
+	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEphemeralResponse, postOpenDialogTestEphemeralResponse)
+	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogUpdateResponse, postOpenDialogTestUpdateResponse)
+	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogBadResponse, postOpenDialogTestBadResponse)
 }
 
 func extractCall(f callHandler, localMode bool) http.HandlerFunc {

@@ -229,14 +229,16 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					},
 				},
 				{
-					Name:  "user_readonly",
-					Type:  apps.FieldTypeUser,
-					Label: "user_readonly",
+					Name:     "user_readonly",
+					Type:     apps.FieldTypeUser,
+					Label:    "user_readonly",
+					ReadOnly: true,
 				},
 				{
-					Name:  "static_readonly",
-					Type:  apps.FieldTypeStaticSelect,
-					Label: "static_readonly",
+					Name:     "static_readonly",
+					Type:     apps.FieldTypeStaticSelect,
+					Label:    "static_readonly",
+					ReadOnly: true,
 					SelectStaticOptions: []apps.SelectOption{
 						{
 							Label: "static value 1",

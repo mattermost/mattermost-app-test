@@ -43,4 +43,11 @@ const (
 	StaticAssetPath = "/static"
 
 	CommandTrigger = "test"
+
+	OtherPathOpenDialog              = "/other/open"
+	OtherOpenDialogNoResponse        = "/NoResponse"
+	OtherOpenDialogEmptyResponse     = "/EmptyResponse"
+	OtherOpenDialogEphemeralResponse = "/EphemeralResponse"
+	OtherOpenDialogUpdateResponse    = "/UpdateResponse"
+	OtherOpenDialogBadResponse       = "/BadResponse"
 )

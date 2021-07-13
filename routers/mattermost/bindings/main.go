@@ -7,12 +7,12 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func Get(siteURL, appID string, args ...string) []*apps.Binding {
+func Get(context *apps.Context) []*apps.Binding {
 	out := []*apps.Binding{}
 
-	out = append(out, command.Get(siteURL, appID, args...))
-	out = append(out, channelheader.Get(siteURL, appID))
-	out = append(out, postaction.Get(siteURL, appID))
+	out = append(out, command.Get(context))
+	out = append(out, channelheader.Get(context))
+	out = append(out, postaction.Get(context))
 
 	return out
 }

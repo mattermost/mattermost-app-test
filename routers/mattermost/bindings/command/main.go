@@ -6,7 +6,9 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func Get(siteURL, appID string, args ...string) *apps.Binding {
+func Get(context *apps.Context) *apps.Binding {
+	siteURL := context.MattermostSiteURL
+	appID := string(context.AppID)
 	base := &apps.Binding{
 		Label:       constants.CommandTrigger,
 		Description: "Test commands",
@@ -21,7 +23,7 @@ func Get(siteURL, appID string, args ...string) *apps.Binding {
 		},
 	}
 
-	if len(args) > 0 && args[0] == "town-square" {
+	if context.ChannelID == "town-square" {
 		base.Bindings = append(base.Bindings, &apps.Binding{
 			Location: "town_square",
 			Label:    "town_square",
@@ -37,6 +39,7 @@ func Get(siteURL, appID string, args ...string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getValid(siteURL, appID))
 	base.Bindings = append(base.Bindings, getInvalid(siteURL, appID))
 	base.Bindings = append(base.Bindings, getError(siteURL, appID))
+	base.Bindings = append(base.Bindings, getOthers(context))
 
 	return out
 }
