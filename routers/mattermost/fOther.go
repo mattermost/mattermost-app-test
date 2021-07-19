@@ -125,9 +125,7 @@ func postOpenDialogTestNoResponse(w http.ResponseWriter, r *http.Request) {
 func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
 	req := model.PostActionIntegrationRequestFromJson(r.Body)
 	url := req.Context["url"].(string)
-	token := req.Context["token"].(string)
 	client := model.NewAPIv4Client(url)
-	client.SetToken(token)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
 		TriggerId: req.TriggerId,
 		URL:       url,
@@ -143,9 +141,7 @@ func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
 func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request) {
 	req := model.PostActionIntegrationRequestFromJson(r.Body)
 	url := req.Context["url"].(string)
-	token := req.Context["token"].(string)
 	client := model.NewAPIv4Client(url)
-	client.SetToken(token)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
 		TriggerId: req.TriggerId,
 		URL:       url,
@@ -164,9 +160,7 @@ func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request)
 func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
 	req := model.PostActionIntegrationRequestFromJson(r.Body)
 	url := req.Context["url"].(string)
-	token := req.Context["token"].(string)
 	client := model.NewAPIv4Client(url)
-	client.SetToken(token)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
 		TriggerId: req.TriggerId,
 		URL:       url,
@@ -187,9 +181,7 @@ func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
 func postOpenDialogTestBadResponse(w http.ResponseWriter, r *http.Request) {
 	req := model.PostActionIntegrationRequestFromJson(r.Body)
 	url := req.Context["url"].(string)
-	token := req.Context["token"].(string)
 	client := model.NewAPIv4Client(url)
-	client.SetToken(token)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
 		TriggerId: req.TriggerId,
 		URL:       url,
