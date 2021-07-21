@@ -9,6 +9,7 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
 	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/pkg/errors"
 )
 
 const fullMarkdown = "## Markdown title" +
@@ -529,49 +530,53 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 }
 
 func fFormWithButtonsOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
+	numButtonsFloat, _ := c.State.(float64)
+	numButtons := int(numButtonsFloat)
+
+	if v, ok := c.Values["submit"].(string); ok {
+		switch v {
+		case "add_buttons":
+			numButtons++
+		case "error":
+			utils.WriteCallResponse(w, *apps.NewErrorCallResponse(errors.New("You caused an error :)")))
+		}
+	}
+
+	buttons := []apps.SelectOption{
+		{
+			Label: "add buttons",
+			Value: "add_buttons",
+		},
+		{
+			Label: "error",
+			Value: "error",
+		},
+	}
+
+	for i := 0; i < numButtons; i++ {
+		buttons = append(buttons, apps.SelectOption{
+			Label: fmt.Sprintf("button%v", i),
+			Value: fmt.Sprintf("button%v", i),
+		})
+	}
+
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeForm,
 		Form: &apps.Form{
 			Title:         "Test multiple buttons Form",
 			Header:        "Test header",
-			SubmitButtons: "static",
+			SubmitButtons: "submit",
 			Call: &apps.Call{
-				Path: constants.BindingPathOK,
+				Path:  constants.BindingPathWithButtonsOK,
+				State: numButtons,
 			},
 			Fields: []*apps.Field{
 				{
-					Name:          "static",
-					Type:          apps.FieldTypeStaticSelect,
-					Label:         "static",
-					SelectIsMulti: true,
-					SelectStaticOptions: []apps.SelectOption{
-						{
-							Label: "button1",
-							Value: "button1",
-						},
-						{
-							Label: "button2",
-							Value: "button2",
-						},
-						{
-							Label: "button3",
-							Value: "button3",
-						},
-						{
-							Label: "button4",
-							Value: "button4",
-						},
-					},
-				},
-				{
-					Name:  "user",
-					Type:  apps.FieldTypeUser,
-					Label: "user",
-				},
-				{
-					Name:  "channel",
-					Type:  apps.FieldTypeChannel,
-					Label: "channel",
+					Name:                "submit",
+					Type:                apps.FieldTypeStaticSelect,
+					Label:               "static",
+					SelectIsMulti:       true,
+					SelectStaticOptions: buttons,
 				},
 			},
 		},
