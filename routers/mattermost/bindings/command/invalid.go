@@ -22,7 +22,7 @@ func getInvalid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithNoCall(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
 	base.Bindings = append(base.Bindings, getNoNameField(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithNoOptionNames(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithNoNameOption(siteURL, appID))
 	return base
 }
 
@@ -82,9 +82,9 @@ func getWithSameOptionNames(_, _ string) *apps.Binding {
 		Form: &apps.Form{
 			Fields: []*apps.Field{
 				{
-					Name:  "text",
+					Name:  "select",
 					Type:  apps.FieldTypeStaticSelect,
-					Label: "text",
+					Label: "select",
 					SelectStaticOptions: []apps.SelectOption{
 						{
 							Label: "static value 1",
@@ -104,16 +104,16 @@ func getWithSameOptionNames(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithNoOptionNames(_, _ string) *apps.Binding {
+func getWithNoNameOption(_, _ string) *apps.Binding {
 	return &apps.Binding{
-		Location: "with_no_option_names",
-		Label:    "with_no_option_names",
+		Location: "with_no_name_option",
+		Label:    "with_no_name_option",
 		Form: &apps.Form{
 			Fields: []*apps.Field{
 				{
-					Name:  "text",
+					Name:  "select",
 					Type:  apps.FieldTypeStaticSelect,
-					Label: "text",
+					Label: "select",
 					SelectStaticOptions: []apps.SelectOption{
 						{
 							Label: "",
