@@ -15,6 +15,22 @@
         "act_as_user",
         "act_as_admin"
     ],
+    "on_install": {
+        "path": "/install",
+        "type": "",
+        "expand": {
+            "app": "all",
+            "acting_user": "all",
+            "acting_user_access_token": "all",
+            "admin_access_token": "all",
+            "channel": "all",
+            "mentioned": "all",
+            "parent_post": "all",
+            "post": "all",
+            "root_post": "all",
+            "team": "all"
+        }
+    },
     "bindings": {
         "path": "/bindings",
         "type": "",

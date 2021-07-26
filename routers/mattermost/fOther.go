@@ -132,6 +132,13 @@ func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
 		Dialog: model.Dialog{
 			Title:            "Test",
 			IntroductionText: "Do not submit this dialog, it will fail.",
+			Elements: []model.DialogElement{
+				{
+					DisplayName: "foo",
+					Name:        "foo",
+					Type:        "text",
+				},
+			},
 		},
 	})
 	utils.DumpObject(resp)

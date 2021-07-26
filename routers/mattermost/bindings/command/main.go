@@ -23,7 +23,7 @@ func Get(context *apps.Context) *apps.Binding {
 		},
 	}
 
-	if context.ChannelID == "town-square" {
+	if context.Channel.Name == "town-square" {
 		base.Bindings = append(base.Bindings, &apps.Binding{
 			Location: "town_square",
 			Label:    "town_square",

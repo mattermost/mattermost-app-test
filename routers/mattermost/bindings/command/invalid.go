@@ -21,7 +21,8 @@ func getInvalid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithNoLabel(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithNoCall(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
-
+	base.Bindings = append(base.Bindings, getNoNameField(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithNoOptionNames(siteURL, appID))
 	return base
 }
 
@@ -103,6 +104,35 @@ func getWithSameOptionNames(_, _ string) *apps.Binding {
 	}
 }
 
+func getWithNoOptionNames(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "with_no_option_names",
+		Label:    "with_no_option_names",
+		Form: &apps.Form{
+			Fields: []*apps.Field{
+				{
+					Name:  "text",
+					Type:  apps.FieldTypeStaticSelect,
+					Label: "text",
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "",
+							Value: "",
+						},
+						{
+							Label: "static value 1",
+							Value: "sv2",
+						},
+					},
+				},
+			},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathOK,
+		},
+	}
+}
+
 func getWithMultiwordCommand(_, _ string) *apps.Binding {
 	return &apps.Binding{
 		Location: "with_multiword_command",
@@ -122,6 +152,25 @@ func getWithMultiwordField(_, _ string) *apps.Binding {
 			Fields: []*apps.Field{
 				{
 					Name:  "multiword field",
+					Type:  apps.FieldTypeText,
+					Label: "multiword field",
+				},
+			},
+		},
+		Call: &apps.Call{
+			Path: constants.BindingPathOK,
+		},
+	}
+}
+
+func getNoNameField(_, _ string) *apps.Binding {
+	return &apps.Binding{
+		Location: "with_noname_field",
+		Label:    "with_noname_field",
+		Form: &apps.Form{
+			Fields: []*apps.Field{
+				{
+					Name:  "",
 					Type:  apps.FieldTypeText,
 					Label: "multiword field",
 				},

@@ -1,6 +1,9 @@
 package postaction
 
-import "github.com/mattermost/mattermost-plugin-apps/apps"
+import (
+	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-plugin-apps/apps"
+)
 
 func Get(context *apps.Context) *apps.Binding {
 	siteURL := context.MattermostSiteURL
@@ -8,6 +11,19 @@ func Get(context *apps.Context) *apps.Binding {
 	out := &apps.Binding{
 		Location: apps.LocationPostMenu,
 		Bindings: []*apps.Binding{},
+	}
+
+	if context.Channel.Name == "town-square" {
+		out.Bindings = append(out.Bindings, &apps.Binding{
+			Location: "town_square",
+			Label:    "town_square",
+			Form: &apps.Form{
+				Fields: []*apps.Field{},
+			},
+			Call: &apps.Call{
+				Path: constants.BindingPathOK,
+			},
+		})
 	}
 
 	out.Bindings = append(out.Bindings, getValid(siteURL, appID)...)
