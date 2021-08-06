@@ -2,6 +2,7 @@ package mattermost
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/mattermost/mattermost-app-test/utils"
@@ -52,7 +53,8 @@ func fSubscriptionsCommandBotMention(m *apps.Manifest) func(http.ResponseWriter,
 			message = "Successfully unsubscribed from bot_mention notifications."
 		}
 
-		utils.WriteCallStandardResponse(w, message)
+		resp := fmt.Sprintf("```\n%s\n```\n%s", c.RawCommand, message)
+		utils.WriteCallStandardResponse(w, resp)
 	}
 }
 
