@@ -14,7 +14,6 @@ import (
 	"strings"
 
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/server/utils/md"
 )
 
 var ErrNoHost = errors.New("invalid URL, no hostname")
@@ -106,7 +105,7 @@ func WriteCallStandardResponse(w http.ResponseWriter, message string) {
 func newCallStandardResponse(message string) apps.CallResponse {
 	return apps.CallResponse{
 		Type:     apps.CallResponseTypeOK,
-		Markdown: md.MD(message),
+		Markdown: message,
 	}
 }
 

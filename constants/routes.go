@@ -50,4 +50,7 @@ const (
 	OtherOpenDialogEphemeralResponse = "/EphemeralResponse"
 	OtherOpenDialogUpdateResponse    = "/UpdateResponse"
 	OtherOpenDialogBadResponse       = "/BadResponse"
+
+	SubscribeBotMention = "/subscribe/bot_mention"
+	NotifyBotMention    = "/notify/bot_mention"
 )

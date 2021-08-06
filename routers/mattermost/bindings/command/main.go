@@ -40,6 +40,7 @@ func Get(context *apps.Context) *apps.Binding {
 	base.Bindings = append(base.Bindings, getInvalid(siteURL, appID))
 	base.Bindings = append(base.Bindings, getError(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOthers(context))
+	base.Bindings = append(base.Bindings, getSubscribeCommands(context))
 
 	return out
 }
