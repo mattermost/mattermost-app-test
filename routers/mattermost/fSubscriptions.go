@@ -19,13 +19,13 @@ func fSubscriptionsCommandBotMention(m *apps.Manifest) func(http.ResponseWriter,
 
 		subscribe, _ := c.State.(bool)
 
-		message := ""
 		sub := &apps.Subscription{
 			Subject: apps.SubjectBotMentioned,
 			AppID:   context.AppID,
 			Call:    apps.NewCall("/notify/bot_mention"),
 		}
 
+		message := ""
 		if subscribe {
 			_, err := client.Subscribe(sub)
 			if err != nil {
@@ -53,23 +53,26 @@ func fSubscriptionsCommandBotMention(m *apps.Manifest) func(http.ResponseWriter,
 			message = "Successfully unsubscribed from bot_mention notifications."
 		}
 
-		resp := fmt.Sprintf("```\n%s\n```\n%s", c.RawCommand, message)
-		utils.WriteCallStandardResponse(w, resp)
+		member, _ := client.GetChannelMember(context.ChannelID, context.BotUserID, "")
+		if member == nil {
+			message += " I'm not a member of this channel so I won't be notified of posts mentioning me here."
+		} else {
+			message += " I'm a member of this channel so I will be notified of posts mentioning me here."
+		}
+
+		s := fmt.Sprintf("```\n%s\n```\n%s", c.RawCommand, message)
+		utils.WriteCallStandardResponse(w, s)
 	}
 }
 
 func fSubscriptionsBotMention(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-		publicResponse(c.Context, "Received bot mention")
+		client := mmclient.AsBot(c.Context)
+		client.CreatePost(&model.Post{
+			ChannelId: c.Context.ChannelID,
+			Message:   "Notify response",
+		})
 
 		utils.WriteCallStandardResponse(w, "Notify response")
 	}
-}
-
-func publicResponse(context *apps.Context, message string) {
-	client := mmclient.AsBot(context)
-	client.CreatePost(&model.Post{
-		ChannelId: context.ChannelID,
-		Message:   message,
-	})
 }
