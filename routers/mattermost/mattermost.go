@@ -11,6 +11,7 @@ import (
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+	"github.com/mattermost/mattermost-plugin-apps/utils/httputils"
 	"github.com/pkg/errors"
 )
 
@@ -66,6 +67,10 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	// Static files
 	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
 
+	// Subscriptions
+	router.HandleFunc(constants.SubscribeBotMention+"/submit", extractCall(fSubscriptionsCommandBotMention(m), localMode))
+	router.HandleFunc(constants.NotifyBotMention, extractCall(fSubscriptionsBotMention(m), localMode))
+
 	// OpenDialog
 	router.HandleFunc(constants.OtherPathOpenDialog+"/submit", extractCall(postOpenDialogTest(m), localMode))
 	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogNoResponse, postOpenDialogTestNoResponse)
@@ -73,6 +78,11 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEphemeralResponse, postOpenDialogTestEphemeralResponse)
 	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogUpdateResponse, postOpenDialogTestUpdateResponse)
 	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogBadResponse, postOpenDialogTestBadResponse)
+
+	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		err := errors.Errorf("path not found: %s", r.URL.Path)
+		httputils.WriteJSON(w, apps.NewErrorCallResponse(err))
+	})
 }
 
 func extractCall(f callHandler, localMode bool) http.HandlerFunc {
