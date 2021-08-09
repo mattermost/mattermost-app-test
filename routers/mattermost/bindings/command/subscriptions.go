@@ -5,46 +5,55 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getSubscribeCommands(context *apps.Context) *apps.Binding {
-	base := &apps.Binding{
-		Location: "subscriptions",
-		Label:    "subscriptions",
-		Bindings: []*apps.Binding{},
+func makeSubscriptionOption(subject apps.Subject) apps.SelectOption {
+	return apps.SelectOption{
+		Label: string(subject),
+		Value: string(subject),
 	}
-
-	base.Bindings = append(base.Bindings, getBotMentionCommand())
-
-	return base
 }
 
-func getBotMentionCommand() *apps.Binding {
+func getSubscribeCommand(context *apps.Context) *apps.Binding {
 	return &apps.Binding{
-		Location: "bot_mention",
-		Label:    "bot_mention",
-		Bindings: []*apps.Binding{
-			{
-				Location:    "subscribe",
-				Label:       "subscribe",
-				Description: "Subscribe to bot mention subscriptions",
-				Form:        &apps.Form{},
-				Call: &apps.Call{
-					Path:  constants.SubscribeBotMention,
-					State: true,
-					Expand: &apps.Expand{
-						AdminAccessToken: apps.ExpandAll,
-					},
+		Location: "subscriptions",
+		Label:    "subscriptions",
+		Form: &apps.Form{
+			Call: &apps.Call{
+				Path:  constants.SubscribeCommand,
+				State: true,
+				Expand: &apps.Expand{
+					AdminAccessToken: apps.ExpandAll,
 				},
 			},
-			{
-				Location:    "unsubscribe",
-				Label:       "unsubscribe",
-				Description: "Unsubscribe from bot mention subscriptions",
-				Form:        &apps.Form{},
-				Call: &apps.Call{
-					Path:  constants.SubscribeBotMention,
-					State: false,
-					Expand: &apps.Expand{
-						AdminAccessToken: apps.ExpandAll,
+			Fields: []*apps.Field{
+				{
+					Name:                 "subject",
+					Label:                "subject",
+					IsRequired:           true,
+					AutocompletePosition: 1,
+					Type:                 apps.FieldTypeStaticSelect,
+					SelectStaticOptions: []apps.SelectOption{
+						makeSubscriptionOption(apps.SubjectBotMentioned),
+						makeSubscriptionOption(apps.SubjectBotJoinedChannel),
+						makeSubscriptionOption(apps.SubjectBotLeftChannel),
+						makeSubscriptionOption(apps.SubjectBotJoinedTeam),
+						makeSubscriptionOption(apps.SubjectBotLeftTeam),
+					},
+				},
+				{
+					Name:                 "subscribe",
+					Label:                "subscribe",
+					IsRequired:           true,
+					AutocompletePosition: 2,
+					Type:                 apps.FieldTypeStaticSelect,
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "subscribe",
+							Value: "subscribe",
+						},
+						{
+							Label: "unsubscribe",
+							Value: "unsubscribe",
+						},
 					},
 				},
 			},

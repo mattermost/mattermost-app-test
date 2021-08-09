@@ -1,5 +1,7 @@
 package constants
 
+import "github.com/mattermost/mattermost-plugin-apps/apps"
+
 const (
 	ManifestPath = "/manifest"
 	InstallPath  = "/install"
@@ -51,6 +53,11 @@ const (
 	OtherOpenDialogUpdateResponse    = "/UpdateResponse"
 	OtherOpenDialogBadResponse       = "/BadResponse"
 
-	SubscribeBotMention = "/subscribe/bot_mention"
-	NotifyBotMention    = "/notify/bot_mention"
+	SubscribeCommand = "/subscribe"
+
+	NotifyBotMention       = "/notify/" + string(apps.SubjectBotMentioned)
+	NotifyBotJoinedChannel = "/notify/" + string(apps.SubjectBotJoinedChannel)
+	NotifyBotLeftChannel   = "/notify/" + string(apps.SubjectBotLeftChannel)
+	NotifyBotJoinedTeam    = "/notify/" + string(apps.SubjectBotJoinedTeam)
+	NotifyBotLeftTeam      = "/notify/" + string(apps.SubjectBotLeftTeam)
 )
