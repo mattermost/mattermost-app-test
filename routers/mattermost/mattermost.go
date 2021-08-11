@@ -67,9 +67,15 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	// Static files
 	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
 
-	// Subscriptions
-	router.HandleFunc(constants.SubscribeBotMention+"/submit", extractCall(fSubscriptionsCommandBotMention(m), localMode))
+	// Subscription Commands
+	router.HandleFunc(constants.SubscribeCommand+"/submit", extractCall(fSubscriptionsCommand(m), localMode))
+
+	// Notifications
 	router.HandleFunc(constants.NotifyBotMention, extractCall(fSubscriptionsBotMention(m), localMode))
+	router.HandleFunc(constants.NotifyBotJoinedChannel, extractCall(fSubscriptionsBotJoinedChannel(m), localMode))
+	router.HandleFunc(constants.NotifyBotLeftChannel, extractCall(fSubscriptionsBotLeftChannel(m), localMode))
+	router.HandleFunc(constants.NotifyBotJoinedTeam, extractCall(fSubscriptionsBotJoinedTeam(m), localMode))
+	router.HandleFunc(constants.NotifyBotLeftTeam, extractCall(fSubscriptionsBotLeftTeam(m), localMode))
 
 	// OpenDialog
 	router.HandleFunc(constants.OtherPathOpenDialog+"/submit", extractCall(postOpenDialogTest(m), localMode))
