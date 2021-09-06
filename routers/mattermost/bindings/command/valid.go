@@ -35,6 +35,7 @@ func getValid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getOpenFormWithButtons(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenMarkdownForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenMarkdownFormWithMissingFieldError(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithCallInForm(siteURL, appID))
 
 	return base
 }
@@ -522,6 +523,26 @@ func getMultiselectCommand(_, _ string) *apps.Binding {
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathOK,
+		},
+	}
+}
+
+func getWithCallInForm(siteURL, appID string) *apps.Binding {
+	return &apps.Binding{
+		Location: "callInForm",
+		Label:    "callInForm",
+		Form: &apps.Form{
+			Title: "Some form",
+			Fields: []*apps.Field{
+				{
+					Name:  "foo",
+					Type:  apps.FieldTypeText,
+					Label: "foo",
+				},
+			},
+			Call: &apps.Call{
+				Path: constants.BindingPathOK,
+			},
 		},
 	}
 }

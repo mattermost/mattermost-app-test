@@ -18,7 +18,7 @@ func getValid(siteURL, appID string) []*apps.Binding {
 	base = append(base, getWithNavigateExternal(siteURL, appID))
 	base = append(base, getWithNavigateInternal(siteURL, appID))
 	base = append(base, getWithoutIcon(siteURL, appID))
-
+	base = append(base, getWithFormInBinding(siteURL, appID))
 	return base
 }
 
@@ -97,6 +97,29 @@ func getWithOK(siteURL, appID string) *apps.Binding {
 		Icon:     icon,
 		Call: &apps.Call{
 			Path: constants.BindingPathOK,
+		},
+	}
+}
+
+func getWithFormInBinding(siteURL, appID string) *apps.Binding {
+	icon := utils.GetIconURL(siteURL, "icon.png", appID)
+
+	return &apps.Binding{
+		Location: "formInBinding",
+		Label:    "formInBinding",
+		Icon:     icon,
+		Call: &apps.Call{
+			Path: constants.BindingPathOK,
+		},
+		Form: &apps.Form{
+			Title: "Some form",
+			Fields: []*apps.Field{
+				{
+					Name:  "foo",
+					Type:  apps.FieldTypeText,
+					Label: "foo",
+				},
+			},
 		},
 	}
 }
