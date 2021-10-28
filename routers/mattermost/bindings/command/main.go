@@ -6,29 +6,29 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func Get(context *apps.Context) *apps.Binding {
+func Get(context apps.Context) apps.Binding {
 	siteURL := context.MattermostSiteURL
 	appID := string(context.AppID)
-	base := &apps.Binding{
+	base := apps.Binding{
 		Label:       constants.CommandTrigger,
 		Description: "Test commands",
 		Location:    constants.CommandTrigger,
 		Icon:        utils.GetIconURL(siteURL, "icon.png", appID),
-		Bindings:    []*apps.Binding{},
+		Bindings:    []apps.Binding{},
 	}
-	out := &apps.Binding{
+	out := apps.Binding{
 		Location: apps.LocationCommand,
-		Bindings: []*apps.Binding{
+		Bindings: []apps.Binding{
 			base,
 		},
 	}
 
 	if context.Channel.Name == "town-square" {
-		base.Bindings = append(base.Bindings, &apps.Binding{
+		base.Bindings = append(base.Bindings, apps.Binding{
 			Location: "town_square",
 			Label:    "town_square",
 			Form: &apps.Form{
-				Fields: []*apps.Field{},
+				Fields: []apps.Field{},
 			},
 			Call: &apps.Call{
 				Path: constants.BindingPathOK,

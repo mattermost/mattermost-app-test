@@ -5,20 +5,20 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func Get(context *apps.Context) *apps.Binding {
+func Get(context apps.Context) apps.Binding {
 	siteURL := context.MattermostSiteURL
 	appID := string(context.AppID)
-	out := &apps.Binding{
+	out := apps.Binding{
 		Location: apps.LocationPostMenu,
-		Bindings: []*apps.Binding{},
+		Bindings: []apps.Binding{},
 	}
 
 	if context.Channel.Name == "town-square" {
-		out.Bindings = append(out.Bindings, &apps.Binding{
+		out.Bindings = append(out.Bindings, apps.Binding{
 			Location: "town_square",
 			Label:    "town_square",
 			Form: &apps.Form{
-				Fields: []*apps.Field{},
+				Fields: []apps.Field{},
 			},
 			Call: &apps.Call{
 				Path: constants.BindingPathOK,

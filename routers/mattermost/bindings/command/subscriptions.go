@@ -12,8 +12,8 @@ func makeSubscriptionOption(subject apps.Subject) apps.SelectOption {
 	}
 }
 
-func getSubscribeCommand(context *apps.Context) *apps.Binding {
-	return &apps.Binding{
+func getSubscribeCommand(context apps.Context) apps.Binding {
+	return apps.Binding{
 		Location: "subscriptions",
 		Label:    "subscriptions",
 		Form: &apps.Form{
@@ -24,7 +24,7 @@ func getSubscribeCommand(context *apps.Context) *apps.Binding {
 					AdminAccessToken: apps.ExpandAll,
 				},
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:                 "subject",
 					Label:                "subject",

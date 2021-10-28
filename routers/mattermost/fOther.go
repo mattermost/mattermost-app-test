@@ -7,8 +7,8 @@ import (
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
+	"github.com/mattermost/mattermost-server/v6/model"
 )
 
 func fUnknown(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
@@ -36,9 +36,9 @@ func fHTML(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 
 func postOpenDialogTest(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-		url := m.HTTPRootURL
+		url := m.HTTP.RootURL
 		context := c.Context
-		client := mmclient.AsActingUser(context)
+		client := appclient.AsActingUser(context)
 		post := &model.Post{
 			ChannelId: context.ChannelID,
 			Message:   "TEST",
@@ -108,7 +108,8 @@ func postOpenDialogTest(m *apps.Manifest) func(http.ResponseWriter, *http.Reques
 }
 
 func postOpenDialogTestNoResponse(w http.ResponseWriter, r *http.Request) {
-	req := model.PostActionIntegrationRequestFromJson(r.Body)
+	var req model.PostActionIntegrationRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
 	url := req.Context["url"].(string)
 	client := model.NewAPIv4Client(url)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
@@ -123,7 +124,8 @@ func postOpenDialogTestNoResponse(w http.ResponseWriter, r *http.Request) {
 }
 
 func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
-	req := model.PostActionIntegrationRequestFromJson(r.Body)
+	var req model.PostActionIntegrationRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
 	url := req.Context["url"].(string)
 	client := model.NewAPIv4Client(url)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
@@ -146,7 +148,8 @@ func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
 }
 
 func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request) {
-	req := model.PostActionIntegrationRequestFromJson(r.Body)
+	var req model.PostActionIntegrationRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
 	url := req.Context["url"].(string)
 	client := model.NewAPIv4Client(url)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
@@ -165,7 +168,8 @@ func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request)
 }
 
 func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
-	req := model.PostActionIntegrationRequestFromJson(r.Body)
+	var req model.PostActionIntegrationRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
 	url := req.Context["url"].(string)
 	client := model.NewAPIv4Client(url)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{
@@ -186,7 +190,8 @@ func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
 }
 
 func postOpenDialogTestBadResponse(w http.ResponseWriter, r *http.Request) {
-	req := model.PostActionIntegrationRequestFromJson(r.Body)
+	var req model.PostActionIntegrationRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
 	url := req.Context["url"].(string)
 	client := model.NewAPIv4Client(url)
 	_, resp := client.OpenInteractiveDialog(model.OpenDialogRequest{

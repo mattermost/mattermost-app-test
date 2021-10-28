@@ -6,8 +6,8 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getValid(siteURL, appID string) []*apps.Binding {
-	base := []*apps.Binding{}
+func getValid(siteURL, appID string) []apps.Binding {
+	base := []apps.Binding{}
 
 	base = append(base, getWithOK(siteURL, appID))
 	base = append(base, getWithEmptyOK(siteURL, appID))
@@ -21,10 +21,10 @@ func getValid(siteURL, appID string) []*apps.Binding {
 	return base
 }
 
-func getWithOK(siteURL, appID string) *apps.Binding {
+func getWithOK(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_ok",
 		Label:    "with_ok",
 		Icon:     icon,
@@ -34,10 +34,10 @@ func getWithOK(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithEmptyOK(siteURL, appID string) *apps.Binding {
+func getWithEmptyOK(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_empty_ok",
 		Label:    "with_empty_ok",
 		Icon:     icon,
@@ -47,10 +47,10 @@ func getWithEmptyOK(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithForm(siteURL, appID string) *apps.Binding {
+func getWithForm(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_form",
 		Label:    "with_form",
 		Icon:     icon,
@@ -60,10 +60,10 @@ func getWithForm(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithFullForm(siteURL, appID string) *apps.Binding {
+func getWithFullForm(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_full_form",
 		Label:    "with_full_form",
 		Icon:     icon,
@@ -73,10 +73,10 @@ func getWithFullForm(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithDynamicForm(siteURL, appID string) *apps.Binding {
+func getWithDynamicForm(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_dynamic_form",
 		Label:    "with_dynamic_form",
 		Icon:     icon,
@@ -86,10 +86,10 @@ func getWithDynamicForm(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithNavigateExternal(siteURL, appID string) *apps.Binding {
+func getWithNavigateExternal(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_navigate_external",
 		Label:    "with_navigate_external",
 		Icon:     icon,
@@ -99,10 +99,10 @@ func getWithNavigateExternal(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithNavigateInternal(siteURL, appID string) *apps.Binding {
+func getWithNavigateInternal(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "with_naviate_internal",
 		Label:    "with_naviate_internal",
 		Icon:     icon,
@@ -112,10 +112,10 @@ func getWithNavigateInternal(siteURL, appID string) *apps.Binding {
 	}
 }
 
-func getWithFormInBinding(siteURL, appID string) *apps.Binding {
+func getWithFormInBinding(siteURL, appID string) apps.Binding {
 	icon := utils.GetIconURL(siteURL, "icon.png", appID)
 
-	return &apps.Binding{
+	return apps.Binding{
 		Location: "formInBinding",
 		Label:    "formInBinding",
 		Icon:     icon,
@@ -124,7 +124,7 @@ func getWithFormInBinding(siteURL, appID string) *apps.Binding {
 		},
 		Form: &apps.Form{
 			Title: "Some form",
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "foo",
 					Type:  apps.FieldTypeText,

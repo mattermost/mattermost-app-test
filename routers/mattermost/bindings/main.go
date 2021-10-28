@@ -7,8 +7,8 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func Get(context *apps.Context) []*apps.Binding {
-	out := []*apps.Binding{}
+func Get(context apps.Context) []apps.Binding {
+	out := []apps.Binding{}
 
 	out = append(out, command.Get(context))
 	out = append(out, channelheader.Get(context))

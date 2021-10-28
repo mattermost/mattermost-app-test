@@ -87,7 +87,7 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 
 	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := errors.Errorf("path not found: %s", r.URL.Path)
-		httputils.WriteJSON(w, apps.NewErrorCallResponse(err))
+		httputils.WriteJSON(w, apps.NewErrorResponse(err))
 	})
 }
 

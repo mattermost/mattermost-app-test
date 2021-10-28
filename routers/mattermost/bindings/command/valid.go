@@ -5,11 +5,11 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getValid(siteURL, appID string) *apps.Binding {
-	base := &apps.Binding{
+func getValid(siteURL, appID string) apps.Binding {
+	base := apps.Binding{
 		Location: "valid",
 		Label:    "valid",
-		Bindings: []*apps.Binding{},
+		Bindings: []apps.Binding{},
 	}
 
 	base.Bindings = append(base.Bindings, getWithEmptyForm(siteURL, appID))
@@ -40,12 +40,12 @@ func getValid(siteURL, appID string) *apps.Binding {
 	return base
 }
 
-func getWithEmptyForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithEmptyForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "empty_form",
 		Label:    "empty_form",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathOK,
@@ -53,12 +53,12 @@ func getWithEmptyForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_form",
 		Label:    "with_form",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "text",
 					Type:  apps.FieldTypeText,
@@ -72,8 +72,8 @@ func getWithForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithoutForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithoutForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "no_form",
 		Label:    "no_form",
 		Call: &apps.Call{
@@ -82,8 +82,8 @@ func getWithoutForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getRedefineForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getRedefineForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "redefine_form",
 		Label:    "redefine_form",
 		Call: &apps.Call{
@@ -92,23 +92,23 @@ func getRedefineForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getEmbeddedForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getEmbeddedForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "embedded_form",
 		Label:    "embedded_form",
-		Form:     &apps.Form{Fields: []*apps.Field{}},
+		Form:     &apps.Form{Fields: []apps.Field{}},
 		Call: &apps.Call{
 			Path: constants.BindingPathEmbeddedFormOK,
 		},
 	}
 }
 
-func getWithLookup(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithLookup(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "lookup",
 		Label:    "lookup",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "lookup",
 					Type:  apps.FieldTypeDynamicSelect,
@@ -122,12 +122,12 @@ func getWithLookup(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithEmptyLookup(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithEmptyLookup(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "empty_lookup",
 		Label:    "empty_lookup",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "lookup",
 					Type:  apps.FieldTypeDynamicSelect,
@@ -141,12 +141,12 @@ func getWithEmptyLookup(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithFullForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithFullForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "full_form",
 		Label:    "full_form",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "lookup",
 					Type:  apps.FieldTypeDynamicSelect,
@@ -248,12 +248,12 @@ func getWithFullForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithNoOptionStatic(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithNoOptionStatic(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "no_option_static",
 		Label:    "no_option_static",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:                "static",
 					Type:                apps.FieldTypeStaticSelect,
@@ -268,12 +268,12 @@ func getWithNoOptionStatic(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithInternalNavResponse(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithInternalNavResponse(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "external_nav",
 		Label:    "external_nav",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathNavigateExternal,
@@ -281,12 +281,12 @@ func getWithInternalNavResponse(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithExternalNavResponse(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithExternalNavResponse(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "internal_nav",
 		Label:    "internal_nav",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathNavigateInternal,
@@ -294,12 +294,12 @@ func getWithExternalNavResponse(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithFormResponse(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithFormResponse(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_form_response",
 		Label:    "with_form_response",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "text",
 					Type:  apps.FieldTypeText,
@@ -313,12 +313,12 @@ func getWithFormResponse(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithRequiredFields(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithRequiredFields(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_required_fields",
 		Label:    "with_required_fields",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "text",
 					Type:  apps.FieldTypeText,
@@ -338,12 +338,12 @@ func getWithRequiredFields(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordOption(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithMultiwordOption(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_multiword_option",
 		Label:    "with_multiword_option",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "static",
 					Type:  apps.FieldTypeStaticSelect,
@@ -367,12 +367,12 @@ func getWithMultiwordOption(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordDynamicOption(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithMultiwordDynamicOption(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_multiword_dynamic_option",
 		Label:    "with_multiword_dynamic_option",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "dynamic",
 					Type:  apps.FieldTypeDynamicSelect,
@@ -386,12 +386,12 @@ func getWithMultiwordDynamicOption(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenFullFormModal(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenFullFormModal(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_full_form_modal",
 		Label:    "open_full_form_modal",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathFullFormOK,
@@ -399,12 +399,12 @@ func getOpenFullFormModal(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenFullFormDisabledModal(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenFullFormDisabledModal(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_full_form_disabled_modal",
 		Label:    "open_full_form_disabled_modal",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathFullDisabledOK,
@@ -412,12 +412,12 @@ func getOpenFullFormDisabledModal(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenDynamicFormModal(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenDynamicFormModal(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_dynamic_form_modal",
 		Label:    "open_dynamic_form_modal",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathDynamicFormOK,
@@ -425,12 +425,12 @@ func getOpenDynamicFormModal(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenFormWithButtons(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenFormWithButtons(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_form_with_buttons",
 		Label:    "open_form_with_buttons",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathWithButtonsOK,
@@ -438,12 +438,12 @@ func getOpenFormWithButtons(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenMultiselectForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenMultiselectForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_multiselect_form_modal",
 		Label:    "open_multiselect_form_modal",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathMultiselectForm,
@@ -451,12 +451,12 @@ func getOpenMultiselectForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenMarkdownForm(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenMarkdownForm(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_markdown_form_modal",
 		Label:    "open_markdown_form_modal",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathMarkdownForm,
@@ -464,12 +464,12 @@ func getOpenMarkdownForm(_, _ string) *apps.Binding {
 	}
 }
 
-func getOpenMarkdownFormWithMissingFieldError(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getOpenMarkdownFormWithMissingFieldError(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "open_markdown_form_modal_missing_error",
 		Label:    "open_markdown_form_modal_missing_error",
 		Form: &apps.Form{
-			Fields: []*apps.Field{},
+			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
 			Path: constants.BindingPathMarkdownFormWithMissingError,
@@ -477,12 +477,12 @@ func getOpenMarkdownFormWithMissingFieldError(_, _ string) *apps.Binding {
 	}
 }
 
-func getMultiselectCommand(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getMultiselectCommand(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "multiselect_command",
 		Label:    "multiselect_command",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:          "static",
 					Type:          apps.FieldTypeStaticSelect,
@@ -527,13 +527,13 @@ func getMultiselectCommand(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithCallInForm(siteURL, appID string) *apps.Binding {
-	return &apps.Binding{
+func getWithCallInForm(siteURL, appID string) apps.Binding {
+	return apps.Binding{
 		Location: "callInForm",
 		Label:    "callInForm",
 		Form: &apps.Form{
 			Title: "Some form",
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "foo",
 					Type:  apps.FieldTypeText,

@@ -7,8 +7,8 @@ import (
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
+	"github.com/mattermost/mattermost-server/v6/model"
 	"github.com/pkg/errors"
 )
 
@@ -57,7 +57,7 @@ func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					Team: apps.ExpandSummary,
 				},
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:       "text",
 					Type:       apps.FieldTypeText,
@@ -84,7 +84,7 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 			Call: &apps.Call{
 				Path: constants.BindingPathLookupOK,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "lookup",
 					Type:  apps.FieldTypeDynamicSelect,
@@ -266,7 +266,7 @@ func fFullFormDisabledOK(w http.ResponseWriter, r *http.Request, c *apps.CallReq
 			Call: &apps.Call{
 				Path: constants.BindingPathLookupOK,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:     "lookup",
 					Type:     apps.FieldTypeDynamicSelect,
@@ -327,10 +327,10 @@ func fFullFormDisabledOK(w http.ResponseWriter, r *http.Request, c *apps.CallReq
 
 func fDynamicFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	numFields := len(c.Values)
-	fields := []*apps.Field{}
+	fields := []apps.Field{}
 
 	for i := 0; i < numFields+5; i++ {
-		fields = append(fields, &apps.Field{
+		fields = append(fields, apps.Field{
 			Name:          fmt.Sprintf("static%v", i),
 			Type:          apps.FieldTypeStaticSelect,
 			Label:         fmt.Sprintf("static%v", i),
@@ -379,12 +379,12 @@ func fFormRedefine(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 	iters = (iters + 1) % maxIterations
 	iterationsPerChannelID[cid] = iters
 
-	fields := []*apps.Field{}
+	fields := []apps.Field{}
 
 	for i := 0; i < iters; i++ {
 		name := fmt.Sprintf("text%v", i)
 
-		fields = append(fields, &apps.Field{
+		fields = append(fields, apps.Field{
 			Name:       name,
 			Type:       apps.FieldTypeText,
 			Label:      name,
@@ -415,7 +415,7 @@ func fFormMultiselect(w http.ResponseWriter, r *http.Request, c *apps.CallReques
 			Call: &apps.Call{
 				Path: constants.BindingPathOK,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:          "static",
 					Type:          apps.FieldTypeStaticSelect,
@@ -459,12 +459,12 @@ func fFormMultiselect(w http.ResponseWriter, r *http.Request, c *apps.CallReques
 }
 
 func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	client := mmclient.AsBot(c.Context)
+	client := appclient.AsBot(c.Context)
 	p := &model.Post{
 		ChannelId: c.Context.ChannelID,
 	}
 
-	p.AddProp(apps.PropAppBindings, []*apps.Binding{
+	p.AddProp(apps.PropAppBindings, []apps.Binding{
 		{
 			Location: "embedded",
 			Form: &apps.Form{
@@ -473,17 +473,17 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 				Call: &apps.Call{
 					Path: constants.BindingPathOK,
 				},
-				Fields: []*apps.Field{},
+				Fields: []apps.Field{},
 			},
 			AppID:       c.Context.AppID,
 			Description: "Please fill out this form so we can get it fixed  :hammer_and_wrench:",
-			Bindings: []*apps.Binding{
+			Bindings: []apps.Binding{
 				{
 					Location: "problem",
 					Call: &apps.Call{
 						Path: constants.BindingPathOK,
 					},
-					Bindings: []*apps.Binding{
+					Bindings: []apps.Binding{
 						{
 							Location: "hardware",
 							Label:    "Hardware Failure",
@@ -503,7 +503,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 					Call: &apps.Call{
 						Path: constants.BindingPathOK,
 					},
-					Bindings: []*apps.Binding{
+					Bindings: []apps.Binding{
 						{
 							Location: "work",
 							Label:    "Cell Phone",
@@ -538,7 +538,7 @@ func fFormWithButtonsOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequ
 		case "add_buttons":
 			numButtons++
 		case "error":
-			utils.WriteCallResponse(w, *apps.NewErrorCallResponse(errors.New("You caused an error :)")))
+			utils.WriteCallResponse(w, apps.NewErrorResponse(errors.New("You caused an error :)")))
 		}
 	}
 
@@ -570,7 +570,7 @@ func fFormWithButtonsOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequ
 				Path:  constants.BindingPathWithButtonsOK,
 				State: numButtons,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:                "submit",
 					Type:                apps.FieldTypeStaticSelect,
@@ -593,7 +593,7 @@ func fFormWithMarkdownError(w http.ResponseWriter, r *http.Request, c *apps.Call
 			Call: &apps.Call{
 				Path: constants.BindingPathMarkdownFormError,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "static",
 					Type:  apps.FieldTypeStaticSelect,
@@ -653,7 +653,7 @@ func fFormWithMarkdownErrorMissingField(w http.ResponseWriter, r *http.Request, 
 			Call: &apps.Call{
 				Path: constants.BindingPathMarkdownFormErrorMissingField,
 			},
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "static",
 					Type:  apps.FieldTypeStaticSelect,

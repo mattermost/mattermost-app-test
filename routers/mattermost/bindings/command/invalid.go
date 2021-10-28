@@ -5,11 +5,11 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid(siteURL, appID string) *apps.Binding {
-	base := &apps.Binding{
+func getInvalid(siteURL, appID string) apps.Binding {
+	base := apps.Binding{
 		Location: "invalid",
 		Label:    "invalid",
-		Bindings: []*apps.Binding{},
+		Bindings: []apps.Binding{},
 	}
 
 	base.Bindings = append(base.Bindings, getWithSameCommand(siteURL, appID))
@@ -23,14 +23,15 @@ func getInvalid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
 	base.Bindings = append(base.Bindings, getNoNameField(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithNoNameOption(siteURL, appID))
+
 	return base
 }
 
-func getWithSameCommand(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithSameCommand(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_same_command",
 		Label:    "with_same_command",
-		Bindings: []*apps.Binding{
+		Bindings: []apps.Binding{
 			{
 				Location: "command1",
 				Label:    "Command",
@@ -51,12 +52,12 @@ func getWithSameCommand(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithSameFieldNames(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithSameFieldNames(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_same_field_names",
 		Label:    "with_same_field_names",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "text1",
 					Type:  apps.FieldTypeText,
@@ -75,12 +76,12 @@ func getWithSameFieldNames(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithSameOptionNames(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithSameOptionNames(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_same_option_names",
 		Label:    "with_same_option_names",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "select",
 					Type:  apps.FieldTypeStaticSelect,
@@ -104,12 +105,12 @@ func getWithSameOptionNames(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithNoNameOption(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithNoNameOption(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_no_name_option",
 		Label:    "with_no_name_option",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "select",
 					Type:  apps.FieldTypeStaticSelect,
@@ -133,8 +134,8 @@ func getWithNoNameOption(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordCommand(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithMultiwordCommand(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_multiword_command",
 		Label:    "with_multiword command",
 		Form:     &apps.Form{},
@@ -144,12 +145,12 @@ func getWithMultiwordCommand(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithMultiwordField(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithMultiwordField(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_multiword_field",
 		Label:    "with_multiword_field",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "multiword field",
 					Type:  apps.FieldTypeText,
@@ -163,12 +164,12 @@ func getWithMultiwordField(_, _ string) *apps.Binding {
 	}
 }
 
-func getNoNameField(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getNoNameField(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_noname_field",
 		Label:    "with_noname_field",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "",
 					Type:  apps.FieldTypeText,
@@ -182,8 +183,8 @@ func getNoNameField(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithWhitespaceLabel(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "ERROR_with_whitespace_label",
 		Label:    " ",
 		Form:     &apps.Form{},
@@ -193,8 +194,8 @@ func getWithWhitespaceLabel(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithNoLabel(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithNoLabel(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
@@ -203,20 +204,20 @@ func getWithNoLabel(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithNoCall(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithNoCall(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
 		Form:     &apps.Form{},
 	}
 }
 
-func getWithInvalidLookup(_, _ string) *apps.Binding {
-	return &apps.Binding{
+func getWithInvalidLookup(_, _ string) apps.Binding {
+	return apps.Binding{
 		Location: "with_invalid_lookup",
 		Label:    "with_invalid_lookup",
 		Form: &apps.Form{
-			Fields: []*apps.Field{
+			Fields: []apps.Field{
 				{
 					Name:  "dynamic",
 					Type:  apps.FieldTypeDynamicSelect,

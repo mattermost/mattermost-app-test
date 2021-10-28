@@ -8,8 +8,8 @@ import (
 
 	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
+	"github.com/mattermost/mattermost-server/v6/model"
 	"github.com/pkg/errors"
 )
 
@@ -44,7 +44,7 @@ func unmarshalSubscriptionsCommandFormValues(form map[string]interface{}) (*Subs
 func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		context := c.Context
-		client := mmclient.AsAdmin(context)
+		client := appclient.AsAdmin(context)
 
 		values, err := unmarshalSubscriptionsCommandFormValues(c.Values)
 		if err != nil {
@@ -69,7 +69,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 				b, _ := json.Marshal(c)
 
 				err = errors.Wrap(err, string(b))
-				cr := apps.NewErrorCallResponse(err)
+				cr := apps.NewErrorResponse(err)
 				json.NewEncoder(w).Encode(cr)
 
 				return
@@ -80,7 +80,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 			_, err := client.Unsubscribe(sub)
 			if err != nil {
 				err = errors.Wrapf(err, "failed to unsubscribe from %v notifications.", values.Subject)
-				cr := apps.NewErrorCallResponse(err)
+				cr := apps.NewErrorResponse(err)
 				json.NewEncoder(w).Encode(cr)
 
 				return
@@ -90,7 +90,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 		}
 
 		if values.Subject.Value == apps.SubjectBotMentioned {
-			member, _ := client.GetChannelMember(context.ChannelID, context.BotUserID, "")
+			member, _, _ := client.GetChannelMember(context.ChannelID, context.BotUserID, "")
 			if member == nil {
 				message += " I'm not a member of this channel so I won't be notified of posts mentioning me here."
 			} else {
@@ -106,7 +106,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 func fSubscriptionsBotMention(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		message := "Received `bot_mentioned` notification"
-		client := mmclient.AsBot(c.Context)
+		client := appclient.AsBot(c.Context)
 
 		rootID := c.Context.PostID
 		if c.Context.RootPostID != "" {
@@ -130,7 +130,7 @@ func fSubscriptionsBotMention(m *apps.Manifest) func(http.ResponseWriter, *http.
 func fSubscriptionsBotJoinedChannel(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		message := "Received `bot_joined_channel` notification"
-		client := mmclient.AsBot(c.Context)
+		client := appclient.AsBot(c.Context)
 
 		_, err := client.CreatePost(&model.Post{
 			ChannelId: c.Context.ChannelID,
@@ -148,7 +148,7 @@ func fSubscriptionsBotJoinedChannel(m *apps.Manifest) func(http.ResponseWriter, 
 func fSubscriptionsBotLeftChannel(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		message := "Received `bot_left_channel` notification"
-		client := mmclient.AsBot(c.Context)
+		client := appclient.AsBot(c.Context)
 
 		_, err := client.DM(c.Context.ActingUserID, message)
 		if err != nil {
@@ -162,12 +162,12 @@ func fSubscriptionsBotLeftChannel(m *apps.Manifest) func(http.ResponseWriter, *h
 func fSubscriptionsBotJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		message := "Received `bot_joined_team` notification"
-		client := mmclient.AsBot(c.Context)
+		client := appclient.AsBot(c.Context)
 
-		channel, resp := client.GetChannelByName("town-square", c.Context.TeamID, "")
-		if resp.Error != nil {
-			log.Println(resp.Error.Error())
-			message += ", but failed to get Town Square channel: " + resp.Error.Error()
+		channel, _, err := client.GetChannelByName("town-square", c.Context.TeamID, "")
+		if err != nil {
+			log.Println(err.Error())
+			message += ", but failed to get Town Square channel: " + err.Error()
 
 			_, err := client.DM(c.Context.ActingUserID, message)
 			if err != nil {
@@ -179,7 +179,7 @@ func fSubscriptionsBotJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *ht
 			return
 		}
 
-		_, err := client.CreatePost(&model.Post{
+		_, err = client.CreatePost(&model.Post{
 			ChannelId: channel.Id,
 			Message:   message,
 		})
@@ -195,7 +195,7 @@ func fSubscriptionsBotJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *ht
 func fSubscriptionsBotLeftTeam(m *apps.Manifest) func(http.ResponseWriter, *http.Request, *apps.CallRequest) {
 	return func(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 		message := "Received `bot_left_team` notification"
-		client := mmclient.AsBot(c.Context)
+		client := appclient.AsBot(c.Context)
 
 		_, err := client.DM(c.Context.ActingUserID, message)
 		if err != nil {

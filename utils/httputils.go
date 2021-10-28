@@ -58,7 +58,7 @@ func WriteCallResponse(w http.ResponseWriter, v apps.CallResponse) {
 	writeJSON(w, v)
 }
 
-func WriteBindings(w http.ResponseWriter, v []*apps.Binding) {
+func WriteBindings(w http.ResponseWriter, v []apps.Binding) {
 	call := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: v,
@@ -72,6 +72,7 @@ func WriteManifest(w http.ResponseWriter, v apps.Manifest) {
 
 func writeJSON(w http.ResponseWriter, v interface{}) {
 	w.Header().Set("Content-Type", "application/json")
+
 	err := json.NewEncoder(w).Encode(v)
 	if err != nil {
 		log.Printf("Error encoding: %v", err)

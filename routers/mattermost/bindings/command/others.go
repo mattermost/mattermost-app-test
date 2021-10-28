@@ -5,11 +5,11 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getOthers(context *apps.Context) *apps.Binding {
-	base := &apps.Binding{
+func getOthers(context apps.Context) apps.Binding {
+	base := apps.Binding{
 		Location: "others",
 		Label:    "others",
-		Bindings: []*apps.Binding{},
+		Bindings: []apps.Binding{},
 	}
 
 	base.Bindings = append(base.Bindings, getPostOpenDialogTest())
@@ -17,8 +17,8 @@ func getOthers(context *apps.Context) *apps.Binding {
 	return base
 }
 
-func getPostOpenDialogTest() *apps.Binding {
-	return &apps.Binding{
+func getPostOpenDialogTest() apps.Binding {
+	return apps.Binding{
 		Location: "open_dialog_from_interactive_message",
 		Label:    "open_dialog_from_interactive_message",
 		Form:     &apps.Form{},
