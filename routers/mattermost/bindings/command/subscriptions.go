@@ -16,14 +16,14 @@ func getSubscribeCommand(context apps.Context) apps.Binding {
 	return apps.Binding{
 		Location: "subscriptions",
 		Label:    "subscriptions",
-		Form: &apps.Form{
-			Call: &apps.Call{
-				Path:  constants.SubscribeCommand,
-				State: true,
-				Expand: &apps.Expand{
-					AdminAccessToken: apps.ExpandAll,
-				},
+		Call: &apps.Call{
+			Path:  constants.SubscribeCommand,
+			State: true,
+			Expand: &apps.Expand{
+				ActingUserAccessToken: apps.ExpandAll,
 			},
+		},
+		Form: &apps.Form{
 			Fields: []apps.Field{
 				{
 					Name:                 "subject",
@@ -32,11 +32,18 @@ func getSubscribeCommand(context apps.Context) apps.Binding {
 					AutocompletePosition: 1,
 					Type:                 apps.FieldTypeStaticSelect,
 					SelectStaticOptions: []apps.SelectOption{
-						makeSubscriptionOption(apps.SubjectBotMentioned),
+						makeSubscriptionOption(apps.SubjectUserCreated),
 						makeSubscriptionOption(apps.SubjectBotJoinedChannel),
 						makeSubscriptionOption(apps.SubjectBotLeftChannel),
 						makeSubscriptionOption(apps.SubjectBotJoinedTeam),
 						makeSubscriptionOption(apps.SubjectBotLeftTeam),
+						makeSubscriptionOption(apps.SubjectBotMentioned),
+						makeSubscriptionOption(apps.SubjectUserJoinedChannel),
+						makeSubscriptionOption(apps.SubjectUserLeftChannel),
+						makeSubscriptionOption(apps.SubjectPostCreated),
+						makeSubscriptionOption(apps.SubjectUserJoinedTeam),
+						makeSubscriptionOption(apps.SubjectUserLeftTeam),
+						makeSubscriptionOption(apps.SubjectChannelCreated),
 					},
 				},
 				{
