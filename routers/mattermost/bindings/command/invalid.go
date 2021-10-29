@@ -1,8 +1,9 @@
 package command
 
 import (
-	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/constants"
 )
 
 func getInvalid(siteURL, appID string) *apps.Binding {
@@ -23,6 +24,7 @@ func getInvalid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
 	base.Bindings = append(base.Bindings, getNoNameField(siteURL, appID))
 	base.Bindings = append(base.Bindings, getWithNoNameOption(siteURL, appID))
+
 	return base
 }
 

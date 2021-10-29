@@ -8,6 +8,11 @@ GO_TEST_FLAGS ?= -race
 ## all: builds and runs the service
 all: run
 
+.PHONY: build-linux
+## build-linux: build the executable for linux
+build-linux:
+	GOOS=linux GOARCH=amd64 $(GO) build -o dist/mattermost-app-test
+
 .PHONY: build
 ## build: build the executable
 build:
@@ -25,7 +30,7 @@ test:
 
 .PHONY: lint
 ## lint: Run golangci-lint on codebase
-lint: 
+lint:
 	@if ! [ -x "$$(command -v golangci-lint)" ]; then \
 		echo "golangci-lint is not installed. Please see https://github.com/golangci/golangci-lint#install for installation instructions."; \
 		exit 1; \
@@ -36,8 +41,8 @@ lint:
 
 .PHONY: dist
 ## dist: creates the bundle file
-dist: build
-	cp manifest.json dist/; cd dist/; zip -qr go-function *; zip -r bundle.zip go-function.zip manifest.json
+dist: build-linux
+	cp -r static dist; cp manifest.json dist/; cd dist/; zip -qr go-function mattermost-app-test; zip -r bundle.zip go-function.zip manifest.json static/
 
 .PHONY: clean
 ## clean: deletes all

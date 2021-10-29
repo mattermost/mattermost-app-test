@@ -1,8 +1,9 @@
 package postaction
 
 import (
-	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/constants"
 )
 
 func Get(context *apps.Context) *apps.Binding {

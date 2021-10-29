@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/utils"
+	"github.com/pkg/errors"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
 	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-app-test/utils"
 )
 
 const fullMarkdown = "## Markdown title" +
@@ -38,12 +40,6 @@ const fullMarkdown = "## Markdown title" +
 	"\n- [ ] Item one" +
 	"\n- [ ] Item two" +
 	"\n- [x] Completed item"
-
-const markdownTable = "\n| Left-Aligned  | Center Aligned  | Right Aligned |" +
-	"\n| :------------ |:---------------:| -----:|" +
-	"\n| Left column 1 | this text       |  $100 |" +
-	"\n| Left column 2 | is              |   $10 |" +
-	"\n| Left column 3 | centered        |    $1 |"
 
 func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	resp := apps.CallResponse{
@@ -521,7 +517,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 		},
 	})
 
-	client.CreatePost(p)
+	_, _ = client.CreatePost(p)
 
 	resp := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
@@ -538,7 +534,7 @@ func fFormWithButtonsOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequ
 		case "add_buttons":
 			numButtons++
 		case "error":
-			utils.WriteCallResponse(w, *apps.NewErrorCallResponse(errors.New("You caused an error :)")))
+			utils.WriteCallResponse(w, *apps.NewErrorCallResponse(errors.New("you caused an error :)")))
 		}
 	}
 
@@ -627,7 +623,7 @@ func fFormWithMarkdownError(w http.ResponseWriter, r *http.Request, c *apps.Call
 					Name:        "text",
 					Type:        apps.FieldTypeText,
 					Label:       "text",
-					Description: fullMarkdown, //"Go [here](www.google.com) for more information.",
+					Description: fullMarkdown, // "Go [here](www.google.com) for more information.",
 				},
 				{
 					Name:  "boolean",
@@ -687,7 +683,7 @@ func fFormWithMarkdownErrorMissingField(w http.ResponseWriter, r *http.Request, 
 					Name:        "text",
 					Type:        apps.FieldTypeText,
 					Label:       "text",
-					Description: fullMarkdown, //"Go [here](www.google.com) for more information.",
+					Description: fullMarkdown, // "Go [here](www.google.com) for more information.",
 				},
 				{
 					Name:  "boolean",

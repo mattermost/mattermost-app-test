@@ -1,10 +1,11 @@
 package bindings
 
 import (
+	"github.com/mattermost/mattermost-plugin-apps/apps"
+
 	"github.com/mattermost/mattermost-app-test/routers/mattermost/bindings/channelheader"
 	"github.com/mattermost/mattermost-app-test/routers/mattermost/bindings/command"
 	"github.com/mattermost/mattermost-app-test/routers/mattermost/bindings/postaction"
-	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
 func Get(context *apps.Context) []*apps.Binding {

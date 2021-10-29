@@ -1,9 +1,10 @@
 package channelheader
 
 import (
+	"github.com/mattermost/mattermost-plugin-apps/apps"
+
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
-	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
 func getError(siteURL, appID string) []*apps.Binding {

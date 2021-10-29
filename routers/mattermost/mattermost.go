@@ -8,11 +8,13 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/utils"
+	"github.com/pkg/errors"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/utils/httputils"
-	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-app-test/utils"
 )
 
 var ErrUnexpectedSignMethod = errors.New("unexpected signing method")
