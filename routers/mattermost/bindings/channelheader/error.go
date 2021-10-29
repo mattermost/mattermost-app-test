@@ -5,7 +5,7 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getError(siteURL, appID string) []apps.Binding {
+func getError() []apps.Binding {
 	base := []apps.Binding{}
 
 	base = append(base, getWithError())

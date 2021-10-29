@@ -3,7 +3,6 @@ package utils
 import (
 	"encoding/json"
 	"log"
-	"strings"
 )
 
 func GetStringFromMapInterface(in map[string]interface{}, key, def string) string {
@@ -22,10 +21,6 @@ func GetStringFromMapInterface(in map[string]interface{}, key, def string) strin
 	}
 
 	return out
-}
-
-func GetIconURL(siteURL, name, appID string) string {
-	return strings.TrimRight(siteURL, "/") + "/plugins/com.mattermost.apps/apps/" + appID + "/static/" + name
 }
 
 func DumpObject(c interface{}) {

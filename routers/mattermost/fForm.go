@@ -627,7 +627,7 @@ func fFormWithMarkdownError(w http.ResponseWriter, r *http.Request, c *apps.Call
 					Name:        "text",
 					Type:        apps.FieldTypeText,
 					Label:       "text",
-					Description: fullMarkdown, //"Go [here](www.google.com) for more information.",
+					Description: fullMarkdown, // "Go [here](www.google.com) for more information.",
 				},
 				{
 					Name:  "boolean",
@@ -687,7 +687,7 @@ func fFormWithMarkdownErrorMissingField(w http.ResponseWriter, r *http.Request, 
 					Name:        "text",
 					Type:        apps.FieldTypeText,
 					Label:       "text",
-					Description: fullMarkdown, //"Go [here](www.google.com) for more information.",
+					Description: fullMarkdown, // "Go [here](www.google.com) for more information.",
 				},
 				{
 					Name:  "boolean",

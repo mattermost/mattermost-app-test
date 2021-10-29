@@ -5,7 +5,7 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getValid(siteURL, appID string) []apps.Binding {
+func getValid() []apps.Binding {
 	base := []apps.Binding{}
 
 	base = append(base, getWithSubMenus())

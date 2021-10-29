@@ -5,7 +5,7 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid(siteURL, appID string) []apps.Binding {
+func getInvalid() []apps.Binding {
 	base := []apps.Binding{}
 
 	base = append(base, getWithNoLabel())
