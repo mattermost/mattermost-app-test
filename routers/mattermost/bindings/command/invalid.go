@@ -5,29 +5,29 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getInvalid(siteURL, appID string) apps.Binding {
+func getInvalid() apps.Binding {
 	base := apps.Binding{
 		Location: "invalid",
 		Label:    "invalid",
 		Bindings: []apps.Binding{},
 	}
 
-	base.Bindings = append(base.Bindings, getWithSameCommand(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithSameFieldNames(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithSameOptionNames(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithMultiwordCommand(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithMultiwordField(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithWhitespaceLabel(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithNoLabel(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithNoCall(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithInvalidLookup(siteURL, appID))
-	base.Bindings = append(base.Bindings, getNoNameField(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithNoNameOption(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithSameCommand())
+	base.Bindings = append(base.Bindings, getWithSameFieldNames())
+	base.Bindings = append(base.Bindings, getWithSameOptionNames())
+	base.Bindings = append(base.Bindings, getWithMultiwordCommand())
+	base.Bindings = append(base.Bindings, getWithMultiwordField())
+	base.Bindings = append(base.Bindings, getWithWhitespaceLabel())
+	base.Bindings = append(base.Bindings, getWithNoLabel())
+	base.Bindings = append(base.Bindings, getWithNoCall())
+	base.Bindings = append(base.Bindings, getWithInvalidLookup())
+	base.Bindings = append(base.Bindings, getNoNameField())
+	base.Bindings = append(base.Bindings, getWithNoNameOption())
 
 	return base
 }
 
-func getWithSameCommand(_, _ string) apps.Binding {
+func getWithSameCommand() apps.Binding {
 	return apps.Binding{
 		Location: "with_same_command",
 		Label:    "with_same_command",
@@ -52,7 +52,7 @@ func getWithSameCommand(_, _ string) apps.Binding {
 	}
 }
 
-func getWithSameFieldNames(_, _ string) apps.Binding {
+func getWithSameFieldNames() apps.Binding {
 	return apps.Binding{
 		Location: "with_same_field_names",
 		Label:    "with_same_field_names",
@@ -76,7 +76,7 @@ func getWithSameFieldNames(_, _ string) apps.Binding {
 	}
 }
 
-func getWithSameOptionNames(_, _ string) apps.Binding {
+func getWithSameOptionNames() apps.Binding {
 	return apps.Binding{
 		Location: "with_same_option_names",
 		Label:    "with_same_option_names",
@@ -105,7 +105,7 @@ func getWithSameOptionNames(_, _ string) apps.Binding {
 	}
 }
 
-func getWithNoNameOption(_, _ string) apps.Binding {
+func getWithNoNameOption() apps.Binding {
 	return apps.Binding{
 		Location: "with_no_name_option",
 		Label:    "with_no_name_option",
@@ -134,7 +134,7 @@ func getWithNoNameOption(_, _ string) apps.Binding {
 	}
 }
 
-func getWithMultiwordCommand(_, _ string) apps.Binding {
+func getWithMultiwordCommand() apps.Binding {
 	return apps.Binding{
 		Location: "with_multiword_command",
 		Label:    "with_multiword command",
@@ -145,7 +145,7 @@ func getWithMultiwordCommand(_, _ string) apps.Binding {
 	}
 }
 
-func getWithMultiwordField(_, _ string) apps.Binding {
+func getWithMultiwordField() apps.Binding {
 	return apps.Binding{
 		Location: "with_multiword_field",
 		Label:    "with_multiword_field",
@@ -164,7 +164,7 @@ func getWithMultiwordField(_, _ string) apps.Binding {
 	}
 }
 
-func getNoNameField(_, _ string) apps.Binding {
+func getNoNameField() apps.Binding {
 	return apps.Binding{
 		Location: "with_noname_field",
 		Label:    "with_noname_field",
@@ -183,7 +183,7 @@ func getNoNameField(_, _ string) apps.Binding {
 	}
 }
 
-func getWithWhitespaceLabel(_, _ string) apps.Binding {
+func getWithWhitespaceLabel() apps.Binding {
 	return apps.Binding{
 		Location: "ERROR_with_whitespace_label",
 		Label:    " ",
@@ -194,7 +194,7 @@ func getWithWhitespaceLabel(_, _ string) apps.Binding {
 	}
 }
 
-func getWithNoLabel(_, _ string) apps.Binding {
+func getWithNoLabel() apps.Binding {
 	return apps.Binding{
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
@@ -204,7 +204,7 @@ func getWithNoLabel(_, _ string) apps.Binding {
 	}
 }
 
-func getWithNoCall(_, _ string) apps.Binding {
+func getWithNoCall() apps.Binding {
 	return apps.Binding{
 		Location: "ERROR_with_no_call",
 		Label:    "ERROR_with_no_call",
@@ -212,7 +212,7 @@ func getWithNoCall(_, _ string) apps.Binding {
 	}
 }
 
-func getWithInvalidLookup(_, _ string) apps.Binding {
+func getWithInvalidLookup() apps.Binding {
 	return apps.Binding{
 		Location: "with_invalid_lookup",
 		Label:    "with_invalid_lookup",

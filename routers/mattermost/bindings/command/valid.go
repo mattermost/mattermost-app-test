@@ -5,42 +5,42 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func getValid(siteURL, appID string) apps.Binding {
+func getValid() apps.Binding {
 	base := apps.Binding{
 		Location: "valid",
 		Label:    "valid",
 		Bindings: []apps.Binding{},
 	}
 
-	base.Bindings = append(base.Bindings, getWithEmptyForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenFullFormModal(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenDynamicFormModal(siteURL, appID))
-	base.Bindings = append(base.Bindings, getRedefineForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getEmbeddedForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithoutForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithLookup(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithEmptyLookup(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithFullForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithNoOptionStatic(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithInternalNavResponse(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithExternalNavResponse(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithFormResponse(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithRequiredFields(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithMultiwordOption(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenMultiselectForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getMultiselectCommand(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenFullFormDisabledModal(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenFormWithButtons(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenMarkdownForm(siteURL, appID))
-	base.Bindings = append(base.Bindings, getOpenMarkdownFormWithMissingFieldError(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithCallInForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithEmptyForm())
+	base.Bindings = append(base.Bindings, getWithForm())
+	base.Bindings = append(base.Bindings, getOpenFullFormModal())
+	base.Bindings = append(base.Bindings, getOpenDynamicFormModal())
+	base.Bindings = append(base.Bindings, getRedefineForm())
+	base.Bindings = append(base.Bindings, getEmbeddedForm())
+	base.Bindings = append(base.Bindings, getWithoutForm())
+	base.Bindings = append(base.Bindings, getWithLookup())
+	base.Bindings = append(base.Bindings, getWithEmptyLookup())
+	base.Bindings = append(base.Bindings, getWithFullForm())
+	base.Bindings = append(base.Bindings, getWithNoOptionStatic())
+	base.Bindings = append(base.Bindings, getWithInternalNavResponse())
+	base.Bindings = append(base.Bindings, getWithExternalNavResponse())
+	base.Bindings = append(base.Bindings, getWithFormResponse())
+	base.Bindings = append(base.Bindings, getWithRequiredFields())
+	base.Bindings = append(base.Bindings, getWithMultiwordOption())
+	base.Bindings = append(base.Bindings, getWithMultiwordDynamicOption())
+	base.Bindings = append(base.Bindings, getOpenMultiselectForm())
+	base.Bindings = append(base.Bindings, getMultiselectCommand())
+	base.Bindings = append(base.Bindings, getOpenFullFormDisabledModal())
+	base.Bindings = append(base.Bindings, getOpenFormWithButtons())
+	base.Bindings = append(base.Bindings, getOpenMarkdownForm())
+	base.Bindings = append(base.Bindings, getOpenMarkdownFormWithMissingFieldError())
+	base.Bindings = append(base.Bindings, getWithCallInForm())
 
 	return base
 }
 
-func getWithEmptyForm(_, _ string) apps.Binding {
+func getWithEmptyForm() apps.Binding {
 	return apps.Binding{
 		Location: "empty_form",
 		Label:    "empty_form",
@@ -53,7 +53,7 @@ func getWithEmptyForm(_, _ string) apps.Binding {
 	}
 }
 
-func getWithForm(_, _ string) apps.Binding {
+func getWithForm() apps.Binding {
 	return apps.Binding{
 		Location: "with_form",
 		Label:    "with_form",
@@ -72,7 +72,7 @@ func getWithForm(_, _ string) apps.Binding {
 	}
 }
 
-func getWithoutForm(_, _ string) apps.Binding {
+func getWithoutForm() apps.Binding {
 	return apps.Binding{
 		Location: "no_form",
 		Label:    "no_form",
@@ -82,7 +82,7 @@ func getWithoutForm(_, _ string) apps.Binding {
 	}
 }
 
-func getRedefineForm(_, _ string) apps.Binding {
+func getRedefineForm() apps.Binding {
 	return apps.Binding{
 		Location: "redefine_form",
 		Label:    "redefine_form",
@@ -92,7 +92,7 @@ func getRedefineForm(_, _ string) apps.Binding {
 	}
 }
 
-func getEmbeddedForm(_, _ string) apps.Binding {
+func getEmbeddedForm() apps.Binding {
 	return apps.Binding{
 		Location: "embedded_form",
 		Label:    "embedded_form",
@@ -103,7 +103,7 @@ func getEmbeddedForm(_, _ string) apps.Binding {
 	}
 }
 
-func getWithLookup(_, _ string) apps.Binding {
+func getWithLookup() apps.Binding {
 	return apps.Binding{
 		Location: "lookup",
 		Label:    "lookup",
@@ -122,7 +122,7 @@ func getWithLookup(_, _ string) apps.Binding {
 	}
 }
 
-func getWithEmptyLookup(_, _ string) apps.Binding {
+func getWithEmptyLookup() apps.Binding {
 	return apps.Binding{
 		Location: "empty_lookup",
 		Label:    "empty_lookup",
@@ -141,7 +141,7 @@ func getWithEmptyLookup(_, _ string) apps.Binding {
 	}
 }
 
-func getWithFullForm(_, _ string) apps.Binding {
+func getWithFullForm() apps.Binding {
 	return apps.Binding{
 		Location: "full_form",
 		Label:    "full_form",
@@ -248,7 +248,7 @@ func getWithFullForm(_, _ string) apps.Binding {
 	}
 }
 
-func getWithNoOptionStatic(_, _ string) apps.Binding {
+func getWithNoOptionStatic() apps.Binding {
 	return apps.Binding{
 		Location: "no_option_static",
 		Label:    "no_option_static",
@@ -268,7 +268,7 @@ func getWithNoOptionStatic(_, _ string) apps.Binding {
 	}
 }
 
-func getWithInternalNavResponse(_, _ string) apps.Binding {
+func getWithInternalNavResponse() apps.Binding {
 	return apps.Binding{
 		Location: "external_nav",
 		Label:    "external_nav",
@@ -281,7 +281,7 @@ func getWithInternalNavResponse(_, _ string) apps.Binding {
 	}
 }
 
-func getWithExternalNavResponse(_, _ string) apps.Binding {
+func getWithExternalNavResponse() apps.Binding {
 	return apps.Binding{
 		Location: "internal_nav",
 		Label:    "internal_nav",
@@ -294,7 +294,7 @@ func getWithExternalNavResponse(_, _ string) apps.Binding {
 	}
 }
 
-func getWithFormResponse(_, _ string) apps.Binding {
+func getWithFormResponse() apps.Binding {
 	return apps.Binding{
 		Location: "with_form_response",
 		Label:    "with_form_response",
@@ -313,7 +313,7 @@ func getWithFormResponse(_, _ string) apps.Binding {
 	}
 }
 
-func getWithRequiredFields(_, _ string) apps.Binding {
+func getWithRequiredFields() apps.Binding {
 	return apps.Binding{
 		Location: "with_required_fields",
 		Label:    "with_required_fields",
@@ -338,7 +338,7 @@ func getWithRequiredFields(_, _ string) apps.Binding {
 	}
 }
 
-func getWithMultiwordOption(_, _ string) apps.Binding {
+func getWithMultiwordOption() apps.Binding {
 	return apps.Binding{
 		Location: "with_multiword_option",
 		Label:    "with_multiword_option",
@@ -367,7 +367,7 @@ func getWithMultiwordOption(_, _ string) apps.Binding {
 	}
 }
 
-func getWithMultiwordDynamicOption(_, _ string) apps.Binding {
+func getWithMultiwordDynamicOption() apps.Binding {
 	return apps.Binding{
 		Location: "with_multiword_dynamic_option",
 		Label:    "with_multiword_dynamic_option",
@@ -386,7 +386,7 @@ func getWithMultiwordDynamicOption(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenFullFormModal(_, _ string) apps.Binding {
+func getOpenFullFormModal() apps.Binding {
 	return apps.Binding{
 		Location: "open_full_form_modal",
 		Label:    "open_full_form_modal",
@@ -399,7 +399,7 @@ func getOpenFullFormModal(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenFullFormDisabledModal(_, _ string) apps.Binding {
+func getOpenFullFormDisabledModal() apps.Binding {
 	return apps.Binding{
 		Location: "open_full_form_disabled_modal",
 		Label:    "open_full_form_disabled_modal",
@@ -412,7 +412,7 @@ func getOpenFullFormDisabledModal(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenDynamicFormModal(_, _ string) apps.Binding {
+func getOpenDynamicFormModal() apps.Binding {
 	return apps.Binding{
 		Location: "open_dynamic_form_modal",
 		Label:    "open_dynamic_form_modal",
@@ -425,7 +425,7 @@ func getOpenDynamicFormModal(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenFormWithButtons(_, _ string) apps.Binding {
+func getOpenFormWithButtons() apps.Binding {
 	return apps.Binding{
 		Location: "open_form_with_buttons",
 		Label:    "open_form_with_buttons",
@@ -438,7 +438,7 @@ func getOpenFormWithButtons(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenMultiselectForm(_, _ string) apps.Binding {
+func getOpenMultiselectForm() apps.Binding {
 	return apps.Binding{
 		Location: "open_multiselect_form_modal",
 		Label:    "open_multiselect_form_modal",
@@ -451,7 +451,7 @@ func getOpenMultiselectForm(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenMarkdownForm(_, _ string) apps.Binding {
+func getOpenMarkdownForm() apps.Binding {
 	return apps.Binding{
 		Location: "open_markdown_form_modal",
 		Label:    "open_markdown_form_modal",
@@ -464,7 +464,7 @@ func getOpenMarkdownForm(_, _ string) apps.Binding {
 	}
 }
 
-func getOpenMarkdownFormWithMissingFieldError(_, _ string) apps.Binding {
+func getOpenMarkdownFormWithMissingFieldError() apps.Binding {
 	return apps.Binding{
 		Location: "open_markdown_form_modal_missing_error",
 		Label:    "open_markdown_form_modal_missing_error",
@@ -477,7 +477,7 @@ func getOpenMarkdownFormWithMissingFieldError(_, _ string) apps.Binding {
 	}
 }
 
-func getMultiselectCommand(_, _ string) apps.Binding {
+func getMultiselectCommand() apps.Binding {
 	return apps.Binding{
 		Location: "multiselect_command",
 		Label:    "multiselect_command",
@@ -527,7 +527,7 @@ func getMultiselectCommand(_, _ string) apps.Binding {
 	}
 }
 
-func getWithCallInForm(siteURL, appID string) apps.Binding {
+func getWithCallInForm() apps.Binding {
 	return apps.Binding{
 		Location: "callInForm",
 		Label:    "callInForm",

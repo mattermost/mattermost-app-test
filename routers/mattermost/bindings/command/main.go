@@ -2,18 +2,15 @@ package command
 
 import (
 	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
 func Get(context apps.Context) apps.Binding {
-	siteURL := context.MattermostSiteURL
-	appID := string(context.AppID)
 	base := apps.Binding{
 		Label:       constants.CommandTrigger,
 		Description: "Test commands",
 		Location:    constants.CommandTrigger,
-		Icon:        utils.GetIconURL(siteURL, "icon.png", appID),
+		Icon:        "icon.png",
 		Bindings:    []apps.Binding{},
 	}
 	out := apps.Binding{
@@ -36,9 +33,9 @@ func Get(context apps.Context) apps.Binding {
 		})
 	}
 
-	base.Bindings = append(base.Bindings, getValid(siteURL, appID))
-	base.Bindings = append(base.Bindings, getInvalid(siteURL, appID))
-	base.Bindings = append(base.Bindings, getError(siteURL, appID))
+	base.Bindings = append(base.Bindings, getValid())
+	base.Bindings = append(base.Bindings, getInvalid())
+	base.Bindings = append(base.Bindings, getError())
 	base.Bindings = append(base.Bindings, getOthers(context))
 	base.Bindings = append(base.Bindings, getSubscribeCommand(context))
 
