@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/utils"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/mmclient"
 	"github.com/mattermost/mattermost-server/v5/model"
+
+	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-app-test/utils"
 )
 
 func fUnknown(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
@@ -101,7 +102,8 @@ func postOpenDialogTest(m *apps.Manifest) func(http.ResponseWriter, *http.Reques
 				},
 			},
 		})
-		client.CreatePost(post)
+
+		_, _ = client.CreatePost(post)
 
 		utils.WriteCallStandardResponse(w, "")
 	}
@@ -141,8 +143,10 @@ func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	})
+
 	utils.DumpObject(resp)
-	w.Write([]byte("{}"))
+
+	_, _ = w.Write([]byte("{}"))
 }
 
 func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request) {
@@ -157,11 +161,13 @@ func postOpenDialogTestEphemeralResponse(w http.ResponseWriter, r *http.Request)
 			IntroductionText: "Do not submit this dialog, it will fail.",
 		},
 	})
+
 	utils.DumpObject(resp)
+
 	b, _ := json.Marshal(model.PostActionIntegrationResponse{
 		EphemeralText: "Test ephemeral",
 	})
-	w.Write(b)
+	_, _ = w.Write(b)
 }
 
 func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
@@ -176,13 +182,15 @@ func postOpenDialogTestUpdateResponse(w http.ResponseWriter, r *http.Request) {
 			IntroductionText: "Do not submit this dialog, it will fail.",
 		},
 	})
+
 	utils.DumpObject(resp)
+
 	b, _ := json.Marshal(model.PostActionIntegrationResponse{
 		Update: &model.Post{
 			Message: "Updated!",
 		},
 	})
-	w.Write(b)
+	_, _ = w.Write(b)
 }
 
 func postOpenDialogTestBadResponse(w http.ResponseWriter, r *http.Request) {
@@ -197,6 +205,8 @@ func postOpenDialogTestBadResponse(w http.ResponseWriter, r *http.Request) {
 			IntroductionText: "Do not submit this dialog, it will fail.",
 		},
 	})
+
 	utils.DumpObject(resp)
-	w.Write([]byte("ABCDEFG"))
+
+	_, _ = w.Write([]byte("ABCDEFG"))
 }

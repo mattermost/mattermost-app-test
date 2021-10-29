@@ -1,9 +1,10 @@
 package postaction
 
 import (
+	"github.com/mattermost/mattermost-plugin-apps/apps"
+
 	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/utils"
-	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
 func getValid(siteURL, appID string) []*apps.Binding {
@@ -19,6 +20,7 @@ func getValid(siteURL, appID string) []*apps.Binding {
 	base = append(base, getWithNavigateInternal(siteURL, appID))
 	base = append(base, getWithoutIcon(siteURL, appID))
 	base = append(base, getWithFormInBinding(siteURL, appID))
+
 	return base
 }
 

@@ -1,8 +1,9 @@
 package command
 
 import (
-	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/constants"
 )
 
 func getValid(siteURL, appID string) *apps.Binding {
@@ -35,7 +36,7 @@ func getValid(siteURL, appID string) *apps.Binding {
 	base.Bindings = append(base.Bindings, getOpenFormWithButtons(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenMarkdownForm(siteURL, appID))
 	base.Bindings = append(base.Bindings, getOpenMarkdownFormWithMissingFieldError(siteURL, appID))
-	base.Bindings = append(base.Bindings, getWithCallInForm(siteURL, appID))
+	base.Bindings = append(base.Bindings, getWithCallInForm())
 
 	return base
 }
@@ -527,7 +528,7 @@ func getMultiselectCommand(_, _ string) *apps.Binding {
 	}
 }
 
-func getWithCallInForm(siteURL, appID string) *apps.Binding {
+func getWithCallInForm() *apps.Binding {
 	return &apps.Binding{
 		Location: "callInForm",
 		Label:    "callInForm",
