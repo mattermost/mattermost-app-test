@@ -13,12 +13,6 @@ func Get(context apps.Context) apps.Binding {
 		Icon:        "icon.png",
 		Bindings:    []apps.Binding{},
 	}
-	out := apps.Binding{
-		Location: apps.LocationCommand,
-		Bindings: []apps.Binding{
-			base,
-		},
-	}
 
 	if context.Channel.Name == "town-square" {
 		base.Bindings = append(base.Bindings, apps.Binding{
@@ -38,6 +32,13 @@ func Get(context apps.Context) apps.Binding {
 	base.Bindings = append(base.Bindings, getError())
 	base.Bindings = append(base.Bindings, getOthers(context))
 	base.Bindings = append(base.Bindings, getSubscribeCommand(context))
+
+	out := apps.Binding{
+		Location: apps.LocationCommand,
+		Bindings: []apps.Binding{
+			base,
+		},
+	}
 
 	return out
 }
