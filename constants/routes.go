@@ -3,7 +3,7 @@ package constants
 import "github.com/mattermost/mattermost-plugin-apps/apps"
 
 const (
-	ManifestPath = "/manifest"
+	ManifestPath = "/manifest.json"
 	InstallPath  = "/install"
 	BindingsPath = "/bindings"
 
