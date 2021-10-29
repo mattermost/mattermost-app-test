@@ -6,11 +6,13 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/mattermost/mattermost-app-test/utils"
+	"github.com/pkg/errors"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
 	"github.com/mattermost/mattermost-server/v6/model"
-	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-app-test/utils"
 )
 
 type SubscriptionsCommandFormValues struct {
@@ -83,7 +85,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 
 				err = errors.Wrap(err, string(b))
 				cr := apps.NewErrorResponse(err)
-				json.NewEncoder(w).Encode(cr)
+				_ = json.NewEncoder(w).Encode(cr)
 
 				return
 			}
@@ -94,7 +96,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 			if err != nil {
 				err = errors.Wrapf(err, "failed to unsubscribe from `%v` notifications.", subject)
 				cr := apps.NewErrorResponse(err)
-				json.NewEncoder(w).Encode(cr)
+				_ = json.NewEncoder(w).Encode(cr)
 
 				return
 			}
@@ -186,7 +188,7 @@ func fSubscriptionsBotJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *ht
 			log.Println(err.Error())
 			message += ", but failed to get Town Square channel: " + err.Error()
 
-			_, err := client.DM(c.Context.ActingUserID, message)
+			_, err = client.DM(c.Context.ActingUserID, message)
 			if err != nil {
 				log.Println(err.Error())
 			}

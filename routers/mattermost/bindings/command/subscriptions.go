@@ -1,8 +1,9 @@
 package command
 
 import (
-	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/constants"
 )
 
 func makeSubscriptionOption(subject apps.Subject) apps.SelectOption {
@@ -12,7 +13,7 @@ func makeSubscriptionOption(subject apps.Subject) apps.SelectOption {
 	}
 }
 
-func getSubscribeCommand(context apps.Context) apps.Binding {
+func getSubscribeCommand(apps.Context) apps.Binding {
 	return apps.Binding{
 		Location: "subscriptions",
 		Label:    "subscriptions",

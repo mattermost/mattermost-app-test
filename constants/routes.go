@@ -56,6 +56,7 @@ const (
 	SubscribeCommand = "/subscribe"
 
 	// Global
+
 	NotifyUserCreated      = "/notify/" + string(apps.SubjectUserCreated)
 	NotifyBotMention       = "/notify/" + string(apps.SubjectBotMentioned)
 	NotifyBotJoinedChannel = "/notify/" + string(apps.SubjectBotJoinedChannel)
@@ -64,11 +65,13 @@ const (
 	NotifyBotLeftTeam      = "/notify/" + string(apps.SubjectBotLeftTeam)
 
 	// Channel
+
 	NotifyUserJoinedChannel = "/notify/" + string(apps.SubjectUserJoinedChannel)
 	NotifyUserLeftChannel   = "/notify/" + string(apps.SubjectUserLeftChannel)
 	NotifyPostCreated       = "/notify/" + string(apps.SubjectPostCreated)
 
 	// Team
+
 	NotifyUserJoinedTeam = "/notify/" + string(apps.SubjectUserJoinedTeam)
 	NotifyUserLeftTeam   = "/notify/" + string(apps.SubjectUserLeftTeam)
 	NotifyChannelCreated = "/notify/" + string(apps.SubjectChannelCreated)

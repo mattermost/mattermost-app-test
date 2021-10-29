@@ -8,11 +8,13 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/utils"
+	"github.com/pkg/errors"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/utils/httputils"
-	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-app-test/constants"
+	"github.com/mattermost/mattermost-app-test/utils"
 )
 
 var ErrUnexpectedSignMethod = errors.New("unexpected signing method")
@@ -98,7 +100,7 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 
 	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := errors.Errorf("path not found: %s", r.URL.Path)
-		httputils.WriteJSON(w, apps.NewErrorResponse(err))
+		_ = httputils.WriteJSON(w, apps.NewErrorResponse(err))
 	})
 }
 
