@@ -12,8 +12,7 @@
     ],
     "requested_permissions": [
         "act_as_bot",
-        "act_as_user",
-        "act_as_admin"
+        "act_as_user"
     ],
     "on_install": {
         "path": "/install",
@@ -22,7 +21,6 @@
             "app": "all",
             "acting_user": "all",
             "acting_user_access_token": "all",
-            "admin_access_token": "all",
             "channel": "all",
             "mentioned": "all",
             "parent_post": "all",
@@ -38,7 +36,6 @@
             "app": "all",
             "acting_user": "all",
             "acting_user_access_token": "all",
-            "admin_access_token": "all",
             "channel": "all",
             "mentioned": "all",
             "parent_post": "all",
