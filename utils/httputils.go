@@ -58,7 +58,7 @@ func WriteCallResponse(w http.ResponseWriter, v apps.CallResponse) {
 	writeJSON(w, v)
 }
 
-func WriteBindings(w http.ResponseWriter, v []*apps.Binding) {
+func WriteBindings(w http.ResponseWriter, v []apps.Binding) {
 	call := apps.CallResponse{
 		Type: apps.CallResponseTypeOK,
 		Data: v,

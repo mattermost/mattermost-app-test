@@ -3,7 +3,7 @@ package constants
 import "github.com/mattermost/mattermost-plugin-apps/apps"
 
 const (
-	ManifestPath = "/manifest"
+	ManifestPath = "/manifest.json"
 	InstallPath  = "/install"
 	BindingsPath = "/bindings"
 
@@ -55,9 +55,24 @@ const (
 
 	SubscribeCommand = "/subscribe"
 
+	// Global
+
+	NotifyUserCreated      = "/notify/" + string(apps.SubjectUserCreated)
 	NotifyBotMention       = "/notify/" + string(apps.SubjectBotMentioned)
 	NotifyBotJoinedChannel = "/notify/" + string(apps.SubjectBotJoinedChannel)
 	NotifyBotLeftChannel   = "/notify/" + string(apps.SubjectBotLeftChannel)
 	NotifyBotJoinedTeam    = "/notify/" + string(apps.SubjectBotJoinedTeam)
 	NotifyBotLeftTeam      = "/notify/" + string(apps.SubjectBotLeftTeam)
+
+	// Channel
+
+	NotifyUserJoinedChannel = "/notify/" + string(apps.SubjectUserJoinedChannel)
+	NotifyUserLeftChannel   = "/notify/" + string(apps.SubjectUserLeftChannel)
+	NotifyPostCreated       = "/notify/" + string(apps.SubjectPostCreated)
+
+	// Team
+
+	NotifyUserJoinedTeam = "/notify/" + string(apps.SubjectUserJoinedTeam)
+	NotifyUserLeftTeam   = "/notify/" + string(apps.SubjectUserLeftTeam)
+	NotifyChannelCreated = "/notify/" + string(apps.SubjectChannelCreated)
 )

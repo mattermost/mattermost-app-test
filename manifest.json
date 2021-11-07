@@ -43,5 +43,9 @@
             "root_post": "all",
             "team": "all"
         }
-    }
+    },
+    "http": {
+		"root_url": "http://localhost:8081",
+        "use_jwt": true
+	}
 }
