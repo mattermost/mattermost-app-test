@@ -45,7 +45,7 @@
         }
     },
     "http": {
-		"root_url": "http://localhost:8081",
+        "root_url": "http://localhost:8081",
         "use_jwt": true
 	}
 }
