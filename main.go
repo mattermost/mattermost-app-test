@@ -3,15 +3,16 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/awslabs/aws-lambda-go-api-proxy/httpadapter"
 	"github.com/gorilla/mux"
-
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 
+	"github.com/mattermost/mattermost-app-test/constants"
 	"github.com/mattermost/mattermost-app-test/routers/mattermost"
 )
 
@@ -53,12 +54,12 @@ func main() {
 			addr = os.Args[addressPosition]
 		}
 
-		manifest.HTTPRootURL = baseURL
-		manifest.AppType = apps.AppTypeHTTP
+		manifest.HTTP.RootURL = baseURL
 
-		_ = http.ListenAndServe(addr, nil)
-
-		return
+		fmt.Println("Listening on", addr)
+		fmt.Println("Use '/apps install http http://localhost" + addr + "/manifest.json' to install the app")
+		fmt.Printf("Use %q as the app's JWT secret\n", constants.AppSecret)
+		panic(http.ListenAndServe(addr, nil))
 	}
 
 	lambda.Start(httpadapter.New(r).Proxy)

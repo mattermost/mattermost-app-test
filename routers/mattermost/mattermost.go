@@ -72,12 +72,23 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 	// Subscription Commands
 	router.HandleFunc(constants.SubscribeCommand+"/submit", extractCall(fSubscriptionsCommand(m), localMode))
 
-	// Notifications
+	// Global Notifications
+	router.HandleFunc(constants.NotifyUserCreated, extractCall(fSubscriptionsUserCreated(m), localMode))
 	router.HandleFunc(constants.NotifyBotMention, extractCall(fSubscriptionsBotMention(m), localMode))
 	router.HandleFunc(constants.NotifyBotJoinedChannel, extractCall(fSubscriptionsBotJoinedChannel(m), localMode))
 	router.HandleFunc(constants.NotifyBotLeftChannel, extractCall(fSubscriptionsBotLeftChannel(m), localMode))
 	router.HandleFunc(constants.NotifyBotJoinedTeam, extractCall(fSubscriptionsBotJoinedTeam(m), localMode))
 	router.HandleFunc(constants.NotifyBotLeftTeam, extractCall(fSubscriptionsBotLeftTeam(m), localMode))
+
+	// Channel Notifications
+	router.HandleFunc(constants.NotifyUserJoinedChannel, extractCall(fSubscriptionsUserJoinedChannel(m), localMode))
+	router.HandleFunc(constants.NotifyUserLeftChannel, extractCall(fSubscriptionsUserLeftChannel(m), localMode))
+	router.HandleFunc(constants.NotifyPostCreated, extractCall(fSubscriptionsPostCreated(m), localMode))
+
+	// Team Notifications
+	router.HandleFunc(constants.NotifyUserJoinedTeam, extractCall(fSubscriptionsUserJoinedTeam(m), localMode))
+	router.HandleFunc(constants.NotifyUserLeftTeam, extractCall(fSubscriptionsUserLeftTeam(m), localMode))
+	router.HandleFunc(constants.NotifyChannelCreated, extractCall(fSubscriptionsChannelCreated(m), localMode))
 
 	// OpenDialog
 	router.HandleFunc(constants.OtherPathOpenDialog+"/submit", extractCall(postOpenDialogTest(m), localMode))
@@ -89,7 +100,7 @@ func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bo
 
 	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := errors.Errorf("path not found: %s", r.URL.Path)
-		httputils.WriteJSON(w, apps.NewErrorCallResponse(err))
+		_ = httputils.WriteJSON(w, apps.NewErrorResponse(err))
 	})
 }
 
