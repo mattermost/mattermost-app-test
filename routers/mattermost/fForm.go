@@ -151,6 +151,25 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					Label: "user",
 				},
 				{
+					Name:       "staticpreselected",
+					Type:       apps.FieldTypeStaticSelect,
+					ModalLabel: "static - preselected",
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "static value 1",
+							Value: "sv1",
+						},
+						{
+							Label: "static value 2",
+							Value: "sv2",
+						},
+					},
+					Value: apps.SelectOption{
+						Label: "static value 1",
+						Value: "sv1",
+					},
+				},
+				{
 					Name:  "static",
 					Type:  apps.FieldTypeStaticSelect,
 					Label: "static",
@@ -162,6 +181,36 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 						{
 							Label: "static value 2",
 							Value: "sv2",
+						},
+					},
+				},
+				{
+					Name:          "multipreselected1",
+					Type:          apps.FieldTypeStaticSelect,
+					ModalLabel:    "multi - preselected",
+					SelectIsMulti: true,
+					Value: []apps.SelectOption{
+						{
+							Label: "static value 1",
+							Value: "sv1",
+						},
+						{
+							Label: "static value 2",
+							Value: "sv2",
+						},
+					},
+					SelectStaticOptions: []apps.SelectOption{
+						{
+							Label: "static value 1",
+							Value: "sv1",
+						},
+						{
+							Label: "static value 2",
+							Value: "sv2",
+						},
+						{
+							Label: "static value 3",
+							Value: "sv3",
 						},
 					},
 				},
