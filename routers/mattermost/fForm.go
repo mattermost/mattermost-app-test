@@ -141,9 +141,29 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 					Label: "boolean",
 				},
 				{
+					Name:       "channelpreselected",
+					Type:       apps.FieldTypeChannel,
+					Label:      "channelpreselected",
+					ModalLabel: "channel - preselected",
+					Value: apps.SelectOption{
+						Label: "Off-Topic",
+						Value: "off-topic",
+					},
+				},
+				{
 					Name:  "channel",
 					Type:  apps.FieldTypeChannel,
 					Label: "channel",
+				},
+				{
+					Name:       "userpreselected",
+					Type:       apps.FieldTypeUser,
+					Label:      "userpreselected",
+					ModalLabel: "user - preselected",
+					Value: apps.SelectOption{
+						Label: "test",
+						Value: "test",
+					},
 				},
 				{
 					Name:  "user",
@@ -153,6 +173,7 @@ func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 				{
 					Name:       "staticpreselected",
 					Type:       apps.FieldTypeStaticSelect,
+					Label:      "staticpreselected",
 					ModalLabel: "static - preselected",
 					SelectStaticOptions: []apps.SelectOption{
 						{
