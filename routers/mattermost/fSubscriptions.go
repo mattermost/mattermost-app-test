@@ -78,7 +78,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 		subscribe := values.Subscribe.Value == "subscribe"
 
 		if subscribe {
-			_, err := client.Subscribe(sub)
+			err := client.Subscribe(sub)
 			if err != nil {
 				err = errors.Wrapf(err, "failed to subscribe to `%v` notifications.", subject)
 				b, _ := json.Marshal(c)
@@ -92,7 +92,7 @@ func fSubscriptionsCommand(m *apps.Manifest) func(http.ResponseWriter, *http.Req
 
 			message = fmt.Sprintf("Successfully subscribed to `%v` notifications.", subject)
 		} else {
-			_, err := client.Unsubscribe(sub)
+			err := client.Unsubscribe(sub)
 			if err != nil {
 				err = errors.Wrapf(err, "failed to unsubscribe from `%v` notifications.", subject)
 				cr := apps.NewErrorResponse(err)
@@ -114,7 +114,7 @@ func fSubscriptionsUserCreated(m *apps.Manifest) func(http.ResponseWriter, *http
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -169,7 +169,7 @@ func fSubscriptionsBotLeftChannel(m *apps.Manifest) func(http.ResponseWriter, *h
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -188,7 +188,7 @@ func fSubscriptionsBotJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *ht
 			log.Println(err.Error())
 			message += ", but failed to get Town Square channel: " + err.Error()
 
-			_, err = client.DM(c.Context.ActingUserID, message)
+			_, err = client.DM(c.Context.ActingUser.Id, message)
 			if err != nil {
 				log.Println(err.Error())
 			}
@@ -215,7 +215,7 @@ func fSubscriptionsBotLeftTeam(m *apps.Manifest) func(http.ResponseWriter, *http
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -286,7 +286,7 @@ func fSubscriptionsUserJoinedTeam(m *apps.Manifest) func(http.ResponseWriter, *h
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -300,7 +300,7 @@ func fSubscriptionsUserLeftTeam(m *apps.Manifest) func(http.ResponseWriter, *htt
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -314,7 +314,7 @@ func fSubscriptionsChannelCreated(m *apps.Manifest) func(http.ResponseWriter, *h
 		message := fmt.Sprintf("Received `%s` notification", c.Context.Subject)
 		client := appclient.AsBot(c.Context)
 
-		_, err := client.DM(c.Context.ActingUserID, message)
+		_, err := client.DM(c.Context.ActingUser.Id, message)
 		if err != nil {
 			log.Println(err.Error())
 		}

@@ -4,7 +4,7 @@
     "version": "0_0_1",
     "display_name": "Test App",
     "description": "Test App",
-    "homepage_url": "https://github.com/larkox/mattermost-app-test",
+    "homepage_url": "https://github.com/mattermost/mattermost-app-test",
     "requested_locations": [
         "/post_menu",
         "/command",
