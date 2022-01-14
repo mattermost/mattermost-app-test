@@ -34,7 +34,7 @@ func getWithSubMenus() apps.Binding {
 				Label:    "with_ok",
 				Icon:     "icon.png",
 				Call: &apps.Call{
-					Path: constants.BindingPathOK,
+					Path: constants.SubmitOK,
 				},
 			},
 			{
@@ -42,7 +42,7 @@ func getWithSubMenus() apps.Binding {
 				Label:    "with_form",
 				Icon:     "icon.png",
 				Call: &apps.Call{
-					Path: constants.BindingPathFormOK,
+					Path: constants.Form,
 				},
 			},
 			{
@@ -50,7 +50,7 @@ func getWithSubMenus() apps.Binding {
 				Label:    "with_navigate_external",
 				Icon:     "icon.png",
 				Call: &apps.Call{
-					Path: constants.BindingPathNavigateExternal,
+					Path: constants.NavigateExternal,
 				},
 			},
 			{
@@ -63,7 +63,7 @@ func getWithSubMenus() apps.Binding {
 						Label:    "with_ok",
 						Icon:     "icon.png",
 						Call: &apps.Call{
-							Path: constants.BindingPathOK,
+							Path: constants.SubmitOK,
 						},
 					},
 					{
@@ -71,7 +71,7 @@ func getWithSubMenus() apps.Binding {
 						Label:    "with_form",
 						Icon:     "icon.png",
 						Call: &apps.Call{
-							Path: constants.BindingPathFormOK,
+							Path: constants.Form,
 						},
 					},
 					{
@@ -79,7 +79,7 @@ func getWithSubMenus() apps.Binding {
 						Label:    "with_navigate_external",
 						Icon:     "icon.png",
 						Call: &apps.Call{
-							Path: constants.BindingPathNavigateExternal,
+							Path: constants.NavigateExternal,
 						},
 					},
 				},
@@ -93,7 +93,7 @@ func getWithOK() apps.Binding {
 		Label:    "with_ok",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -104,7 +104,7 @@ func getWithFormInBinding() apps.Binding {
 		Label:    "formInBinding",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 		Form: &apps.Form{
 			Title: "Some form",
@@ -125,7 +125,7 @@ func getWithEmptyOK() apps.Binding {
 		Label:    "with_empty_ok",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathOKEmpty,
+			Path: constants.SubmitOKEmpty,
 		},
 	}
 }
@@ -136,7 +136,7 @@ func getWithForm() apps.Binding {
 		Label:    "with_form",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathFormOK,
+			Path: constants.Form,
 		},
 	}
 }
@@ -147,7 +147,7 @@ func getWithFullForm() apps.Binding {
 		Label:    "with_full_form",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathFullFormOK,
+			Path: constants.FormFull,
 		},
 	}
 }
@@ -158,7 +158,7 @@ func getWithDynamicForm() apps.Binding {
 		Label:    "with_dynamic_form",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathDynamicFormOK,
+			Path: constants.FormDynamic,
 		},
 	}
 }
@@ -169,7 +169,7 @@ func getWithNavigateExternal() apps.Binding {
 		Label:    "with_navigate_external",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateExternal,
+			Path: constants.NavigateExternal,
 		},
 	}
 }
@@ -180,7 +180,7 @@ func getWithNavigateInternal() apps.Binding {
 		Label:    "with_naviate_internal",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInternal,
+			Path: constants.NavigateInternal,
 		},
 	}
 }
@@ -190,7 +190,7 @@ func getWithoutIcon() apps.Binding {
 		Location: "without_icon",
 		Label:    "without_icon",
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInternal,
+			Path: constants.NavigateInternal,
 		},
 	}
 }

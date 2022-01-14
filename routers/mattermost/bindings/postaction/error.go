@@ -29,7 +29,7 @@ func getWithError() apps.Binding {
 		Label:    "with_error",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }
@@ -40,7 +40,7 @@ func getWithEmptyError() apps.Binding {
 		Label:    "with_empty_error",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathErrorEmpty,
+			Path: constants.ErrorEmpty,
 		},
 	}
 }
@@ -50,7 +50,7 @@ func getWithInvalidForm() apps.Binding {
 		Label:    "with_invalid_form",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathFormInvalid,
+			Path: constants.FormInvalid,
 		},
 	}
 }
@@ -61,7 +61,7 @@ func getWithNavigateInvalid() apps.Binding {
 		Label:    "with_navigate_invalid",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInvalid,
+			Path: constants.NavigateInvalid,
 		},
 	}
 }
@@ -72,7 +72,7 @@ func getWith404() apps.Binding {
 		Label:    "with_404",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPath404,
+			Path: constants.NotFoundPath,
 		},
 	}
 }
@@ -83,7 +83,7 @@ func getWithHTML() apps.Binding {
 		Label:    "with_html",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathHTML,
+			Path: constants.HTMLPath,
 		},
 	}
 }
@@ -105,7 +105,7 @@ func getWithUnknownResponse() apps.Binding {
 		Label:    "with_unkwon_response",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }
@@ -116,7 +116,7 @@ func getWithNoIcon() apps.Binding {
 		Label:    "with_no_icon",
 		Icon:     "foo",
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }
@@ -127,7 +127,7 @@ func getWithSVG() apps.Binding {
 		Label:    "with_svg",
 		Icon:     "icon.svg",
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }

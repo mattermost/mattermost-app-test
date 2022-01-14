@@ -41,284 +41,177 @@ const fullMarkdown = "## Markdown title" +
 	"\n- [ ] Item two" +
 	"\n- [x] Completed item"
 
-func fFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	resp := apps.CallResponse{
-		Type: apps.CallResponseTypeForm,
-		Form: &apps.Form{
-			Title:  "Test",
-			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathOK,
-				Expand: &apps.Expand{
-					Team: apps.ExpandSummary,
-				},
-			},
-			Fields: []apps.Field{
+var simpleSourceForm = apps.Form{
+	Source: apps.NewCall(constants.Form),
+}
+
+var fullSourceForm = apps.Form{
+	Source: apps.NewCall(constants.FormFull),
+}
+
+var invalidSourceForm = apps.Form{
+	Source: apps.NewCall(constants.FormInvalid),
+}
+
+var simpleForm = apps.Form{
+	Title:  "Test",
+	Header: "Test header",
+	Submit: apps.NewCall(constants.Submit).WithExpand(apps.Expand{
+		Team: apps.ExpandSummary,
+	}),
+	Fields: []apps.Field{
+		{
+			Name:       "text",
+			Type:       apps.FieldTypeText,
+			Label:      "text",
+			ModalLabel: "text",
+		},
+		{
+			Name:  "navigate",
+			Type:  apps.FieldTypeBool,
+			Label: "navigate",
+		},
+	},
+}
+
+var fullForm = apps.Form{
+	Title:  "Test Full Form",
+	Header: "Test header",
+	Fields: []apps.Field{
+		{
+			Name: "lookup",
+			Type: apps.FieldTypeDynamicSelect,
+
+			SelectDynamicLookup: apps.NewCall(constants.Lookup),
+		},
+		{
+			Name: "text",
+			Type: apps.FieldTypeText,
+		},
+		{
+			Type: "markdown",
+			Name: "markdown",
+
+			Description: "***\n## User information\nRemember to fill all these fields with the **user** information, not the general information.",
+		},
+		{
+			Name: "boolean",
+			Type: apps.FieldTypeBool,
+		},
+		{
+			Name: "channel",
+			Type: apps.FieldTypeChannel,
+		},
+		{
+			Name: "user",
+			Type: apps.FieldTypeUser,
+		},
+		{
+			Name: "static",
+			Type: apps.FieldTypeStaticSelect,
+
+			SelectStaticOptions: []apps.SelectOption{
 				{
-					Name:       "text",
-					Type:       apps.FieldTypeText,
-					Label:      "text",
-					ModalLabel: "text",
+					Label: "static value 1",
+					Value: "sv1",
 				},
 				{
-					Name:  "navigate",
-					Type:  apps.FieldTypeBool,
-					Label: "navigate",
+					Label: "static value 2",
+					Value: "sv2",
 				},
 			},
 		},
-	}
-	utils.WriteCallResponse(w, resp)
+		{
+			Name: "multi",
+			Type: apps.FieldTypeStaticSelect,
+
+			SelectIsMulti: true,
+			SelectStaticOptions: []apps.SelectOption{
+				{
+					Label: "static value 1",
+					Value: "sv1",
+				},
+				{
+					Label: "static value 2",
+					Value: "sv2",
+				},
+				{
+					Label: "static value 3",
+					Value: "sv3",
+				},
+				{
+					Label: "1",
+					Value: "1",
+				},
+				{
+					Label: "2",
+					Value: "2",
+				},
+				{
+					Label: "3",
+					Value: "3",
+				},
+				{
+					Label: "4",
+					Value: "4",
+				},
+				{
+					Label: "5",
+					Value: "5",
+				},
+				{
+					Label: "6",
+					Value: "6",
+				},
+				{
+					Label: "7",
+					Value: "7",
+				},
+				{
+					Label: "8",
+					Value: "8",
+				},
+				{
+					Label: "9",
+					Value: "9",
+				},
+				{
+					Label: "10",
+					Value: "10",
+				},
+			},
+		},
+		{
+			Name: "user_readonly",
+			Type: apps.FieldTypeUser,
+
+			ReadOnly: true,
+		},
+		{
+			Name: "static_readonly",
+			Type: apps.FieldTypeStaticSelect,
+
+			ReadOnly: true,
+			SelectStaticOptions: []apps.SelectOption{
+				{
+					Label: "static value 1",
+					Value: "sv1",
+				},
+				{
+					Label: "static value 2",
+					Value: "sv2",
+				},
+			},
+		},
+	},
+}
+
+func fFormOK(w http.ResponseWriter, _ *http.Request, _ *apps.CallRequest) {
+	utils.WriteCallResponse(w, apps.NewFormResponse(simpleForm))
 }
 
 func fFullFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	resp := apps.CallResponse{
-		Type: apps.CallResponseTypeForm,
-		Form: &apps.Form{
-			Title:  "Test Full Form",
-			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathLookupOK,
-			},
-			Fields: []apps.Field{
-				{
-					Name:  "lookup",
-					Type:  apps.FieldTypeDynamicSelect,
-					Label: "lookup",
-				},
-				{
-					Name:  "text",
-					Type:  apps.FieldTypeText,
-					Label: "text",
-				},
-				{
-					Type:        "markdown",
-					Name:        "markdown",
-					Description: "***\n## User information\nRemember to fill all these fields with the **user** information, not the general information.",
-				},
-				// {
-				// 	Name: "mk1",
-				// 	Type: "markdown",
-				// 	Description: "## Markdown title" +
-				// 		"\nHello world" +
-				// 		"\nText styles: _italics_ **bold** **_bold-italic_** ~~strikethrough~~ `code`" +
-				// 		"\nUsers and channels: @sysadmin ~town-square" +
-				// 		"\n```" +
-				// 		"\nCode block" +
-				// 		"\n```" +
-				// 		"\n:+1: :banana_dance:" +
-				// 		"\n***" +
-				// 		"\n> Quote\n" +
-				// 		"\nLink: [here](www.google.com)" +
-				// 		"\nImage: ![img](https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/4acbc64f-552d-4944-8474-b44a13a7bd3e.png?auto=format&q=50&fit=fill)" +
-				// 		"\nList:" +
-				// 		"\n- this" +
-				// 		"\n- is" +
-				// 		"\n- a" +
-				// 		"\n- list" +
-				// 		"\nNumbered list" +
-				// 		"\n1. this" +
-				// 		"\n2. is" +
-				// 		"\n3. a" +
-				// 		"\n4. list" +
-				// 		"\nItems" +
-				// 		"\n- [ ] Item one" +
-				// 		"\n- [ ] Item two" +
-				// 		"\n- [x] Completed item",
-				// },
-				// {
-				// 	Name: "mk2",
-				// 	Type: "markdown",
-				// 	Description: "\n| Left-Aligned  | Center Aligned  | Right Aligned |" +
-				// 		"\n| :------------ |:---------------:| -----:|" +
-				// 		"\n| Left column 1 | this text       |  $100 |" +
-				// 		"\n| Left column 2 | is              |   $10 |" +
-				// 		"\n| Left column 3 | centered        |    $1 |",
-				// },
-				{
-					Name:  "boolean",
-					Type:  apps.FieldTypeBool,
-					Label: "boolean",
-				},
-				{
-					Name:  "channel",
-					Type:  apps.FieldTypeChannel,
-					Label: "channel",
-				},
-				{
-					Name:  "user",
-					Type:  apps.FieldTypeUser,
-					Label: "user",
-				},
-				{
-					Name:  "static",
-					Type:  apps.FieldTypeStaticSelect,
-					Label: "static",
-					SelectStaticOptions: []apps.SelectOption{
-						{
-							Label: "static value 1",
-							Value: "sv1",
-						},
-						{
-							Label: "static value 2",
-							Value: "sv2",
-						},
-					},
-				},
-				{
-					Name:          "multi",
-					Type:          apps.FieldTypeStaticSelect,
-					Label:         "multi",
-					SelectIsMulti: true,
-					SelectStaticOptions: []apps.SelectOption{
-						{
-							Label: "static value 1",
-							Value: "sv1",
-						},
-						{
-							Label: "static value 2",
-							Value: "sv2",
-						},
-						{
-							Label: "static value 3",
-							Value: "sv3",
-						},
-						{
-							Label: "1",
-							Value: "1",
-						},
-						{
-							Label: "2",
-							Value: "2",
-						},
-						{
-							Label: "3",
-							Value: "3",
-						},
-						{
-							Label: "4",
-							Value: "4",
-						},
-						{
-							Label: "5",
-							Value: "5",
-						},
-						{
-							Label: "6",
-							Value: "6",
-						},
-						{
-							Label: "7",
-							Value: "7",
-						},
-						{
-							Label: "8",
-							Value: "8",
-						},
-						{
-							Label: "9",
-							Value: "9",
-						},
-						{
-							Label: "10",
-							Value: "10",
-						},
-					},
-				},
-				{
-					Name:     "user_readonly",
-					Type:     apps.FieldTypeUser,
-					Label:    "user_readonly",
-					ReadOnly: true,
-				},
-				{
-					Name:     "static_readonly",
-					Type:     apps.FieldTypeStaticSelect,
-					Label:    "static_readonly",
-					ReadOnly: true,
-					SelectStaticOptions: []apps.SelectOption{
-						{
-							Label: "static value 1",
-							Value: "sv1",
-						},
-						{
-							Label: "static value 2",
-							Value: "sv2",
-						},
-					},
-				},
-			},
-		},
-	}
-	utils.WriteCallResponse(w, resp)
-}
-
-func fFullFormDisabledOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
-	resp := apps.CallResponse{
-		Type: apps.CallResponseTypeForm,
-		Form: &apps.Form{
-			Title:  "Test Full Form",
-			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathLookupOK,
-			},
-			Fields: []apps.Field{
-				{
-					Name:     "lookup",
-					Type:     apps.FieldTypeDynamicSelect,
-					Label:    "lookup",
-					ReadOnly: true,
-				},
-				{
-					Name:     "text",
-					Type:     apps.FieldTypeText,
-					Label:    "text",
-					ReadOnly: true,
-					Value:    "Hello world",
-				},
-				{
-					Type:  "markdown",
-					Name:  "markdown",
-					Value: "Hello ~~world~~",
-				},
-				{
-					Name:     "boolean",
-					Type:     apps.FieldTypeBool,
-					Label:    "boolean",
-					ReadOnly: true,
-				},
-				{
-					Name:     "channel",
-					Type:     apps.FieldTypeChannel,
-					Label:    "channel",
-					ReadOnly: true,
-				},
-				{
-					Name:     "user",
-					Type:     apps.FieldTypeUser,
-					Label:    "user",
-					ReadOnly: true,
-				},
-				{
-					Name:  "static",
-					Type:  apps.FieldTypeStaticSelect,
-					Label: "static",
-					SelectStaticOptions: []apps.SelectOption{
-						{
-							Label: "static value 1",
-							Value: "sv1",
-						},
-						{
-							Label: "static value 2",
-							Value: "sv2",
-						},
-					},
-					ReadOnly: true,
-				},
-			},
-		},
-	}
-	utils.WriteCallResponse(w, resp)
+	utils.WriteCallResponse(w, apps.NewFormResponse(fullForm))
 }
 
 func fDynamicFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
@@ -349,9 +242,8 @@ func fDynamicFormOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequest)
 		Form: &apps.Form{
 			Title:  "Test Dynamic Form",
 			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathDynamicFormOK,
-			},
+			Submit: apps.NewCall(constants.FormDynamic),
+			Source: apps.NewCall(constants.FormDynamic),
 			Fields: fields,
 		},
 	}
@@ -393,9 +285,8 @@ func fFormRedefine(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 		Form: &apps.Form{
 			Title:  "Test",
 			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathOK,
-			},
+			Submit: apps.NewCall(constants.Submit),
+			Source: apps.NewCall(constants.FormDynamic),
 			Fields: fields,
 		},
 	}
@@ -408,9 +299,7 @@ func fFormMultiselect(w http.ResponseWriter, r *http.Request, c *apps.CallReques
 		Form: &apps.Form{
 			Title:  "Test Multiselect Form",
 			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathOK,
-			},
+			Submit: apps.NewCall(constants.Submit),
 			Fields: []apps.Field{
 				{
 					Name:          "static",
@@ -466,9 +355,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 			Form: &apps.Form{
 				Title:  "Test",
 				Header: "Test header",
-				Call: &apps.Call{
-					Path: constants.BindingPathOK,
-				},
+				Submit: apps.NewCall(constants.Submit),
 				Fields: []apps.Field{},
 			},
 			AppID:       c.Context.AppID,
@@ -476,9 +363,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 			Bindings: []apps.Binding{
 				{
 					Location: "problem",
-					Call: &apps.Call{
-						Path: constants.BindingPathOK,
-					},
+					Submit:   apps.NewCall(constants.Submit),
 					Bindings: []apps.Binding{
 						{
 							Location: "hardware",
@@ -496,9 +381,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 				},
 				{
 					Location: "provider",
-					Call: &apps.Call{
-						Path: constants.BindingPathOK,
-					},
+					Submit:   apps.NewCall(constants.Submit),
 					Bindings: []apps.Binding{
 						{
 							Location: "work",
@@ -509,9 +392,7 @@ func fFormEmbedded(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) 
 				{
 					Location: "button",
 					Label:    "Submit",
-					Call: &apps.Call{
-						Path: constants.BindingPathOK,
-					},
+					Submit:   apps.NewCall(constants.Submit),
 				},
 			},
 		},
@@ -562,10 +443,11 @@ func fFormWithButtonsOK(w http.ResponseWriter, r *http.Request, c *apps.CallRequ
 			Title:         "Test multiple buttons Form",
 			Header:        "Test header",
 			SubmitButtons: "submit",
-			Call: &apps.Call{
-				Path:  constants.BindingPathWithButtonsOK,
+			Source: &apps.Call{
+				Path:  constants.FormWithButtons,
 				State: numButtons,
 			},
+			Submit: apps.NewCall(constants.Submit),
 			Fields: []apps.Field{
 				{
 					Name:                "submit",
@@ -586,8 +468,8 @@ func fFormWithMarkdownError(w http.ResponseWriter, r *http.Request, c *apps.Call
 		Form: &apps.Form{
 			Title:  "Test markdown descriptions and errors",
 			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathMarkdownFormError,
+			Submit: &apps.Call{
+				Path: constants.MarkdownFormError,
 			},
 			Fields: []apps.Field{
 				{
@@ -646,8 +528,8 @@ func fFormWithMarkdownErrorMissingField(w http.ResponseWriter, r *http.Request, 
 		Form: &apps.Form{
 			Title:  "Test markdown descriptions and errors",
 			Header: "Test header",
-			Call: &apps.Call{
-				Path: constants.BindingPathMarkdownFormErrorMissingField,
+			Submit: &apps.Call{
+				Path: constants.MarkdownFormErrorMissingField,
 			},
 			Fields: []apps.Field{
 				{

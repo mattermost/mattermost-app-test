@@ -18,8 +18,8 @@ func fEmptyError(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 
 func fMarkdownFormError(w http.ResponseWriter, r *http.Request, c *apps.CallRequest) {
 	utils.WriteCallResponse(w, apps.CallResponse{
-		Type:      apps.CallResponseTypeError,
-		ErrorText: "## This is a very **BIG** error.\nYou should probably take a look at it.",
+		Type: apps.CallResponseTypeError,
+		Text: "## This is a very **BIG** error.\nYou should probably take a look at it.",
 		Data: map[string]map[string]string{
 			"errors": {
 				"text":    "These are not the emojis you are looking for :sweat_smile:",

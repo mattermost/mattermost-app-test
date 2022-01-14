@@ -11,8 +11,8 @@ import (
 func Get(context apps.Context) []apps.Binding {
 	out := []apps.Binding{}
 
-	out = append(out, command.Get(context))
 	out = append(out, channelheader.Get(context))
+	out = append(out, command.Get(context))
 	out = append(out, postaction.Get(context))
 
 	return out

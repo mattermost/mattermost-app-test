@@ -20,7 +20,7 @@ func Get(context apps.Context) apps.Binding {
 				Fields: []apps.Field{},
 			},
 			Call: &apps.Call{
-				Path: constants.BindingPathOK,
+				Path: constants.SubmitOK,
 			},
 		})
 	}

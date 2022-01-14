@@ -21,7 +21,7 @@ func getWithNoLabel() apps.Binding {
 		Location: "ERROR_with_no_label",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }
@@ -40,7 +40,7 @@ func getWithWhitespaceLabel() apps.Binding {
 		Label:    " ",
 		Icon:     "icon.png",
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }

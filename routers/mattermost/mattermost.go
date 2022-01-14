@@ -23,88 +23,94 @@ var ErrActingUserMismatch = errors.New("JWT claim doesn't match actingUserID in 
 
 type callHandler func(http.ResponseWriter, *http.Request, *apps.CallRequest)
 
-func Init(router *mux.Router, m *apps.Manifest, staticAssets fs.FS, localMode bool) {
-	router.HandleFunc(constants.ManifestPath, fManifest(m))
-	router.HandleFunc(constants.InstallPath, extractCall(fInstall, localMode))
-	router.HandleFunc(constants.BindingsPath, extractCall(fBindings, localMode))
+var LocalMode bool
+
+func Init(r *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
+	r.HandleFunc(constants.ManifestPath, fManifest(m))
+	handleCall(r, constants.InstallPath, fInstall)
+	handleCall(r, constants.BindingsPath, fBindings)
 
 	// OK responses
-	router.HandleFunc(constants.BindingPathOK+"/{type}", extractCall(fOK, localMode))
-	router.HandleFunc(constants.BindingPathOKEmpty+"/{type}", extractCall(fEmptyOK, localMode))
+	handleCall(r, constants.Submit, fOK)
+	handleCall(r, constants.SubmitEmpty, fEmptyOK)
 
 	// Navigate responses
-	router.HandleFunc(constants.BindingPathNavigateExternal+"/{type}", extractCall(fNavigateExternal, localMode))
-	router.HandleFunc(constants.BindingPathNavigateInternal+"/{type}", extractCall(fNavigateInternal, localMode))
-	router.HandleFunc(constants.BindingPathNavigateInvalid+"/{type}", extractCall(fNavigateInvalid, localMode))
+	handleCall(r, constants.NavigateExternal, fNavigateExternal)
+	handleCall(r, constants.NavigateInternal, fNavigateInternal)
+	handleCall(r, constants.NavigateInvalid, fNavigateInvalid)
 
 	// Error responses
-	router.HandleFunc(constants.BindingPathError+"/{type}", extractCall(fError, localMode))
-	router.HandleFunc(constants.BindingPathErrorEmpty+"/{type}", extractCall(fEmptyError, localMode))
-	router.HandleFunc(constants.BindingPathMarkdownFormError+"/{type}", extractCall(fMarkdownFormError, localMode))
-	router.HandleFunc(constants.BindingPathMarkdownFormErrorMissingField+"/{type}", extractCall(fMarkdownFormErrorMissingField, localMode))
+	handleCall(r, constants.Error, fError)
+	handleCall(r, constants.ErrorEmpty, fEmptyError)
+	handleCall(r, constants.MarkdownFormError, fMarkdownFormError)
+	handleCall(r, constants.MarkdownFormErrorMissingField, fMarkdownFormErrorMissingField)
 
 	// Form responses
-	router.HandleFunc(constants.BindingPathFormOK+"/{type}", extractCall(fFormOK, localMode))
-	router.HandleFunc(constants.BindingPathFullFormOK+"/{type}", extractCall(fFullFormOK, localMode))
-	router.HandleFunc(constants.BindingPathRedefineFormOK+"/{type}", extractCall(fFormRedefine, localMode))
-	router.HandleFunc(constants.BindingPathEmbeddedFormOK+"/{type}", extractCall(fFormEmbedded, localMode))
-	router.HandleFunc(constants.BindingPathFullDisabledOK+"/{type}", extractCall(fFullFormDisabledOK, localMode))
-	router.HandleFunc(constants.BindingPathDynamicFormOK+"/{type}", extractCall(fDynamicFormOK, localMode))
-	router.HandleFunc(constants.BindingPathFormInvalid+"/{type}", extractCall(fFormInvalid, localMode))
-	router.HandleFunc(constants.BindingPathMultiselectForm+"/{type}", extractCall(fFormMultiselect, localMode))
-	router.HandleFunc(constants.BindingPathWithButtonsOK+"/{type}", extractCall(fFormWithButtonsOK, localMode))
-	router.HandleFunc(constants.BindingPathMarkdownForm+"/{type}", extractCall(fFormWithMarkdownError, localMode))
-	router.HandleFunc(constants.BindingPathMarkdownFormWithMissingError+"/{type}", extractCall(fFormWithMarkdownErrorMissingField, localMode))
+	handleCall(r, constants.Form, fFormOK)
+	handleCall(r, constants.FormFull, fFullFormOK)
+	r.HandleFunc(constants.FormRedefine, handle(fFormRedefine, LocalMode))
+	r.HandleFunc(constants.FormEmbedded, handle(fFormEmbedded, LocalMode))
+	r.HandleFunc(constants.FormFullDisabled, handle(fFullFormDisabledOK, LocalMode))
+	r.HandleFunc(constants.FormDynamic, handle(fDynamicFormOK, LocalMode))
+	r.HandleFunc(constants.FormInvalid, handle(fFormInvalid, LocalMode))
+	r.HandleFunc(constants.FormMultiselect, handle(fFormMultiselect, LocalMode))
+	r.HandleFunc(constants.FormWithButtons, handle(fFormWithButtonsOK, LocalMode))
+	r.HandleFunc(constants.FormMarkdown, handle(fFormWithMarkdownError, LocalMode))
+	r.HandleFunc(constants.FormMarkdownWithMissingError, handle(fFormWithMarkdownErrorMissingField, LocalMode))
 
 	// Lookup responses
-	router.HandleFunc(constants.BindingPathLookupOK+"/{type}", extractCall(fLookupOK, localMode))
-	router.HandleFunc(constants.BindingPathLookupEmpty+"/{type}", extractCall(fLookupEmpty, localMode))
-	router.HandleFunc(constants.BindingPathLookupMultiword+"/{type}", extractCall(fLookupMultiword, localMode))
-	router.HandleFunc(constants.BindingPathLookupInvalid+"/{type}", extractCall(fLookupInvalid, localMode))
+	r.HandleFunc(constants.Lookup, handle(fLookupOK, LocalMode))
+	r.HandleFunc(constants.LookupEmpty, handle(fLookupEmpty, LocalMode))
+	r.HandleFunc(constants.LookupMultiword, handle(fLookupMultiword, LocalMode))
+	r.HandleFunc(constants.LookupInvalid, handle(fLookupInvalid, LocalMode))
 
 	// Other
-	router.HandleFunc(constants.BindingPathHTML+"/{type}", extractCall(fHTML, localMode))
-	router.HandleFunc(constants.BindingPathUnknown+"/{type}", extractCall(fUnknown, localMode))
+	r.HandleFunc(constants.HTMLPath, handle(fHTML, LocalMode))
+	r.HandleFunc(constants.UnknownPath, handle(fUnknown, LocalMode))
 
 	// Static files
-	router.PathPrefix(constants.StaticAssetPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
+	r.PathPrefix(constants.StaticPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
 
 	// Subscription Commands
-	router.HandleFunc(constants.SubscribeCommand+"/submit", extractCall(fSubscriptionsCommand(m), localMode))
+	r.HandleFunc(constants.SubscribeCommand+"/submit", handle(fSubscriptionsCommand(m), LocalMode))
 
 	// Global Notifications
-	router.HandleFunc(constants.NotifyUserCreated, extractCall(fSubscriptionsUserCreated(m), localMode))
-	router.HandleFunc(constants.NotifyBotMention, extractCall(fSubscriptionsBotMention(m), localMode))
-	router.HandleFunc(constants.NotifyBotJoinedChannel, extractCall(fSubscriptionsBotJoinedChannel(m), localMode))
-	router.HandleFunc(constants.NotifyBotLeftChannel, extractCall(fSubscriptionsBotLeftChannel(m), localMode))
-	router.HandleFunc(constants.NotifyBotJoinedTeam, extractCall(fSubscriptionsBotJoinedTeam(m), localMode))
-	router.HandleFunc(constants.NotifyBotLeftTeam, extractCall(fSubscriptionsBotLeftTeam(m), localMode))
+	r.HandleFunc(constants.NotifyUserCreated, handle(fSubscriptionsUserCreated(m), LocalMode))
+	r.HandleFunc(constants.NotifyBotMention, handle(fSubscriptionsBotMention(m), LocalMode))
+	r.HandleFunc(constants.NotifyBotJoinedChannel, handle(fSubscriptionsBotJoinedChannel(m), LocalMode))
+	r.HandleFunc(constants.NotifyBotLeftChannel, handle(fSubscriptionsBotLeftChannel(m), LocalMode))
+	r.HandleFunc(constants.NotifyBotJoinedTeam, handle(fSubscriptionsBotJoinedTeam(m), LocalMode))
+	r.HandleFunc(constants.NotifyBotLeftTeam, handle(fSubscriptionsBotLeftTeam(m), LocalMode))
 
 	// Channel Notifications
-	router.HandleFunc(constants.NotifyUserJoinedChannel, extractCall(fSubscriptionsUserJoinedChannel(m), localMode))
-	router.HandleFunc(constants.NotifyUserLeftChannel, extractCall(fSubscriptionsUserLeftChannel(m), localMode))
-	router.HandleFunc(constants.NotifyPostCreated, extractCall(fSubscriptionsPostCreated(m), localMode))
+	r.HandleFunc(constants.NotifyUserJoinedChannel, handle(fSubscriptionsUserJoinedChannel(m), LocalMode))
+	r.HandleFunc(constants.NotifyUserLeftChannel, handle(fSubscriptionsUserLeftChannel(m), LocalMode))
+	r.HandleFunc(constants.NotifyPostCreated, handle(fSubscriptionsPostCreated(m), LocalMode))
 
 	// Team Notifications
-	router.HandleFunc(constants.NotifyUserJoinedTeam, extractCall(fSubscriptionsUserJoinedTeam(m), localMode))
-	router.HandleFunc(constants.NotifyUserLeftTeam, extractCall(fSubscriptionsUserLeftTeam(m), localMode))
-	router.HandleFunc(constants.NotifyChannelCreated, extractCall(fSubscriptionsChannelCreated(m), localMode))
+	r.HandleFunc(constants.NotifyUserJoinedTeam, handle(fSubscriptionsUserJoinedTeam(m), LocalMode))
+	r.HandleFunc(constants.NotifyUserLeftTeam, handle(fSubscriptionsUserLeftTeam(m), LocalMode))
+	r.HandleFunc(constants.NotifyChannelCreated, handle(fSubscriptionsChannelCreated(m), LocalMode))
 
 	// OpenDialog
-	router.HandleFunc(constants.OtherPathOpenDialog+"/submit", extractCall(postOpenDialogTest(m), localMode))
-	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogNoResponse, postOpenDialogTestNoResponse)
-	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEmptyResponse, postOpenDialogTestEmptyResponse)
-	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEphemeralResponse, postOpenDialogTestEphemeralResponse)
-	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogUpdateResponse, postOpenDialogTestUpdateResponse)
-	router.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogBadResponse, postOpenDialogTestBadResponse)
+	r.HandleFunc(constants.OtherPathOpenDialog+"/submit", handle(postOpenDialogTest(m), LocalMode))
+	r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogNoResponse, postOpenDialogTestNoResponse)
+	r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEmptyResponse, postOpenDialogTestEmptyResponse)
+	r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEphemeralResponse, postOpenDialogTestEphemeralResponse)
+	r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogUpdateResponse, postOpenDialogTestUpdateResponse)
+	r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogBadResponse, postOpenDialogTestBadResponse)
 
-	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := errors.Errorf("path not found: %s", r.URL.Path)
 		_ = httputils.WriteJSON(w, apps.NewErrorResponse(err))
 	})
 }
 
-func extractCall(f callHandler, localMode bool) http.HandlerFunc {
+func handleCall(router *mux.Router, path string, f callHandler) {
+	router.HandleFunc(path, handle(f))
+}
+
+func handle(f callHandler) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		data, err := apps.CallRequestFromJSONReader(r.Body)
 		if err != nil {
@@ -112,7 +118,7 @@ func extractCall(f callHandler, localMode bool) http.HandlerFunc {
 			return
 		}
 
-		if localMode {
+		if LocalMode {
 			claims, err := checkJWT(r)
 			if err != nil {
 				utils.WriteBadRequestError(rw, err)

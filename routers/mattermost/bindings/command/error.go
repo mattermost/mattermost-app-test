@@ -45,7 +45,7 @@ func getWithError() apps.Binding {
 		Label:    "with_error",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }
@@ -56,7 +56,7 @@ func getWithEmptyError() apps.Binding {
 		Label:    "with_empty_error",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathErrorEmpty,
+			Path: constants.ErrorEmpty,
 		},
 	}
 }
@@ -67,7 +67,7 @@ func getWithInvalidNavigate() apps.Binding {
 		Label:    "with_invalid_navigate",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInvalid,
+			Path: constants.NavigateInvalid,
 		},
 	}
 }
@@ -78,7 +78,7 @@ func getWithInvalidForm() apps.Binding {
 		Label:    "with_invalid_form",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathFormInvalid,
+			Path: constants.FormInvalid,
 		},
 	}
 }
@@ -89,7 +89,7 @@ func getWith404Error() apps.Binding {
 		Label:    "with_404_error",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPath404,
+			Path: constants.NotFoundPath,
 		},
 	}
 }
@@ -100,7 +100,7 @@ func getWithHTMLSite() apps.Binding {
 		Label:    "with_html_site",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathHTML,
+			Path: constants.HTMLPath,
 		},
 	}
 }
@@ -122,7 +122,7 @@ func getWithUnknownResponse() apps.Binding {
 		Label:    "with_unknown_response",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }
@@ -132,7 +132,7 @@ func getWithFormInvalid() apps.Binding {
 		Location: "with_form_invalid",
 		Label:    "with_form_invalid",
 		Call: &apps.Call{
-			Path: constants.BindingPathFormInvalid,
+			Path: constants.FormInvalid,
 		},
 	}
 }
@@ -142,7 +142,7 @@ func getWithFormError() apps.Binding {
 		Location: "with_form_error",
 		Label:    "with_form_error",
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }
@@ -152,7 +152,7 @@ func getWithFormErrorEmpty() apps.Binding {
 		Location: "with_form_error_empty",
 		Label:    "with_form_error_empty",
 		Call: &apps.Call{
-			Path: constants.BindingPathErrorEmpty,
+			Path: constants.ErrorEmpty,
 		},
 	}
 }
@@ -162,7 +162,7 @@ func getWithFormNavigate() apps.Binding {
 		Location: "with_form_navigate",
 		Label:    "with_form_navigate",
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateExternal,
+			Path: constants.NavigateExternal,
 		},
 	}
 }
@@ -172,7 +172,7 @@ func getWithFormOK() apps.Binding {
 		Location: "with_form_ok",
 		Label:    "with_form_ok",
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -183,7 +183,7 @@ func getWithFormHTMLSite() apps.Binding {
 		Label:    "with_form_html_site",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathHTML,
+			Path: constants.HTMLPath,
 		},
 	}
 }
@@ -205,7 +205,7 @@ func getWithFormUnknownResponse() apps.Binding {
 		Label:    "with_form_unknown_response",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }
@@ -224,7 +224,7 @@ func getWithLookupError() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathError,
+			Path: constants.Error,
 		},
 	}
 }
@@ -243,7 +243,7 @@ func getWithLookupForm() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathFormOK,
+			Path: constants.Form,
 		},
 	}
 }
@@ -262,7 +262,7 @@ func getWithLookupNavigate() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateExternal,
+			Path: constants.NavigateExternal,
 		},
 	}
 }
@@ -281,7 +281,7 @@ func getWithLookup404() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPath404,
+			Path: constants.NotFoundPath,
 		},
 	}
 }
@@ -300,7 +300,7 @@ func getWithLookupHTML() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathHTML,
+			Path: constants.HTMLPath,
 		},
 	}
 }
@@ -319,7 +319,7 @@ func getWithLookupUnknown() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathUnknown,
+			Path: constants.UnknownPath,
 		},
 	}
 }

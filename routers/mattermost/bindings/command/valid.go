@@ -49,7 +49,7 @@ func getWithEmptyForm() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -68,7 +68,7 @@ func getWithForm() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -78,7 +78,7 @@ func getWithoutForm() apps.Binding {
 		Location: "no_form",
 		Label:    "no_form",
 		Call: &apps.Call{
-			Path: constants.BindingPathFormOK,
+			Path: constants.Form,
 		},
 	}
 }
@@ -88,7 +88,7 @@ func getRedefineForm() apps.Binding {
 		Location: "redefine_form",
 		Label:    "redefine_form",
 		Call: &apps.Call{
-			Path: constants.BindingPathRedefineFormOK,
+			Path: constants.FormRedefine,
 		},
 	}
 }
@@ -99,7 +99,7 @@ func getEmbeddedForm() apps.Binding {
 		Label:    "embedded_form",
 		Form:     &apps.Form{Fields: []apps.Field{}},
 		Call: &apps.Call{
-			Path: constants.BindingPathEmbeddedFormOK,
+			Path: constants.FormEmbedded,
 		},
 	}
 }
@@ -118,7 +118,7 @@ func getWithLookup() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathLookupOK,
+			Path: constants.Lookup,
 		},
 	}
 }
@@ -137,7 +137,7 @@ func getWithEmptyLookup() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathLookupEmpty,
+			Path: constants.LookupEmpty,
 		},
 	}
 }
@@ -244,7 +244,7 @@ func getWithFullForm() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathLookupOK,
+			Path: constants.Lookup,
 		},
 	}
 }
@@ -264,7 +264,7 @@ func getWithNoOptionStatic() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -277,7 +277,7 @@ func getWithInternalNavResponse() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateExternal,
+			Path: constants.NavigateExternal,
 		},
 	}
 }
@@ -290,7 +290,7 @@ func getWithExternalNavResponse() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathNavigateInternal,
+			Path: constants.NavigateInternal,
 		},
 	}
 }
@@ -309,7 +309,7 @@ func getWithFormResponse() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathFormOK,
+			Path: constants.Form,
 		},
 	}
 }
@@ -334,7 +334,7 @@ func getWithRequiredFields() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathFormOK,
+			Path: constants.Form,
 		},
 	}
 }
@@ -363,7 +363,7 @@ func getWithMultiwordOption() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -382,7 +382,7 @@ func getWithMultiwordDynamicOption() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathLookupMultiword,
+			Path: constants.LookupMultiword,
 		},
 	}
 }
@@ -395,7 +395,7 @@ func getOpenFullFormModal() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathFullFormOK,
+			Path: constants.FormFull,
 		},
 	}
 }
@@ -408,7 +408,7 @@ func getOpenFullFormDisabledModal() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathFullDisabledOK,
+			Path: constants.FormFullDisabled,
 		},
 	}
 }
@@ -421,7 +421,7 @@ func getOpenDynamicFormModal() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathDynamicFormOK,
+			Path: constants.FormDynamic,
 		},
 	}
 }
@@ -434,7 +434,7 @@ func getOpenFormWithButtons() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathWithButtonsOK,
+			Path: constants.FormWithButtons,
 		},
 	}
 }
@@ -447,7 +447,7 @@ func getOpenMultiselectForm() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathMultiselectForm,
+			Path: constants.FormMultiselect,
 		},
 	}
 }
@@ -460,7 +460,7 @@ func getOpenMarkdownForm() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathMarkdownForm,
+			Path: constants.FormMarkdown,
 		},
 	}
 }
@@ -473,7 +473,7 @@ func getOpenMarkdownFormWithMissingFieldError() apps.Binding {
 			Fields: []apps.Field{},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathMarkdownFormWithMissingError,
+			Path: constants.FormMarkdownWithMissingError,
 		},
 	}
 }
@@ -523,7 +523,7 @@ func getMultiselectCommand() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -542,7 +542,7 @@ func getWithCallInForm() apps.Binding {
 				},
 			},
 			Call: &apps.Call{
-				Path: constants.BindingPathOK,
+				Path: constants.SubmitOK,
 			},
 		},
 	}

@@ -38,7 +38,7 @@ func getWithSameCommand() apps.Binding {
 				Label:    "Command",
 				Form:     &apps.Form{},
 				Call: &apps.Call{
-					Path: constants.BindingPathOK,
+					Path: constants.SubmitOK,
 				},
 			},
 			{
@@ -46,7 +46,7 @@ func getWithSameCommand() apps.Binding {
 				Label:    "Command",
 				Form:     &apps.Form{},
 				Call: &apps.Call{
-					Path: constants.BindingPathError,
+					Path: constants.Error,
 				},
 			},
 		},
@@ -72,7 +72,7 @@ func getWithSameFieldNames() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -101,7 +101,7 @@ func getWithSameOptionNames() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -130,7 +130,7 @@ func getWithNoNameOption() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -141,7 +141,7 @@ func getWithMultiwordCommand() apps.Binding {
 		Label:    "with_multiword command",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -160,7 +160,7 @@ func getWithMultiwordField() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -179,7 +179,7 @@ func getNoNameField() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -190,7 +190,7 @@ func getWithWhitespaceLabel() apps.Binding {
 		Label:    " ",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -200,7 +200,7 @@ func getWithNoLabel() apps.Binding {
 		Location: "ERROR_with_no_label",
 		Form:     &apps.Form{},
 		Call: &apps.Call{
-			Path: constants.BindingPathOK,
+			Path: constants.SubmitOK,
 		},
 	}
 }
@@ -227,7 +227,7 @@ func getWithInvalidLookup() apps.Binding {
 			},
 		},
 		Call: &apps.Call{
-			Path: constants.BindingPathLookupInvalid,
+			Path: constants.LookupInvalid,
 		},
 	}
 }
