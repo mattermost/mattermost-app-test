@@ -39,27 +39,6 @@ func getError() apps.Binding {
 	return base
 }
 
-func getWithError() apps.Binding {
-	return apps.Binding{
-		Location: "with_error",
-		Label:    "with_error",
-		Form:     &apps.Form{},
-		Call: &apps.Call{
-			Path: constants.Error,
-		},
-	}
-}
-
-func getWithEmptyError() apps.Binding {
-	return apps.Binding{
-		Location: "with_empty_error",
-		Label:    "with_empty_error",
-		Form:     &apps.Form{},
-		Call: &apps.Call{
-			Path: constants.ErrorEmpty,
-		},
-	}
-}
 
 func getWithInvalidNavigate() apps.Binding {
 	return apps.Binding{
@@ -83,16 +62,6 @@ func getWithInvalidForm() apps.Binding {
 	}
 }
 
-func getWith404Error() apps.Binding {
-	return apps.Binding{
-		Location: "with_404_error",
-		Label:    "with_404_error",
-		Form:     &apps.Form{},
-		Call: &apps.Call{
-			Path: constants.NotFoundPath,
-		},
-	}
-}
 
 func getWithHTMLSite() apps.Binding {
 	return apps.Binding{

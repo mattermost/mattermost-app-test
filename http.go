@@ -28,27 +28,30 @@ func initHTTP(r *mux.Router) {
 	handleCall(r, path.Install, handleInstall)
 	handleCall(r, path.Bindings, handleBindings)
 
-	// Functional command responses
-	handleCall(r, path.ProfileView, handleProfileView)
-	handleCall(r, path.ProfileCommand, handleProfileCommand)
-
 	// OK responses
 	handleCall(r, path.OK, handleOK)
 	handleCall(r, path.OKEmpty, handleOKEmpty)
 
-	// // Navigate responses
-	// handleCall(r, constants.NavigateExternal, fNavigateExternal)
-	// handleCall(r, constants.NavigateInternal, fNavigateInternal)
-	// handleCall(r, constants.NavigateInvalid, fNavigateInvalid)
+	// Navigate responses
+	handleCall(r, path.NavigateExternal, handleNavigateExternal)
+	handleCall(r, path.NavigateInternal, handleNavigateInternal)
+	handleCall(r, path.NavigateInvalid, handleNavigateInvalid)
 
-	// // Error responses
-	// handleCall(r, constants.Error, fError)
-	// handleCall(r, constants.ErrorEmpty, fEmptyError)
+	// Error responses
+	r.HandleFunc(path.ErrorDefault, handleError("Error"))
+	r.HandleFunc(path.ErrorEmpty, handleError(""))
+	r.HandleFunc(path.Error404, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNotFound)
+	})
+	r.HandleFunc(path.Error500, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+	})
 	// handleCall(r, constants.MarkdownFormError, fMarkdownFormError)
 	// handleCall(r, constants.MarkdownFormErrorMissingField, fMarkdownFormErrorMissingField)
 
-	// // Form responses
-	// handleCall(r, constants.Form, fFormOK)
+	// Form responses
+	r.HandleFunc(path.FormSimple, handleForm(simpleForm))
+	r.HandleFunc(path.FormSimpleSource, handleForm(simpleFormSource))
 	// handleCall(r, constants.FormFull, fFullFormOK)
 	// r.HandleFunc(constants.FormRedefine, handle(fFormRedefine, LocalMode))
 	// r.HandleFunc(constants.FormEmbedded, handle(fFormEmbedded, LocalMode))
@@ -66,7 +69,7 @@ func initHTTP(r *mux.Router) {
 	// r.HandleFunc(constants.LookupMultiword, handle(fLookupMultiword, LocalMode))
 	// r.HandleFunc(constants.LookupInvalid, handle(fLookupInvalid, LocalMode))
 
-	// // Other
+	// Other
 	// r.HandleFunc(constants.HTMLPath, handle(fHTML, LocalMode))
 	// r.HandleFunc(constants.UnknownPath, handle(fUnknown, LocalMode))
 

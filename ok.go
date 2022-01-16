@@ -2,11 +2,15 @@ package main
 
 import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
+
+var callOK = apps.NewCall(path.OK)
 
 var responseOK = apps.CallResponse{
 	Type: apps.CallResponseTypeOK,
-	Data: "any data OK",
+	Data: "any data is OK",
 	Text: "OK",
 }
 

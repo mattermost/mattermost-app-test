@@ -18,8 +18,11 @@ const (
 	ErrorEmpty                    = "/errors/empty"
 	ErrorMarkdownForm             = "/errors/markdownform"
 	ErrorMarkdownFormMissingField = "/errors/markdownformMissingField"
+	Error404                      = "/errors/foo"
+	Error500                      = "/errors/internal"
 
 	FormSimple                   = "/forms/simple"
+	FormSimpleSource             = "/forms/simple/source"
 	FormFull                     = "/forms/full"
 	FormFullDisabled             = "/forms/full_disabled"
 	FormDynamic                  = "/forms/dynamic"
@@ -40,7 +43,6 @@ const (
 	NavigateExternal = "/nav/external"
 	NavigateInvalid  = "/nav/invalid"
 
-	NotFound    = "/foo"
 	HTML        = "/html"
 	UnknownType = "/unknown"
 

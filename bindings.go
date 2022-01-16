@@ -2,8 +2,6 @@ package main
 
 import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-
-	"github.com/mattermost/mattermost-app-test/path"
 )
 
 // Forms:
@@ -29,33 +27,15 @@ func handleBindings(c *apps.CallRequest) apps.CallResponse {
 }
 
 func commandBindings(cc apps.Context) []apps.Binding {
-	return []apps.Binding{
-		{
-			Label: CommandTrigger,
-			Icon:  "icon.png",
-			Bindings: []apps.Binding{
-				profileCommandBinding(cc),
-			},
+	b := apps.Binding{
+		Label: CommandTrigger,
+		Icon:  "icon.png",
+		Bindings: []apps.Binding{
+			testCommandBinding(cc),
 		},
 	}
-}
 
-func testCommandBindings(context apps.Context) []apps.Binding {
-	var out []apps.Binding
-	if context.Channel.Name == "town-square" {
-		out = append(out, newBinding("town square channel specific", path.OK))
-	}
-
-	out = append(out, newBinding("submit-OK", path.OK))
-	out = append(out, newBinding("submit-OK-empty", path.OKEmpty))
-
-	return []apps.Binding{
-		{
-			Label:    CommandTrigger,
-			Icon:     "icon.png",
-			Bindings: out,
-		},
-	}
+	return []apps.Binding{b}
 }
 
 // var channelHeaderBindings = []apps.Binding{
