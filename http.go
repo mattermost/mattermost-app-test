@@ -1,9 +1,7 @@
-package mattermost
+package main
 
 import (
 	"fmt"
-	"io/fs"
-	"log"
 	"net/http"
 	"strings"
 
@@ -15,31 +13,28 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/utils"
 	"github.com/mattermost/mattermost-plugin-apps/utils/httputils"
 
-	"github.com/mattermost/mattermost-app-test/constants"
-)
-
-const (
-	AppSecret      = "1234"
-	CommandTrigger = "test"
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
 var ErrUnexpectedSignMethod = errors.New("unexpected signing method")
 var ErrMissingHeader = errors.Errorf("missing %s: Bearer header", apps.OutgoingAuthHeader)
 var ErrActingUserMismatch = errors.New("JWT claim doesn't match actingUserID in context")
 
-type callHandler func(*http.Request, *apps.CallRequest) apps.CallResponse
+type callHandler func(*apps.CallRequest) apps.CallResponse
 
-var LocalMode bool
+func initHTTP(r *mux.Router) {
+	r.HandleFunc(path.Manifest, httputils.DoHandleJSON(manifest))
 
-func Init(r *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
-	r.HandleFunc(constants.ManifestPath, httputils.DoHandleJSON(m))
+	handleCall(r, path.Install, handleInstall)
+	handleCall(r, path.Bindings, handleBindings)
 
-	handleCall(r, constants.InstallPath, fInstall)
-	handleCall(r, constants.BindingsPath, fBindings)
+	// Functional command responses
+	handleCall(r, path.ProfileView, handleProfileView)
+	handleCall(r, path.ProfileCommand, handleProfileCommand)
 
 	// OK responses
-	handleCall(r, constants.Submit, fOK)
-	handleCall(r, constants.SubmitEmpty, fEmptyOK)
+	handleCall(r, path.OK, handleOK)
+	handleCall(r, path.OKEmpty, handleOKEmpty)
 
 	// // Navigate responses
 	// handleCall(r, constants.NavigateExternal, fNavigateExternal)
@@ -75,8 +70,8 @@ func Init(r *mux.Router, m *apps.Manifest, staticAssets fs.FS) {
 	// r.HandleFunc(constants.HTMLPath, handle(fHTML, LocalMode))
 	// r.HandleFunc(constants.UnknownPath, handle(fUnknown, LocalMode))
 
-	// // Static files
-	// r.PathPrefix(constants.StaticPath).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
+	// Static files
+	r.PathPrefix(path.Static).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
 
 	// // Subscription Commands
 	// r.HandleFunc(constants.SubscribeCommand+"/submit", handle(fSubscriptionsCommand(m), LocalMode))
@@ -125,7 +120,7 @@ func handle(f callHandler) http.HandlerFunc {
 			return
 		}
 
-		if LocalMode {
+		if localMode {
 			claims, err := checkJWT(r)
 			if err != nil {
 				httputils.WriteError(w, utils.NewInvalidError(err))
@@ -137,10 +132,10 @@ func handle(f callHandler) http.HandlerFunc {
 				return
 			}
 
-			log.Println(utils.Pretty(creq))
+			// log.Println(utils.Pretty(creq))
 		}
 
-		cresp := f(r, creq)
+		cresp := f(creq)
 		httputils.WriteJSON(w, cresp)
 	}
 }
@@ -157,7 +152,7 @@ func checkJWT(req *http.Request) (*apps.JWTClaims, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("%w: %v", ErrUnexpectedSignMethod, token.Header["alg"])
 		}
-		return []byte(constants.AppSecret), nil
+		return []byte(AppSecret), nil
 	})
 
 	if err != nil {

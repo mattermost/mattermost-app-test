@@ -1,23 +1,25 @@
-package constants
+package path
 
 import "github.com/mattermost/mattermost-plugin-apps/apps"
 
 const (
-	ManifestPath = "/manifest.json"
-	InstallPath  = "/install"
-	BindingsPath = "/bindings"
+	Manifest = "/manifest.json"
+	Install  = "/install"
+	Bindings = "/bindings"
 
-	AppSecret = "1234"
+	ProfileView          = "/profile/view"
+	ProfileCommand       = "/profile/command"
+	ProfileChannelHeader = "/profile/channel_header"
 
-	Submit      = "/submit/ok"
-	SubmitEmpty = "/submit/okEmpty"
+	OK      = "/ok"
+	OKEmpty = "/empty"
 
-	Error                         = "/error/error"
+	ErrorDefault                  = "/errors/default"
 	ErrorEmpty                    = "/errors/empty"
-	MarkdownFormError             = "/errors/markdownform"
-	MarkdownFormErrorMissingField = "/errors/markdownformMissingField"
+	ErrorMarkdownForm             = "/errors/markdownform"
+	ErrorMarkdownFormMissingField = "/errors/markdownformMissingField"
 
-	Form                         = "/forms/ok"
+	FormSimple                   = "/forms/simple"
 	FormFull                     = "/forms/full"
 	FormFullDisabled             = "/forms/full_disabled"
 	FormDynamic                  = "/forms/dynamic"
@@ -26,7 +28,7 @@ const (
 	FormWithButtons              = "/forms/buttons"
 	FormMarkdown                 = "/forms/markdown"
 	FormMarkdownWithMissingError = "/forms/markdownWitMissingError"
-	FormRedefine                 = "/forms/redefine_form"
+	FormRedefine                 = "/forms/redefine"
 	FormEmbedded                 = "/forms/embedded"
 
 	Lookup          = "/lookups/ok"
@@ -38,25 +40,20 @@ const (
 	NavigateExternal = "/nav/external"
 	NavigateInvalid  = "/nav/invalid"
 
-	NotFoundPath     = "/foo"
-	HTMLPath    = "/html"
-	UnknownPath = "/unknown"
+	NotFound    = "/foo"
+	HTML        = "/html"
+	UnknownType = "/unknown"
 
-	StaticPath = "/static"
+	Static = "/static"
 
-	CommandTrigger = "test"
-
-	OtherPathOpenDialog              = "/other/open"
+	OtherOpenDialog                  = "/other/open"
 	OtherOpenDialogNoResponse        = "/NoResponse"
 	OtherOpenDialogEmptyResponse     = "/EmptyResponse"
 	OtherOpenDialogEphemeralResponse = "/EphemeralResponse"
 	OtherOpenDialogUpdateResponse    = "/UpdateResponse"
 	OtherOpenDialogBadResponse       = "/BadResponse"
 
-	SubscribeCommand = "/subscribe"
-
 	// Global
-
 	NotifyUserCreated      = "/notify/" + string(apps.SubjectUserCreated)
 	NotifyBotMention       = "/notify/" + string(apps.SubjectBotMentioned)
 	NotifyBotJoinedChannel = "/notify/" + string(apps.SubjectBotJoinedChannel)
@@ -65,13 +62,11 @@ const (
 	NotifyBotLeftTeam      = "/notify/" + string(apps.SubjectBotLeftTeam)
 
 	// Channel
-
 	NotifyUserJoinedChannel = "/notify/" + string(apps.SubjectUserJoinedChannel)
 	NotifyUserLeftChannel   = "/notify/" + string(apps.SubjectUserLeftChannel)
 	NotifyPostCreated       = "/notify/" + string(apps.SubjectPostCreated)
 
 	// Team
-
 	NotifyUserJoinedTeam = "/notify/" + string(apps.SubjectUserJoinedTeam)
 	NotifyUserLeftTeam   = "/notify/" + string(apps.SubjectUserLeftTeam)
 	NotifyChannelCreated = "/notify/" + string(apps.SubjectChannelCreated)
