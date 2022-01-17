@@ -22,11 +22,11 @@ func initHTTPError(r *mux.Router) {
 		w.WriteHeader(http.StatusInternalServerError)
 	})
 
-	r.HandleFunc(path.UnknownType, httputils.DoHandleJSON(apps.CallResponse{
+	r.HandleFunc(path.ErrorUnknownType, httputils.DoHandleJSON(apps.CallResponse{
 		Type: "unknown",
 	}))
 
-	r.HandleFunc(path.HTML, httputils.DoHandleData("text/html", []byte(`
+	r.HandleFunc(path.ErrorHTML, httputils.DoHandleData("text/html", []byte(`
 <!DOCTYPE html>
 <html>
 	<head>

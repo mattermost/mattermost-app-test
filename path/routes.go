@@ -4,15 +4,15 @@ import "github.com/mattermost/mattermost-plugin-apps/apps"
 
 const (
 	Manifest = "/manifest.json"
-	Install  = "/install"
+	Static   = "/static"
 	Bindings = "/bindings"
+	Install  = "/install"
 
-	ProfileView          = "/profile/view"
-	ProfileCommand       = "/profile/command"
-	ProfileChannelHeader = "/profile/channel_header"
-
-	OK      = "/ok"
-	OKEmpty = "/empty"
+	OK               = "/ok"
+	OKEmpty          = "/empty"
+	NavigateInternal = "/nav/internal"
+	NavigateExternal = "/nav/external"
+	NavigateInvalid  = "/nav/invalid"
 
 	ErrorDefault                  = "/errors/default"
 	ErrorEmpty                    = "/errors/empty"
@@ -20,6 +20,8 @@ const (
 	ErrorMarkdownFormMissingField = "/errors/markdownformMissingField"
 	Error404                      = "/errors/foo"
 	Error500                      = "/errors/internal"
+	ErrorHTML                     = "/html"
+	ErrorUnknownType              = "/unknown"
 
 	FormSimple                    = "/forms/simple"
 	FormSimpleSource              = "/forms/simpleSource"
@@ -35,44 +37,30 @@ const (
 	FormButtons                   = "/forms/buttons"
 	FormRedefine                  = "/forms/redefine"
 
-	EmbeddedCreate = "/forms/embedded"
-
 	Lookup          = "/lookups/ok"
 	LookupMultiword = "/lookups/multiword"
 	LookupEmpty     = "/lookups/empty"
 	LookupInvalid   = "/lookups/invalid"
 
-	NavigateInternal = "/nav/internal"
-	NavigateExternal = "/nav/external"
-	NavigateInvalid  = "/nav/invalid"
+	CreateEmbedded = "/create-embedded"
 
-	HTML        = "/html"
-	UnknownType = "/unknown"
+	CreateDialogMessage     = "/open-dialog"
+	DialogNoResponse        = "/NoResponse"
+	DialogEmptyResponse     = "/EmptyResponse"
+	DialogEphemeralResponse = "/EphemeralResponse"
+	DialogUpdateResponse    = "/UpdateResponse"
+	DialogBadResponse       = "/BadResponse"
 
-	Static = "/static"
-
-	OtherOpenDialog                  = "/other/open"
-	OtherOpenDialogNoResponse        = "/NoResponse"
-	OtherOpenDialogEmptyResponse     = "/EmptyResponse"
-	OtherOpenDialogEphemeralResponse = "/EphemeralResponse"
-	OtherOpenDialogUpdateResponse    = "/UpdateResponse"
-	OtherOpenDialogBadResponse       = "/BadResponse"
-
-	// Global
-	NotifyUserCreated      = "/notify/" + string(apps.SubjectUserCreated)
-	NotifyBotMention       = "/notify/" + string(apps.SubjectBotMentioned)
-	NotifyBotJoinedChannel = "/notify/" + string(apps.SubjectBotJoinedChannel)
-	NotifyBotLeftChannel   = "/notify/" + string(apps.SubjectBotLeftChannel)
-	NotifyBotJoinedTeam    = "/notify/" + string(apps.SubjectBotJoinedTeam)
-	NotifyBotLeftTeam      = "/notify/" + string(apps.SubjectBotLeftTeam)
-
-	// Channel
-	NotifyUserJoinedChannel = "/notify/" + string(apps.SubjectUserJoinedChannel)
-	NotifyUserLeftChannel   = "/notify/" + string(apps.SubjectUserLeftChannel)
+	NotifyBotJoinedChannel  = "/notify/" + string(apps.SubjectBotJoinedChannel)
+	NotifyBotJoinedTeam     = "/notify/" + string(apps.SubjectBotJoinedTeam)
+	NotifyBotLeftChannel    = "/notify/" + string(apps.SubjectBotLeftChannel)
+	NotifyBotLeftTeam       = "/notify/" + string(apps.SubjectBotLeftTeam)
+	NotifyBotMention        = "/notify/" + string(apps.SubjectBotMentioned)
+	NotifyChannelCreated    = "/notify/" + string(apps.SubjectChannelCreated)
 	NotifyPostCreated       = "/notify/" + string(apps.SubjectPostCreated)
-
-	// Team
-	NotifyUserJoinedTeam = "/notify/" + string(apps.SubjectUserJoinedTeam)
-	NotifyUserLeftTeam   = "/notify/" + string(apps.SubjectUserLeftTeam)
-	NotifyChannelCreated = "/notify/" + string(apps.SubjectChannelCreated)
+	NotifyUserCreated       = "/notify/" + string(apps.SubjectUserCreated)
+	NotifyUserJoinedChannel = "/notify/" + string(apps.SubjectUserJoinedChannel)
+	NotifyUserJoinedTeam    = "/notify/" + string(apps.SubjectUserJoinedTeam)
+	NotifyUserLeftChannel   = "/notify/" + string(apps.SubjectUserLeftChannel)
+	NotifyUserLeftTeam      = "/notify/" + string(apps.SubjectUserLeftTeam)
 )

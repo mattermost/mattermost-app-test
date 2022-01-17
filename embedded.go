@@ -12,13 +12,13 @@ func embeddedCommandBinding(cc apps.Context) apps.Binding {
 	return apps.Binding{
 		Label: "embedded",
 		Bindings: []apps.Binding{
-			newBinding("create", path.EmbeddedCreate),
+			newBinding("create", path.CreateEmbedded),
 		},
 	}
 }
 
 func initHTTPEmbedded(r *mux.Router) {
-	handleCall(r, path.EmbeddedCreate, handleCreateEmbedded)
+	handleCall(r, path.CreateEmbedded, handleCreateEmbedded)
 }
 
 func handleCreateEmbedded(creq *apps.CallRequest) apps.CallResponse {

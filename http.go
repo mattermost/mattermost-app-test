@@ -26,22 +26,19 @@ type callHandler func(*apps.CallRequest) apps.CallResponse
 func initHTTP(r *mux.Router) {
 	r.HandleFunc(path.Manifest, httputils.DoHandleJSON(manifest))
 
+	// Static files
+	r.PathPrefix(path.Static).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
+
 	handleCall(r, path.Install, handleInstall)
 	handleCall(r, path.Bindings, handleBindings)
 
-	initHTTPOK(r)
+	initHTTPEmbedded(r)
 	initHTTPError(r)
-	initHTTPNavigate(r)
 	initHTTPForms(r)
 	initHTTPLookup(r)
-	initHTTPEmbedded(r)
-
-	// Other
-	// r.HandleFunc(constants.HTMLPath, handle(fHTML, LocalMode))
-	// r.HandleFunc(constants.UnknownPath, handle(fUnknown, LocalMode))
-
-	// Static files
-	r.PathPrefix(path.Static).Handler(http.StripPrefix("/", http.FileServer(http.FS(staticAssets))))
+	initHTTPNavigate(r)
+	initHTTPOK(r)
+	initHTTPOther(r)
 
 	// // Subscription Commands
 	// r.HandleFunc(constants.SubscribeCommand+"/submit", handle(fSubscriptionsCommand(m), LocalMode))

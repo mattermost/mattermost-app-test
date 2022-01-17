@@ -12,6 +12,7 @@ func commandBindings(cc apps.Context) []apps.Binding {
 			testCommandBinding(cc),
 			formCommandBinding(cc),
 			embeddedCommandBinding(cc),
+			otherCommandBinding(cc),
 		},
 	}
 
