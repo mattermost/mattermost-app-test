@@ -121,6 +121,6 @@ func checkJWT(req *http.Request, creq *apps.CallRequest) error {
 		return utils.NewInvalidError(ErrActingUserMismatch)
 	}
 
-	log.Println(creq.Path, utils.ToJSON(creq.Values))
+	log.Println(creq.Path, creq.Context.Subject, utils.ToJSON(creq.Values))
 	return nil
 }

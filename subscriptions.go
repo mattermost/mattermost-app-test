@@ -203,7 +203,6 @@ func ensureNotifyChannel(creq *apps.CallRequest) error {
 }
 
 func handleNotify(creq *apps.CallRequest) apps.CallResponse {
-	log.Printf("notify: 1: %s", utils.Pretty(creq))
 	client := appclient.AsBot(creq.Context)
 
 	teamID := ""
@@ -215,18 +214,23 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 		teamID = creq.Context.Channel.TeamId
 	}
 	channel, _, err := client.GetChannelByName("test-app-notifications", teamID, "")
-	log.Printf("notify: 2: %v", err)
 	if err != nil {
-		return apps.NewErrorResponse(errors.Wrap(err, "failed to look up notification channel"))
+		log.Printf("failed to look up notification channel: %v", err)
 	}
 
 	post := &model.Post{
-		ChannelId: channel.Id,
-		Message:   fmt.Sprintf("received notification:\n```\n%s\n```\n", utils.Pretty(creq.Context)),
+		Message: fmt.Sprintf("received notification:\n```\n%s\n```\n", utils.Pretty(creq.Context)),
 	}
-	_, err = client.CreatePost(post)
-	log.Printf("notify: 3: %v", err)
+	// Post the notification to the global notification channel
+	if channel != nil {
+		post.ChannelId = channel.Id
+		_, err = client.CreatePost(post)
+		if err != nil {
+			log.Printf("failed to create post in global channel: %v", err)
+		}
+	}
 
+	// CC the notification to the relevant channel if possible.
 	if creq.Context.Channel != nil {
 		post.ChannelId = creq.Context.Channel.Id
 		if creq.Context.Post != nil {
@@ -236,7 +240,9 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 			}
 		}
 		_, err = client.CreatePost(post)
-		log.Printf("notify: 4: %v", err)
+		if err != nil {
+			log.Printf("failed to create post in channel: %v", err)
+		}
 	}
 
 	return apps.NewTextResponse("OK")
