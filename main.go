@@ -19,6 +19,7 @@ const (
 )
 
 var localMode bool
+var includeInvalid bool
 
 //go:embed manifest.json
 var manifestSource []byte //nolint: gochecknoglobals
@@ -34,6 +35,7 @@ func main() {
 	}
 
 	localMode = os.Getenv("LOCAL") == "true"
+	includeInvalid = os.Getenv("INCLUDE_INVALID") == "true"
 
 	r := mux.NewRouter()
 	initHTTP(r)
