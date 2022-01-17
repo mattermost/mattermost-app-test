@@ -11,7 +11,7 @@ import (
 func initHTTPNavigate(r *mux.Router) {
 	handleCall(r, path.NavigateExternal, handleNavigateExternal)
 	handleCall(r, path.NavigateInternal, handleNavigateInternal)
-	handleCall(r, path.NavigateInvalid, handleNavigateInvalid)
+	handleCall(r, path.InvalidNavigate, handleNavigateInvalid)
 }
 
 func handleNavigateInternal(creq *apps.CallRequest) apps.CallResponse {

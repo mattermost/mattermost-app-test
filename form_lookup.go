@@ -27,7 +27,7 @@ var lookupForm = apps.Form{
 		{
 			Name:                "invalid",
 			Type:                apps.FieldTypeDynamicSelect,
-			SelectDynamicLookup: apps.NewCall(path.LookupInvalid),
+			SelectDynamicLookup: apps.NewCall(path.InvalidLookup),
 		},
 	},
 }

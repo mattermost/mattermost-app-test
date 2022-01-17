@@ -12,7 +12,6 @@ const (
 	OKEmpty          = "/empty"
 	NavigateInternal = "/nav/internal"
 	NavigateExternal = "/nav/external"
-	NavigateInvalid  = "/nav/invalid"
 
 	ErrorDefault                  = "/errors/default"
 	ErrorEmpty                    = "/errors/empty"
@@ -20,8 +19,12 @@ const (
 	ErrorMarkdownFormMissingField = "/errors/markdownformMissingField"
 	Error404                      = "/errors/foo"
 	Error500                      = "/errors/internal"
-	ErrorHTML                     = "/html"
-	ErrorUnknownType              = "/unknown"
+
+	InvalidHTML        = "/invalid/html"
+	InvalidUnknownType = "/invalid/unknown-type"
+	InvalidLookup      = "/invalid/lookup"
+	InvalidForm        = "/invalid/form"
+	InvalidNavigate    = "/invalid/nav"
 
 	FormSimple                    = "/forms/simple"
 	FormSimpleSource              = "/forms/simpleSource"
@@ -32,7 +35,6 @@ const (
 	FormLookup                    = "/forms/lookup"
 	FormFullSource                = "/forms/fullSource"
 	FormFullReadonly              = "/forms/fullDisabled"
-	FormInvalid                   = "/forms/invalid"
 	FormMultiselect               = "/forms/multiselect"
 	FormButtons                   = "/forms/buttons"
 	FormRedefine                  = "/forms/redefine"
@@ -40,7 +42,6 @@ const (
 	Lookup          = "/lookups/ok"
 	LookupMultiword = "/lookups/multiword"
 	LookupEmpty     = "/lookups/empty"
-	LookupInvalid   = "/lookups/invalid"
 
 	CreateEmbedded = "/create-embedded"
 

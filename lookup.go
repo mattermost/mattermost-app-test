@@ -12,7 +12,7 @@ func initHTTPLookup(r *mux.Router) {
 	handleCall(r, path.Lookup, handleLookup(simpleLookup))
 	handleCall(r, path.LookupMultiword, handleLookup(multiwordLookup))
 	handleCall(r, path.LookupEmpty, handleLookup(emptyLookup))
-	handleCall(r, path.LookupInvalid, handleLookup(invalidLookup))
+	handleCall(r, path.InvalidLookup, handleLookup(invalidLookup))
 }
 
 var simpleLookup = []apps.SelectOption{

@@ -28,7 +28,7 @@ func initHTTPForms(r *mux.Router) {
 	handleCall(r, path.FormFull, handleForm(fullForm))
 	handleCall(r, path.FormFullReadonly, handleForm(fullFormReadonly()))
 	handleCall(r, path.FormFullSource, handleForm(simpleFormSource))
-	handleCall(r, path.FormInvalid, handleForm(apps.Form{}))
+	handleCall(r, path.InvalidForm, handleForm(apps.Form{}))
 	handleCall(r, path.FormLookup, handleForm(lookupForm))
 	handleCall(r, path.FormMarkdownError, handleForm(formWithMarkdownError))
 	handleCall(r, path.FormMarkdownErrorMissingField, handleForm(formWithMarkdownErrorMissingField))
@@ -54,7 +54,7 @@ var simpleFormSource = apps.Form{
 }
 
 var invalidFormSource = apps.Form{
-	Source: apps.NewCall(path.FormInvalid),
+	Source: apps.NewCall(path.InvalidForm),
 }
 
 var fullFormSource = apps.Form{
