@@ -29,7 +29,7 @@ const (
 	FormFull                      = "/forms/full"
 	FormLookup                    = "/forms/lookup"
 	FormFullSource                = "/forms/fullSource"
-	FormFullDisabled              = "/forms/fullDisabled"
+	FormFullReadonly              = "/forms/fullDisabled"
 	FormInvalid                   = "/forms/invalid"
 	FormMultiselect               = "/forms/multiselect"
 	FormButtons                   = "/forms/buttons"

@@ -11,6 +11,7 @@ func formCommandBinding(cc apps.Context) apps.Binding {
 		Label: "form",
 		Bindings: []apps.Binding{
 			newBinding("buttons", path.FormButtons),
+			newBinding("full-readonly", path.FormFullReadonly),
 			newBinding("full", path.FormFull),
 			newBinding("lookup", path.FormLookup),
 			newBinding("markdown-error-missing-field", path.FormMarkdownErrorMissingField),
@@ -25,6 +26,7 @@ func formCommandBinding(cc apps.Context) apps.Binding {
 func initHTTPForms(r *mux.Router) {
 	handleCall(r, path.FormButtons, handleFormButtons)
 	handleCall(r, path.FormFull, handleForm(fullForm))
+	handleCall(r, path.FormFullReadonly, handleForm(fullFormReadonly()))
 	handleCall(r, path.FormFullSource, handleForm(simpleFormSource))
 	handleCall(r, path.FormInvalid, handleForm(apps.Form{}))
 	handleCall(r, path.FormLookup, handleForm(lookupForm))

@@ -143,3 +143,15 @@ var fullForm = apps.Form{
 		},
 	},
 }
+
+var fullFormReadonly = func() apps.Form {
+	var fields []apps.Field
+	for _, f := range fullForm.Fields {
+		f.ReadOnly = true
+		fields = append(fields, f)
+	}
+
+	form := fullForm
+	form.Fields = fields
+	return form
+}
