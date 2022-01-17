@@ -1,7 +1,9 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+	"github.com/mattermost/mattermost-plugin-apps/utils"
 
 	"github.com/mattermost/mattermost-app-test/path"
 )
@@ -14,13 +16,14 @@ var responseOK = apps.CallResponse{
 	Text: "OK",
 }
 
-var responseOKEmpty = apps.CallResponse{
-	Type: apps.CallResponseTypeOK,
+func initHTTPOK(r *mux.Router) {
+	handleCall(r, path.OK, handleOK)
+	handleCall(r, path.OKEmpty, handleOKEmpty)
 }
 
-func handleOK(_ *apps.CallRequest) apps.CallResponse {
-	return responseOK
+func handleOK(creq *apps.CallRequest) apps.CallResponse {
+	return apps.NewTextResponse("```\n%s\n```\n", utils.Pretty(creq))
 }
 func handleOKEmpty(_ *apps.CallRequest) apps.CallResponse {
-	return responseOKEmpty
+	return apps.NewTextResponse("")
 }

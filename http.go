@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -28,46 +29,12 @@ func initHTTP(r *mux.Router) {
 	handleCall(r, path.Install, handleInstall)
 	handleCall(r, path.Bindings, handleBindings)
 
-	// OK responses
-	handleCall(r, path.OK, handleOK)
-	handleCall(r, path.OKEmpty, handleOKEmpty)
-
-	// Navigate responses
-	handleCall(r, path.NavigateExternal, handleNavigateExternal)
-	handleCall(r, path.NavigateInternal, handleNavigateInternal)
-	handleCall(r, path.NavigateInvalid, handleNavigateInvalid)
-
-	// Error responses
-	r.HandleFunc(path.ErrorDefault, handleError("Error"))
-	r.HandleFunc(path.ErrorEmpty, handleError(""))
-	r.HandleFunc(path.Error404, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusNotFound)
-	})
-	r.HandleFunc(path.Error500, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusInternalServerError)
-	})
-	// handleCall(r, constants.MarkdownFormError, fMarkdownFormError)
-	// handleCall(r, constants.MarkdownFormErrorMissingField, fMarkdownFormErrorMissingField)
-
-	// Form responses
-	r.HandleFunc(path.FormSimple, handleForm(simpleForm))
-	r.HandleFunc(path.FormSimpleSource, handleForm(simpleFormSource))
-	// handleCall(r, constants.FormFull, fFullFormOK)
-	// r.HandleFunc(constants.FormRedefine, handle(fFormRedefine, LocalMode))
-	// r.HandleFunc(constants.FormEmbedded, handle(fFormEmbedded, LocalMode))
-	// r.HandleFunc(constants.FormFullDisabled, handle(fFullFormDisabledOK, LocalMode))
-	// r.HandleFunc(constants.FormDynamic, handle(fDynamicFormOK, LocalMode))
-	// r.HandleFunc(constants.FormInvalid, handle(fFormInvalid, LocalMode))
-	// r.HandleFunc(constants.FormMultiselect, handle(fFormMultiselect, LocalMode))
-	// r.HandleFunc(constants.FormWithButtons, handle(fFormWithButtonsOK, LocalMode))
-	// r.HandleFunc(constants.FormMarkdown, handle(fFormWithMarkdownError, LocalMode))
-	// r.HandleFunc(constants.FormMarkdownWithMissingError, handle(fFormWithMarkdownErrorMissingField, LocalMode))
-
-	// // Lookup responses
-	// r.HandleFunc(constants.Lookup, handle(fLookupOK, LocalMode))
-	// r.HandleFunc(constants.LookupEmpty, handle(fLookupEmpty, LocalMode))
-	// r.HandleFunc(constants.LookupMultiword, handle(fLookupMultiword, LocalMode))
-	// r.HandleFunc(constants.LookupInvalid, handle(fLookupInvalid, LocalMode))
+	initHTTPOK(r)
+	initHTTPError(r)
+	initHTTPNavigate(r)
+	initHTTPForms(r)
+	initHTTPLookup(r)
+	initHTTPEmbedded(r)
 
 	// Other
 	// r.HandleFunc(constants.HTMLPath, handle(fHTML, LocalMode))
@@ -111,10 +78,6 @@ func initHTTP(r *mux.Router) {
 	})
 }
 
-func handleCall(router *mux.Router, path string, f callHandler) {
-	router.HandleFunc(path, handle(f))
-}
-
 func handle(f callHandler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		creq, err := apps.CallRequestFromJSONReader(r.Body)
@@ -123,19 +86,10 @@ func handle(f callHandler) http.HandlerFunc {
 			return
 		}
 
-		if localMode {
-			claims, err := checkJWT(r)
-			if err != nil {
-				httputils.WriteError(w, utils.NewInvalidError(err))
-				return
-			}
-
-			if creq.Context.ActingUserID != "" && creq.Context.ActingUserID != claims.ActingUserID {
-				httputils.WriteError(w, utils.NewInvalidError(ErrActingUserMismatch))
-				return
-			}
-
-			// log.Println(utils.Pretty(creq))
+		err = checkJWT(r, creq)
+		if err != nil {
+			httputils.WriteError(w, utils.NewInvalidError(err))
+			return
 		}
 
 		cresp := f(creq)
@@ -143,10 +97,43 @@ func handle(f callHandler) http.HandlerFunc {
 	}
 }
 
-func checkJWT(req *http.Request) (*apps.JWTClaims, error) {
+func handleCall(router *mux.Router, path string, f callHandler) {
+	router.HandleFunc(path, handle(f))
+}
+
+func handleError(text string) callHandler {
+	return func(_ *apps.CallRequest) apps.CallResponse {
+		return apps.CallResponse{
+			Type: apps.CallResponseTypeError,
+			Text: text,
+		}
+	}
+}
+
+func handleForm(f apps.Form) callHandler {
+	return func(_ *apps.CallRequest) apps.CallResponse {
+		return apps.NewFormResponse(f)
+	}
+}
+
+type lookupResponse struct {
+	Items []apps.SelectOption `json:"items"`
+}
+
+func handleLookup(items []apps.SelectOption) callHandler {
+	return func(_ *apps.CallRequest) apps.CallResponse {
+		return apps.NewDataResponse(lookupResponse{items})
+	}
+}
+
+func checkJWT(req *http.Request, creq *apps.CallRequest) error {
+	if !localMode {
+		return nil
+	}
+
 	authValue := req.Header.Get(apps.OutgoingAuthHeader)
 	if !strings.HasPrefix(authValue, "Bearer ") {
-		return nil, ErrMissingHeader
+		return ErrMissingHeader
 	}
 
 	jwtoken := strings.TrimPrefix(authValue, "Bearer ")
@@ -157,10 +144,14 @@ func checkJWT(req *http.Request) (*apps.JWTClaims, error) {
 		}
 		return []byte(AppSecret), nil
 	})
-
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &claims, nil
+	if creq.Context.ActingUserID != "" && creq.Context.ActingUserID != claims.ActingUserID {
+		return utils.NewInvalidError(ErrActingUserMismatch)
+	}
+
+	log.Println(creq.Path, utils.ToJSON(creq.Values))
+	return nil
 }
