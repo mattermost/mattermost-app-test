@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/mattermost/mattermost-app-test/path"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
@@ -9,10 +10,12 @@ func commandBindings(cc apps.Context) []apps.Binding {
 		Label: CommandTrigger,
 		Icon:  "icon.png",
 		Bindings: []apps.Binding{
-			testCommandBinding(cc),
-			formCommandBinding(cc),
 			embeddedCommandBinding(cc),
+			formCommandBinding(cc),
 			otherCommandBinding(cc),
+			subscribtionCommandBinding("subscribe", path.Subscribe),
+			subscribtionCommandBinding("unsubscribe", path.Unsubscribe),
+			testCommandBinding(cc),
 		},
 	}
 

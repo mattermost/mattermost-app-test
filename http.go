@@ -39,35 +39,7 @@ func initHTTP(r *mux.Router) {
 	initHTTPNavigate(r)
 	initHTTPOK(r)
 	initHTTPOther(r)
-
-	// // Subscription Commands
-	// r.HandleFunc(constants.SubscribeCommand+"/submit", handle(fSubscriptionsCommand(m), LocalMode))
-
-	// // Global Notifications
-	// r.HandleFunc(constants.NotifyUserCreated, handle(fSubscriptionsUserCreated(m), LocalMode))
-	// r.HandleFunc(constants.NotifyBotMention, handle(fSubscriptionsBotMention(m), LocalMode))
-	// r.HandleFunc(constants.NotifyBotJoinedChannel, handle(fSubscriptionsBotJoinedChannel(m), LocalMode))
-	// r.HandleFunc(constants.NotifyBotLeftChannel, handle(fSubscriptionsBotLeftChannel(m), LocalMode))
-	// r.HandleFunc(constants.NotifyBotJoinedTeam, handle(fSubscriptionsBotJoinedTeam(m), LocalMode))
-	// r.HandleFunc(constants.NotifyBotLeftTeam, handle(fSubscriptionsBotLeftTeam(m), LocalMode))
-
-	// // Channel Notifications
-	// r.HandleFunc(constants.NotifyUserJoinedChannel, handle(fSubscriptionsUserJoinedChannel(m), LocalMode))
-	// r.HandleFunc(constants.NotifyUserLeftChannel, handle(fSubscriptionsUserLeftChannel(m), LocalMode))
-	// r.HandleFunc(constants.NotifyPostCreated, handle(fSubscriptionsPostCreated(m), LocalMode))
-
-	// // Team Notifications
-	// r.HandleFunc(constants.NotifyUserJoinedTeam, handle(fSubscriptionsUserJoinedTeam(m), LocalMode))
-	// r.HandleFunc(constants.NotifyUserLeftTeam, handle(fSubscriptionsUserLeftTeam(m), LocalMode))
-	// r.HandleFunc(constants.NotifyChannelCreated, handle(fSubscriptionsChannelCreated(m), LocalMode))
-
-	// // OpenDialog
-	// r.HandleFunc(constants.OtherPathOpenDialog+"/submit", handle(postOpenDialogTest(m), LocalMode))
-	// r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogNoResponse, postOpenDialogTestNoResponse)
-	// r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEmptyResponse, postOpenDialogTestEmptyResponse)
-	// r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogEphemeralResponse, postOpenDialogTestEphemeralResponse)
-	// r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogUpdateResponse, postOpenDialogTestUpdateResponse)
-	// r.HandleFunc(constants.OtherPathOpenDialog+constants.OtherOpenDialogBadResponse, postOpenDialogTestBadResponse)
+	initHTTPSubscriptions(r)
 
 	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := errors.Errorf("path not found: %s", r.URL.Path)
