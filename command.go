@@ -15,6 +15,7 @@ func commandBindings(cc apps.Context) []apps.Binding {
 			otherCommandBinding(cc),
 			subscribtionCommandBinding("subscribe", path.Subscribe),
 			subscribtionCommandBinding("unsubscribe", path.Unsubscribe),
+
 			testCommandBinding(cc),
 		},
 	}
@@ -22,59 +23,29 @@ func commandBindings(cc apps.Context) []apps.Binding {
 	return []apps.Binding{b}
 }
 
-// var channelHeaderBindings = []apps.Binding{
-// 	// valid bindings and responses
-// 	newBinding("submit return ok", constants.Submit),
-// 	newBinding("submit return ok empty", constants.SubmitEmpty),
-// 	newBinding("submit return simple form", constants.Form),
-// 	newBinding("submit return full form", constants.FormFull),
-// 	newBinding("submit return dynamic form", constants.FormDynamic),
-// 	newBinding("submit return internal navigate", constants.NavigateInternal),
-// 	newBinding("submit return external navigate", constants.NavigateExternal),
-// 	newFormBinding("attached simple form", simpleForm),
-// 	newFormBinding("attached form source simple", simpleSourceForm),
-// 	newFormBinding("attached full form", fullForm),
-// 	newFormBinding("attached form source full", fullSourceForm),
+func testCommandBinding(cc apps.Context) apps.Binding {
+	out := []apps.Binding{
+		validResponseBinding,
+		errorResponseBinding,
+		validInputBinding,
+	}
 
-// 	// error bindings
-// 	newBinding("submit error", constants.Error),
-// 	newBinding("submit error empty ", constants.ErrorEmpty),
-// 	newBinding("submit error invalid navigate", constants.NavigateInvalid),
-// 	newBinding("submit error 404 response", constants.NotFoundPath),
-// 	newBinding("submit error HTML response", constants.HTMLPath),
-// 	newBinding("submit error JSON response", constants.ManifestPath),
-// 	newBinding("submit error unknown response type", constants.UnknownPath),
-// 	apps.Binding{
-// 		Label:  "icon not found",
-// 		Icon:   "foo",
-// 		Submit: apps.NewCall(constants.Submit),
-// 	},
-// 	apps.Binding{
-// 		Label:  "icon is SVG",
-// 		Icon:   "icon.svg",
-// 		Submit: apps.NewCall(constants.Submit),
-// 	},
+	if includeInvalid {
+		out = append(out,
+			invalidResponseBinding,
+			invalidBindingBinding,
+			invalidFormBinding,
+		)
+	}
 
-// 	// invalid bindings
-// 	newFormBinding("invalid attached form", apps.Form{}),
-// 	newFormBinding("invalid form in source", invalidSourceForm),
-// 	apps.Binding{
-// 		Label:  "invalid no icon",
-// 		Submit: apps.NewCall(constants.Submit),
-// 	},
-// 	apps.Binding{
-// 		Location: "invalid no label",
-// 		Icon:     "icon.png",
-// 		Submit:   apps.NewCall(constants.Submit),
-// 	},
-// 	apps.Binding{
-// 		Label: "invalid neither submit nor form",
-// 		Icon:  "icon.png",
-// 	},
-// 	apps.Binding{
-// 		Location: "invalid whitespace label",
-// 		Label:    " ",
-// 		Icon:     "icon.png",
-// 		Submit:   apps.NewCall(constants.Submit),
-// 	},
-// }
+	if cc.Channel != nil && cc.Channel.Name == "town-square" {
+		out = append([]apps.Binding{
+			newBinding("town-square-channel-specific", path.OK),
+		}, out...)
+	}
+
+	return apps.Binding{
+		Label:    "test-command",
+		Bindings: out,
+	}
+}

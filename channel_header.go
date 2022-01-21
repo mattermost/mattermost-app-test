@@ -6,7 +6,7 @@ import (
 	"github.com/mattermost/mattermost-app-test/path"
 )
 
-func testCommandBinding(cc apps.Context) apps.Binding {
+func channelHeaderBindings(cc apps.Context) []apps.Binding {
 	out := []apps.Binding{
 		validResponseBinding,
 		errorResponseBinding,

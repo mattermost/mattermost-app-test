@@ -4,15 +4,15 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func handleBindings(c *apps.CallRequest) apps.CallResponse {
+func handleBindings(creq *apps.CallRequest) apps.CallResponse {
 	return apps.NewDataResponse([]apps.Binding{
-		// {
-		// 	Location: apps.LocationChannelHeader,
-		// 	Bindings: channelHeaderBindings,
-		// },
+		{
+			Location: apps.LocationChannelHeader,
+			Bindings: channelHeaderBindings(creq.Context),
+		},
 		{
 			Location: apps.LocationCommand,
-			Bindings: commandBindings(c.Context),
+			Bindings: commandBindings(creq.Context),
 		},
 	})
 }
