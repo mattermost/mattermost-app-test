@@ -62,6 +62,13 @@ func handle(f callHandler) http.HandlerFunc {
 		}
 
 		cresp := f(creq)
+
+		if len(creq.Values) > 0 {
+			log.Println(creq.Path, creq.Context.Subject, utils.ToJSON(creq.Values), cresp.Type)
+		} else {
+			log.Println(creq.Path, creq.Context.Subject, cresp.Type)
+		}
+
 		httputils.WriteJSON(w, cresp)
 	}
 }
@@ -121,6 +128,5 @@ func checkJWT(req *http.Request, creq *apps.CallRequest) error {
 		return utils.NewInvalidError(ErrActingUserMismatch)
 	}
 
-	log.Println(creq.Path, creq.Context.Subject, utils.ToJSON(creq.Values))
 	return nil
 }

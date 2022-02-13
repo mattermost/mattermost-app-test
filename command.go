@@ -25,16 +25,38 @@ func commandBindings(cc apps.Context) []apps.Binding {
 
 func testCommandBinding(cc apps.Context) apps.Binding {
 	out := []apps.Binding{
-		validResponseBinding,
-		errorResponseBinding,
-		validInputBinding,
+		{
+			Label:    "valid",
+			Icon:     "icon.png",
+			Bindings: validResponseBindings,
+		}, {
+			Label:    "error",
+			Icon:     "icon.png",
+			Bindings: errorResponseBindings,
+		}, {
+			Label:    "with-input",
+			Icon:     "icon.png",
+			Bindings: append(validInputBindings, withSubBindings),
+		},
 	}
 
 	if includeInvalid {
 		out = append(out,
-			invalidResponseBinding,
-			invalidBindingBinding,
-			invalidFormBinding,
+			apps.Binding{
+				Label:    "invalid-response",
+				Icon:     "icon.png",
+				Bindings: invalidResponseBindings,
+			},
+			apps.Binding{
+				Label:    "invalid-input-binding",
+				Icon:     "icon.png",
+				Bindings: invalidBindingBindings,
+			},
+			apps.Binding{
+				Label:    "invalid-input-form",
+				Icon:     "icon.png",
+				Bindings: invalidFormBindings,
+			},
 		)
 	}
 
