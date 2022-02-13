@@ -29,41 +29,37 @@ func handleCreateEmbedded(creq *apps.CallRequest) apps.CallResponse {
 
 	p.AddProp(apps.PropAppBindings, []apps.Binding{
 		{
-			Location: "embedded",
-			Form: &apps.Form{
-				Title:  "Test",
-				Header: "Test header",
-				Submit: callOK,
-				Fields: []apps.Field{},
-			},
+			Location:    "embedded",
 			AppID:       creq.Context.AppID,
 			Description: "Please fill out this form so we can get it fixed  :hammer_and_wrench:",
 			Bindings: []apps.Binding{
 				{
 					Location: "problem",
-					Submit:   callOK,
 					Bindings: []apps.Binding{
 						{
 							Location: "hardware",
+							Submit:   callOK,
 							Label:    "Hardware Failure",
 						},
 						{
 							Location: "software",
 							Label:    "Software Error",
+							Submit:   callOK,
 						},
 						{
 							Location: "wrong",
 							Label:    "Wrong Product",
+							Submit:   callOK,
 						},
 					},
 				},
 				{
 					Location: "provider",
-					Submit:   callOK,
 					Bindings: []apps.Binding{
 						{
 							Location: "work",
 							Label:    "Cell Phone",
+							Submit:   callOK,
 						},
 					},
 				},
