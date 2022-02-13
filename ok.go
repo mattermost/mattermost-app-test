@@ -10,12 +10,6 @@ import (
 
 var callOK = apps.NewCall(path.OK)
 
-var responseOK = apps.CallResponse{
-	Type: apps.CallResponseTypeOK,
-	Data: "any data is OK",
-	Text: "OK",
-}
-
 func initHTTPOK(r *mux.Router) {
 	handleCall(r, path.OK, handleOK)
 	handleCall(r, path.OKEmpty, handleOKEmpty)

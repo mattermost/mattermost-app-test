@@ -4,7 +4,7 @@ import (
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 )
 
-func channelHeaderBindings(cc apps.Context) []apps.Binding {
+func channelHeaderBindings(_ apps.Context) []apps.Binding {
 	out := []apps.Binding{}
 	out = append(out, validResponseBindings...)
 	out = append(out, errorResponseBindings...)

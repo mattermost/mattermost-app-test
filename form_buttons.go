@@ -5,8 +5,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/mattermost/mattermost-app-test/path"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
 func handleFormButtons(creq *apps.CallRequest) apps.CallResponse {

@@ -13,7 +13,7 @@ import (
 	"github.com/mattermost/mattermost-app-test/path"
 )
 
-func otherCommandBinding(cc apps.Context) apps.Binding {
+func otherCommandBinding(_ apps.Context) apps.Binding {
 	b := newBinding("dialog_from_interactive_message", path.CreateDialogMessage)
 	b.Submit = b.Submit.WithExpand(apps.Expand{ActingUserAccessToken: apps.ExpandAll})
 
@@ -106,6 +106,7 @@ func handleCreateDialogMessage(creq *apps.CallRequest) apps.CallResponse {
 	if err != nil {
 		return apps.NewErrorResponse(err)
 	}
+
 	return apps.NewTextResponse(utils.Pretty(post))
 }
 
@@ -122,7 +123,6 @@ func postOpenDialogTestNoResponse(w http.ResponseWriter, r *http.Request) {
 			IntroductionText: "Do not submit this dialog, it will fail.",
 		},
 	})
-	// utils.DumpObject(resp)
 }
 
 func postOpenDialogTestEmptyResponse(w http.ResponseWriter, r *http.Request) {

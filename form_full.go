@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/mattermost/mattermost-app-test/path"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
 var fullForm = apps.Form{

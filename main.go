@@ -46,6 +46,7 @@ func main() {
 		if len(os.Args) > 1 {
 			baseURL = os.Args[1]
 		}
+
 		manifest.HTTP.RootURL = baseURL
 
 		addr := ":3000"

@@ -11,13 +11,17 @@ import (
 
 func handleFormRefresh(creq *apps.CallRequest) apps.CallResponse {
 	n, _ := strconv.ParseUint(creq.GetValue("number", ""), 10, 32)
-	numOption := func(n uint64) apps.SelectOption {
+	numOption := func(nBoxes uint64) apps.SelectOption {
 		if n == 1 {
-			return apps.SelectOption{Label: "1 box", Value: "1"}
+			return apps.SelectOption{
+				Label: "1 box",
+				Value: "1",
+			}
 		}
+
 		return apps.SelectOption{
-			Label: fmt.Sprintf("%v boxes", n),
-			Value: fmt.Sprintf("%v", n),
+			Label: fmt.Sprintf("%v boxes", nBoxes),
+			Value: fmt.Sprintf("%v", nBoxes),
 		}
 	}
 	fieldNumber := apps.Field{
@@ -31,6 +35,7 @@ func handleFormRefresh(creq *apps.CallRequest) apps.CallResponse {
 			numOption(5),
 		},
 	}
+
 	if n != 0 {
 		fieldNumber.Value = numOption(n)
 	}
@@ -59,6 +64,7 @@ func handleFormRefresh(creq *apps.CallRequest) apps.CallResponse {
 			multiOption(3),
 		},
 	}
+
 	if m != 0 {
 		fieldMultiplier.Value = multiOption(m)
 	}
@@ -69,9 +75,9 @@ func handleFormRefresh(creq *apps.CallRequest) apps.CallResponse {
 	}
 	for i := uint64(0); i < n*m; i++ {
 		fields = append(fields, apps.Field{
-			Name: fmt.Sprintf("box%v", i),
+			Name:  fmt.Sprintf("box%v", i),
 			Label: fmt.Sprintf("box%v", i),
-			Type: apps.FieldTypeBool,
+			Type:  apps.FieldTypeBool,
 		})
 	}
 

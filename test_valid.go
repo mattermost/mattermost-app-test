@@ -10,7 +10,7 @@ var validResponseBindings = []apps.Binding{
 	newBinding("OK", path.OK),
 	newBinding("OK-empty", path.OKEmpty),
 	newBinding("form", path.FormSimple),
-	newBinding("form-source", path.FormSimpleSource), // TODO <>/<> does not work, move to invalid?
+	newBinding("form-source", path.FormSimpleSource), // does not work, move to invalid?
 	newBinding("navigate-external", path.NavigateExternal),
 	newBinding("navigate-internal", path.NavigateInternal),
 }
@@ -38,7 +38,7 @@ var validInputBindings = []apps.Binding{
 		Form:        &simpleForm,
 	},
 	{
-		// TODO <>/<> does not work, move to invalid?
+		// does not work, move to invalid?
 		Label:       "simple-form-source",
 		Icon:        "icon.png",
 		Description: "Simple form is referenced (`source=`) in the binding, DOES NOT WORK",

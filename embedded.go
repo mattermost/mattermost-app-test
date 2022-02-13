@@ -2,13 +2,16 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-app-test/path"
+
+	"github.com/mattermost/mattermost-server/v6/model"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
-	"github.com/mattermost/mattermost-server/v6/model"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
-func embeddedCommandBinding(cc apps.Context) apps.Binding {
+func embeddedCommandBinding(_ apps.Context) apps.Binding {
 	return apps.Binding{
 		Label: "embedded",
 		Bindings: []apps.Binding{

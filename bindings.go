@@ -17,25 +17,10 @@ func handleBindings(creq *apps.CallRequest) apps.CallResponse {
 	})
 }
 
-func newBareBinding(label string) apps.Binding {
-	return apps.Binding{
-		Label: label,
-		Icon:  "icon.png",
-	}
-}
-
 func newBinding(label, submitPath string) apps.Binding {
 	return apps.Binding{
 		Label:  label,
 		Icon:   "icon.png",
 		Submit: apps.NewCall(submitPath),
-	}
-}
-
-func newFormBinding(label string, form apps.Form) apps.Binding {
-	return apps.Binding{
-		Label: label,
-		Icon:  "icon.png",
-		Form:  &form,
 	}
 }

@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-app-test/path"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
-func formCommandBinding(cc apps.Context) apps.Binding {
+func formCommandBinding(_ apps.Context) apps.Binding {
 	return apps.Binding{
 		Label: "form",
 		Bindings: []apps.Binding{
@@ -51,12 +53,4 @@ var simpleForm = apps.Form{
 
 var simpleFormSource = apps.Form{
 	Source: apps.NewCall(path.FormSimple),
-}
-
-var invalidFormSource = apps.Form{
-	Source: apps.NewCall(path.InvalidForm),
-}
-
-var fullFormSource = apps.Form{
-	Source: apps.NewCall(path.FormFull),
 }

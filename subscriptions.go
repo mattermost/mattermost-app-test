@@ -6,12 +6,15 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-app-test/path"
+	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-server/v6/model"
+
 	"github.com/mattermost/mattermost-plugin-apps/apps"
 	"github.com/mattermost/mattermost-plugin-apps/apps/appclient"
 	"github.com/mattermost/mattermost-plugin-apps/utils"
-	"github.com/mattermost/mattermost-server/v6/model"
-	"github.com/pkg/errors"
+
+	"github.com/mattermost/mattermost-app-test/path"
 )
 
 var allSubjects = map[apps.Subject]apps.Expand{
@@ -75,12 +78,13 @@ var allSubjects = map[apps.Subject]apps.Expand{
 
 func subscriptionOptions() []apps.SelectOption {
 	opts := []apps.SelectOption{}
-	for subject, _ := range allSubjects {
+	for subject := range allSubjects {
 		opts = append(opts, apps.SelectOption{
 			Label: string(subject),
 			Value: string(subject),
 		})
 	}
+
 	return opts
 }
 
@@ -122,6 +126,7 @@ func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallRespons
 		AppID:   creq.Context.AppID,
 		Call:    *apps.NewCall(path.Notify).WithExpand(allSubjects[subject]),
 	}
+
 	switch subject {
 	case apps.SubjectUserJoinedChannel,
 		apps.SubjectUserLeftChannel,
@@ -138,33 +143,36 @@ func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallRespons
 		sub.TeamID = creq.Context.Team.Id
 	}
 
-	if subscribe {
-		_, _, err := client.AddTeamMember(creq.Context.Team.Id, creq.Context.BotUserID)
-		if err != nil {
-			return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to team"))
-		}
-		_, _, err = client.AddChannelMember(creq.Context.Channel.Id, creq.Context.BotUserID)
-		if err != nil {
-			return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to channel"))
-		}
-		err = ensureNotifyChannel(creq)
-		if err != nil {
-			return apps.NewErrorResponse(err)
-		}
-
-		err = client.Subscribe(sub)
-		if err != nil {
-			return apps.NewErrorResponse(err)
-		}
-		return apps.NewTextResponse("Successfully subscribed to `%v` notifications.", subject)
-	} else {
+	if !subscribe {
 		err := client.Unsubscribe(sub)
 		if err != nil {
 			return apps.NewErrorResponse(err)
 		}
+
 		return apps.NewTextResponse("Successfully unsubscribed from `%v` notifications.", subject)
 	}
 
+	_, _, err := client.AddTeamMember(creq.Context.Team.Id, creq.Context.BotUserID)
+	if err != nil {
+		return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to team"))
+	}
+
+	_, _, err = client.AddChannelMember(creq.Context.Channel.Id, creq.Context.BotUserID)
+	if err != nil {
+		return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to channel"))
+	}
+
+	err = ensureNotifyChannel(creq)
+	if err != nil {
+		return apps.NewErrorResponse(err)
+	}
+
+	err = client.Subscribe(sub)
+	if err != nil {
+		return apps.NewErrorResponse(err)
+	}
+
+	return apps.NewTextResponse("Successfully subscribed to `%v` notifications.", subject)
 }
 
 func handleSubscribe(creq *apps.CallRequest) apps.CallResponse {
@@ -177,6 +185,7 @@ func handleUnsubscribe(creq *apps.CallRequest) apps.CallResponse {
 
 func ensureNotifyChannel(creq *apps.CallRequest) error {
 	client := appclient.AsActingUser(creq.Context)
+
 	channel, _, err := client.GetChannelByName("test-app-notifications", creq.Context.TeamID, "")
 	if err != nil {
 		appErr, ok := err.(*model.AppError)
@@ -184,6 +193,7 @@ func ensureNotifyChannel(creq *apps.CallRequest) error {
 			return errors.Wrap(err, "failed to look up notification channel")
 		}
 	}
+
 	if channel == nil {
 		channel, _, err = client.CreateChannel(&model.Channel{
 			TeamId:      creq.Context.Team.Id,
@@ -195,10 +205,12 @@ func ensureNotifyChannel(creq *apps.CallRequest) error {
 			return errors.Wrap(err, "failed to create up notification channel")
 		}
 	}
+
 	_, _, err = client.AddChannelMember(channel.Id, creq.Context.BotUserID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add bot to notification channel")
 	}
+
 	return nil
 }
 
@@ -206,6 +218,7 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 	client := appclient.AsBot(creq.Context)
 
 	teamID := ""
+
 	switch {
 	case creq.Context.Team != nil:
 		teamID = creq.Context.Team.Id
@@ -213,6 +226,7 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 	case creq.Context.Channel != nil:
 		teamID = creq.Context.Channel.TeamId
 	}
+
 	channel, _, err := client.GetChannelByName("test-app-notifications", teamID, "")
 	if err != nil {
 		log.Printf("failed to look up notification channel: %v", err)
@@ -224,6 +238,7 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 	// Post the notification to the global notification channel
 	if channel != nil {
 		post.ChannelId = channel.Id
+
 		_, err = client.CreatePost(post)
 		if err != nil {
 			log.Printf("failed to create post in global channel: %v", err)
@@ -239,6 +254,7 @@ func handleNotify(creq *apps.CallRequest) apps.CallResponse {
 				post.RootId = creq.Context.Post.RootId
 			}
 		}
+
 		_, err = client.CreatePost(post)
 		if err != nil {
 			log.Printf("failed to create post in channel: %v", err)
