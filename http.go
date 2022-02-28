@@ -38,7 +38,6 @@ func initHTTP(r *mux.Router) {
 	initHTTPLookup(r)
 	initHTTPNavigate(r)
 	initHTTPOK(r)
-	initHTTPOther(r)
 	initHTTPSubscriptions(r)
 
 	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

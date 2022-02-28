@@ -13,7 +13,6 @@ func commandBindings(cc apps.Context) []apps.Binding {
 		Bindings: []apps.Binding{
 			embeddedCommandBinding(cc),
 			formCommandBinding(cc),
-			otherCommandBinding(cc),
 			subscribtionCommandBinding("subscribe", path.Subscribe),
 			subscribtionCommandBinding("unsubscribe", path.Unsubscribe),
 
