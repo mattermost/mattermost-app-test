@@ -11,6 +11,10 @@ func handleBindings(creq *apps.CallRequest) apps.CallResponse {
 			Bindings: channelHeaderBindings(creq.Context),
 		},
 		{
+			Location: apps.LocationPostMenu,
+			Bindings: postMenuBindings(creq.Context),
+		},
+		{
 			Location: apps.LocationCommand,
 			Bindings: commandBindings(creq.Context),
 		},
