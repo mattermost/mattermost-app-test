@@ -23,6 +23,11 @@ build:
 run: build
 	LOCAL=true ./dist/mattermost-app-test ${BASE} ${ADDR}
 
+.PHONY: run-with-invalid
+## run-with-invalid: runs the service, includes invalid data
+run-with-invalid: build
+	LOCAL=true INCLUDE_INVALID=true ./dist/mattermost-app-test ${BASE} ${ADDR}
+
 .PHONY: test
 ## test: tests all packages
 test:
