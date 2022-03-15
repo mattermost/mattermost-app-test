@@ -19,7 +19,7 @@ import (
 
 var ErrUnexpectedSignMethod = errors.New("unexpected signing method")
 var ErrMissingHeader = errors.Errorf("missing %s: Bearer header", apps.OutgoingAuthHeader)
-var ErrActingUserMismatch = errors.New("JWT claim doesn't match actingUserID in context")
+var ErrActingUserMismatch = errors.New("JWT claim doesn't match actingUser.Id in context")
 
 type callHandler func(*apps.CallRequest) apps.CallResponse
 
@@ -124,7 +124,7 @@ func checkJWT(req *http.Request, creq *apps.CallRequest) error {
 		return err
 	}
 
-	if creq.Context.ActingUserID != "" && creq.Context.ActingUserID != claims.ActingUserID {
+	if creq.Context.ActingUser != nil && creq.Context.ActingUser.Id != claims.ActingUserID {
 		return utils.NewInvalidError(ErrActingUserMismatch)
 	}
 
