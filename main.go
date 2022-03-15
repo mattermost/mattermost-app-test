@@ -11,54 +11,52 @@ import (
 	"github.com/awslabs/aws-lambda-go-api-proxy/httpadapter"
 	"github.com/gorilla/mux"
 	"github.com/mattermost/mattermost-plugin-apps/apps"
-
-	"github.com/mattermost/mattermost-app-test/constants"
-	"github.com/mattermost/mattermost-app-test/routers/mattermost"
 )
 
 const (
-	baseURLPosition = 1
-	addressPosition = 2
+	AppSecret      = "1234"
+	CommandTrigger = "test"
 )
+
+var localMode bool
+var includeInvalid bool
 
 //go:embed manifest.json
 var manifestSource []byte //nolint: gochecknoglobals
+var manifest apps.Manifest
 
 //go:embed static
 var staticAssets embed.FS //nolint: gochecknoglobals
 
 func main() {
-	var manifest apps.Manifest
-
 	err := json.Unmarshal(manifestSource, &manifest)
 	if err != nil {
 		panic("failed to load manfest: " + err.Error())
 	}
 
-	localMode := os.Getenv("LOCAL") == "true"
+	localMode = os.Getenv("LOCAL") == "true"
+	includeInvalid = os.Getenv("INCLUDE_INVALID") == "true"
 
-	// Init routers
 	r := mux.NewRouter()
-	mattermost.Init(r, &manifest, staticAssets, localMode)
-
+	initHTTP(r)
 	http.Handle("/", r)
 
 	if localMode {
 		baseURL := "http://localhost:3000"
-		if len(os.Args) > baseURLPosition {
-			baseURL = os.Args[baseURLPosition]
-		}
-
-		addr := ":3000"
-		if len(os.Args) > addressPosition {
-			addr = os.Args[addressPosition]
+		if len(os.Args) > 1 {
+			baseURL = os.Args[1]
 		}
 
 		manifest.HTTP.RootURL = baseURL
 
+		addr := ":3000"
+		if len(os.Args) > 2 {
+			addr = os.Args[2]
+		}
+
 		fmt.Println("Listening on", addr)
 		fmt.Println("Use '/apps install http http://localhost" + addr + "/manifest.json' to install the app")
-		fmt.Printf("Use %q as the app's JWT secret\n", constants.AppSecret)
+		fmt.Printf("Use %q as the app's JWT secret\n", AppSecret)
 		panic(http.ListenAndServe(addr, nil))
 	}
 
