@@ -98,8 +98,8 @@ type lookupResponse struct {
 func handleLookup(items []apps.SelectOption) callHandler {
 	return func(creq *apps.CallRequest) apps.CallResponse {
 		query := strings.ToLower(creq.Query)
-
 		finalItems := []apps.SelectOption{}
+
 		for _, item := range items {
 			if strings.Contains(strings.ToLower(item.Label), query) {
 				finalItems = append(finalItems, item)
