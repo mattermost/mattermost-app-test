@@ -55,7 +55,7 @@ func main() {
 		}
 
 		fmt.Println("Listening on", addr)
-		fmt.Println("Use '/apps install http http://localhost" + addr + "/manifest.json' to install the app")
+		fmt.Println("Use '/apps install http " + baseURL + "/manifest.json' to install the app")
 		fmt.Printf("Use %q as the app's JWT secret\n", AppSecret)
 		panic(http.ListenAndServe(addr, nil))
 	}

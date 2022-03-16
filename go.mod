@@ -11,3 +11,5 @@ require (
 	github.com/mattermost/mattermost-server/v6 v6.0.2
 	github.com/pkg/errors v0.9.1
 )
+
+replace github.com/mattermost/mattermost-plugin-apps v0.7.1-0.20220114173732-f10616dc8752 => ../mattermost-plugin-apps

@@ -75,7 +75,10 @@ func handleCreateEmbedded(creq *apps.CallRequest) apps.CallResponse {
 		},
 	})
 
-	_, _ = client.CreatePost(p)
+	_, err := client.CreatePost(p)
+	if err != nil {
+		return apps.NewErrorResponse(err)
+	}
 
 	return apps.NewTextResponse("")
 }

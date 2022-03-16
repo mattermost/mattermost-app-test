@@ -88,7 +88,7 @@ func subscriptionOptions() []apps.SelectOption {
 	return opts
 }
 
-func subscribtionCommandBinding(label, callPath string) apps.Binding {
+func subscriptionCommandBinding(label, callPath string) apps.Binding {
 	return apps.Binding{
 		Label: label,
 		Form: &apps.Form{
@@ -117,7 +117,7 @@ func initHTTPSubscriptions(r *mux.Router) {
 	handleCall(r, path.Unsubscribe, handleUnsubscribe)
 }
 
-func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallResponse {
+func handleSubscription(creq *apps.CallRequest, subscribe bool) apps.CallResponse {
 	subject := apps.Subject(creq.GetValue("subject", ""))
 	client := appclient.AsActingUser(creq.Context)
 
@@ -129,16 +129,12 @@ func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallRespons
 
 	switch subject {
 	case apps.SubjectUserJoinedChannel,
-		apps.SubjectUserLeftChannel,
-		apps.SubjectBotJoinedChannel,
 		apps.SubjectBotLeftChannel,
 		apps.SubjectPostCreated:
 		sub.ChannelID = creq.Context.Channel.Id
 
 	case apps.SubjectUserJoinedTeam,
 		apps.SubjectUserLeftTeam,
-		apps.SubjectBotJoinedTeam,
-		apps.SubjectBotLeftTeam,
 		apps.SubjectChannelCreated:
 		sub.TeamID = creq.Context.Team.Id
 	}
@@ -152,17 +148,21 @@ func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallRespons
 		return apps.NewTextResponse("Successfully unsubscribed from `%v` notifications.", subject)
 	}
 
-	_, _, err := client.AddTeamMember(creq.Context.Team.Id, creq.Context.BotUserID)
-	if err != nil {
-		return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to team"))
+	if creq.Context.Team != nil {
+		_, _, err := client.AddTeamMember(creq.Context.Team.Id, creq.Context.BotUserID)
+		if err != nil {
+			return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to team"))
+		}
 	}
 
-	_, _, err = client.AddChannelMember(creq.Context.Channel.Id, creq.Context.BotUserID)
-	if err != nil {
-		return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to channel"))
+	if creq.Context.Channel.Type == model.ChannelTypeOpen || creq.Context.Channel.Type == model.ChannelTypePrivate {
+		_, _, err := client.AddChannelMember(creq.Context.Channel.Id, creq.Context.BotUserID)
+		if err != nil {
+			return apps.NewErrorResponse(errors.Wrap(err, "failed to add bot to channel"))
+		}
 	}
 
-	err = ensureNotifyChannel(creq)
+	err := ensureNotifyChannel(creq)
 	if err != nil {
 		return apps.NewErrorResponse(err)
 	}
@@ -176,11 +176,11 @@ func handleSubscribtion(creq *apps.CallRequest, subscribe bool) apps.CallRespons
 }
 
 func handleSubscribe(creq *apps.CallRequest) apps.CallResponse {
-	return handleSubscribtion(creq, true)
+	return handleSubscription(creq, true)
 }
 
 func handleUnsubscribe(creq *apps.CallRequest) apps.CallResponse {
-	return handleSubscribtion(creq, false)
+	return handleSubscription(creq, false)
 }
 
 func ensureNotifyChannel(creq *apps.CallRequest) error {
