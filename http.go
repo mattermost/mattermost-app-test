@@ -96,8 +96,17 @@ type lookupResponse struct {
 }
 
 func handleLookup(items []apps.SelectOption) callHandler {
-	return func(_ *apps.CallRequest) apps.CallResponse {
-		return apps.NewDataResponse(lookupResponse{items})
+	return func(creq *apps.CallRequest) apps.CallResponse {
+		query := strings.ToLower(creq.Query)
+		finalItems := []apps.SelectOption{}
+
+		for _, item := range items {
+			if strings.Contains(strings.ToLower(item.Label), query) {
+				finalItems = append(finalItems, item)
+			}
+		}
+
+		return apps.NewDataResponse(lookupResponse{finalItems})
 	}
 }
 
