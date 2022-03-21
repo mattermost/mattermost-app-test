@@ -186,7 +186,7 @@ func handleUnsubscribe(creq *apps.CallRequest) apps.CallResponse {
 func ensureNotifyChannel(creq *apps.CallRequest) error {
 	client := appclient.AsActingUser(creq.Context)
 
-	channel, _, err := client.GetChannelByName("test-app-notifications", creq.Context.TeamID, "")
+	channel, _, err := client.GetChannelByName("test-app-notifications", creq.Context.Team.Id, "")
 	if err != nil {
 		appErr, ok := err.(*model.AppError)
 		if !ok || appErr.StatusCode != http.StatusNotFound {
