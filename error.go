@@ -16,10 +16,10 @@ func initHTTPError(r *mux.Router) {
 	handleCall(r, path.ErrorMarkdownForm, handleErrorMarkdownForm)
 	handleCall(r, path.ErrorMarkdownFormMissingField, handleErrorMarkdownFormMissingField)
 	r.HandleFunc(path.Error404, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusNotFound)
+		http.Error(w, "TEST ERROR 404 ignored", http.StatusNotFound)
 	})
 	r.HandleFunc(path.Error500, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, "TEST ERROR 500", http.StatusInternalServerError)
 	})
 
 	r.HandleFunc(path.InvalidUnknownType, httputils.DoHandleJSON(apps.CallResponse{
