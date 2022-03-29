@@ -7,7 +7,8 @@
     "requested_locations": [
         "/post_menu",
         "/command",
-        "/channel_header"
+        "/channel_header",
+        "/in_post"
     ],
     "requested_permissions": [
         "act_as_bot",

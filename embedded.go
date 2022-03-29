@@ -15,7 +15,14 @@ func embeddedCommandBinding(_ apps.Context) apps.Binding {
 	return apps.Binding{
 		Label: "embedded",
 		Bindings: []apps.Binding{
-			newBinding("create", path.CreateEmbedded),
+			{
+				Label: "create",
+				Icon:  "icon.png",
+				Submit: apps.NewCall(path.CreateEmbedded).WithExpand(apps.Expand{
+					ActingUserAccessToken: apps.ExpandAll,
+					Channel:               apps.ExpandSummary,
+				}),
+			},
 		},
 	}
 }
@@ -25,9 +32,9 @@ func initHTTPEmbedded(r *mux.Router) {
 }
 
 func handleCreateEmbedded(creq *apps.CallRequest) apps.CallResponse {
-	client := appclient.AsBot(creq.Context)
+	client := appclient.AsActingUser(creq.Context)
 	p := &model.Post{
-		ChannelId: creq.Context.ChannelID,
+		ChannelId: creq.Context.Channel.Id,
 	}
 
 	p.AddProp(apps.PropAppBindings, []apps.Binding{
