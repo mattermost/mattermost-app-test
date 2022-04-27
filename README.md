@@ -1,6 +1,6 @@
 # DEPRECATED
 
-This repopsitory is no longer used, and the app has moved to https://github.com/mattermost/mattermost-plugin-apps/tree/master/test/app
+This repository is no longer used, and the app has moved to https://github.com/mattermost/mattermost-plugin-apps/tree/master/test/app
 
 
 ## Test app for Mattermost
